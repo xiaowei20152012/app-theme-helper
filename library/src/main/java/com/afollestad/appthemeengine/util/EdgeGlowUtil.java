@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
@@ -246,13 +247,23 @@ public class EdgeGlowUtil {
         }
     }
 
-    public static void setEdgeGlowColor(RecyclerView scrollView, @ColorInt int color, @EdgeGlowColorApi int when) {
+    public static void setEdgeGlowColor(RecyclerView scrollView, @ColorInt int color, @Nullable RecyclerView.OnScrollListener scrollListener, @EdgeGlowColorApi int when) {
         if (Build.VERSION.SDK_INT < when || when == ALWAYS) {
             setEdgeGlowColor(scrollView, color);
         }
     }
 
-    public static void setEdgeGlowColor(RecyclerView scrollView, @ColorInt int color) {
+    public static void setEdgeGlowColor(RecyclerView scrollView, final @ColorInt int color, @Nullable RecyclerView.OnScrollListener scrollListener) {
+        if (scrollListener == null) {
+            scrollListener = new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    EdgeGlowUtil.setEdgeGlowColor(recyclerView, color, this);
+                }
+            };
+            scrollView.addOnScrollListener(scrollListener);
+        }
         try {
             Object ee;
             ee = RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP.get(scrollView);
