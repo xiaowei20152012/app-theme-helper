@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.afollestad.appthemeengine.ATE;
-import com.afollestad.appthemeengine.customizers.ATEToolbarCustomizer;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
 import com.afollestad.appthemeenginesample.collapsingtb.CollapsingToolbarActivity;
 import com.afollestad.appthemeenginesample.rv.RecyclerViewSampleActivity;
@@ -100,6 +99,4 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
         }, 75);
         return true;
     }
-
-
 }

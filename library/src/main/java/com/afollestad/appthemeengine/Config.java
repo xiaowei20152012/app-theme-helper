@@ -442,7 +442,7 @@ public final class Config extends ConfigBase {
     @ColorInt
     public static int toolbarColor(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
         if (context instanceof ATEToolbarCustomizer)
-            return toolbar == null ? ((ATEToolbarCustomizer) context).getToolbarColor(new Toolbar(context)) : ((ATEToolbarCustomizer)context).getToolbarColor(toolbar);
+            return ((ATEToolbarCustomizer) context).getToolbarColor(toolbar);
         return prefs(context, key).getInt(KEY_TOOLBAR_COLOR, primaryColor(context, key));
     }
 
@@ -507,7 +507,7 @@ public final class Config extends ConfigBase {
     @LightToolbarMode
     public static int lightToolbarMode(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
         if (context instanceof ATEToolbarCustomizer)
-            return toolbar == null ? ((ATEToolbarCustomizer) context).getLightToolbarMode(new Toolbar(context)) : ((ATEToolbarCustomizer)context).getLightToolbarMode(toolbar);
+            return ((ATEToolbarCustomizer) context).getLightToolbarMode(toolbar);
         return prefs(context, key).getInt(KEY_LIGHT_TOOLBAR_MODE, Config.LIGHT_TOOLBAR_AUTO);
     }
 
