@@ -60,6 +60,10 @@
     <string name="drawer_settings">Settings</string>
     <string name="search">Search</string>
     <string name="search_view_example">SearchView example…</string>
+    <string name="light_ui_modes">Light UI Modes</string>
+    <string name="system_ui_colors">System UI Colors</string>
+    <string name="base_theme">Base Theme</string>
+    <string name="ate_colors">ATE Colors</string>
 
     <string-array name="light_status_mode_entries">
         <item>Off, status bar icons will be white</item>
