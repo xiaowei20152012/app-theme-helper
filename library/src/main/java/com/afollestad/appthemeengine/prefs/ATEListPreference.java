@@ -39,6 +39,8 @@ public class ATEListPreference extends MaterialListPreference {
 
     private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
+        if (getSummary() == null || getSummary().toString().trim().isEmpty())
+            setSummary("%s");
 
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEListPreference, 0, 0);

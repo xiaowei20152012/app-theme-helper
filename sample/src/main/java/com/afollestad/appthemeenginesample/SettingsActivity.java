@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -144,7 +143,6 @@ public class SettingsActivity extends BaseThemedActivity
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 lightStatusMode.setEnabled(true);
-                lightStatusMode.setSummary(lightStatusMode.getEntries()[Integer.parseInt(lightStatusMode.getValue())]);
                 lightStatusMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -153,7 +151,6 @@ public class SettingsActivity extends BaseThemedActivity
                         ATE.config(getActivity(), mAteKey)
                                 .lightStatusBarMode(constant)
                                 .apply(getActivity());
-                        preference.setSummary(((ListPreference) preference).getEntries()[constant]);
                         return true;
                     }
                 });
@@ -162,7 +159,6 @@ public class SettingsActivity extends BaseThemedActivity
                 lightStatusMode.setSummary(R.string.not_available_below_m);
             }
 
-            lightToolbarMode.setSummary(lightToolbarMode.getEntries()[Integer.parseInt(lightToolbarMode.getValue())]);
             lightToolbarMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -171,7 +167,6 @@ public class SettingsActivity extends BaseThemedActivity
                     ATE.config(getActivity(), mAteKey)
                             .lightToolbarMode(constant)
                             .apply(getActivity());
-                    preference.setSummary(((ListPreference) preference).getEntries()[constant]);
                     return true;
                 }
             });
