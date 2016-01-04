@@ -18,7 +18,6 @@ import android.view.View;
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
-import com.afollestad.appthemeengine.prefs.ATECheckBoxPreference;
 import com.afollestad.appthemeengine.prefs.ATEColorPreference;
 import com.afollestad.appthemeengine.prefs.ATESwitchPreference;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
@@ -141,6 +140,8 @@ public class SettingsActivity extends BaseThemedActivity
             });
 
             final MaterialListPreference lightStatusMode = (MaterialListPreference) findPreference("light_status_bar_mode");
+            final MaterialListPreference lightToolbarMode = (MaterialListPreference) findPreference("light_toolbar_mode");
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 lightStatusMode.setEnabled(true);
                 lightStatusMode.setSummary(lightStatusMode.getEntries()[Integer.parseInt(lightStatusMode.getValue())]);
@@ -160,6 +161,20 @@ public class SettingsActivity extends BaseThemedActivity
                 lightStatusMode.setEnabled(false);
                 lightStatusMode.setSummary(R.string.not_available_below_m);
             }
+
+            lightToolbarMode.setSummary(lightToolbarMode.getEntries()[Integer.parseInt(lightToolbarMode.getValue())]);
+            lightToolbarMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    @Config.LightToolbarMode
+                    int constant = Integer.parseInt((String) newValue);
+                    ATE.config(getActivity(), mAteKey)
+                            .lightToolbarMode(constant)
+                            .apply(getActivity());
+                    preference.setSummary(((ListPreference) preference).getEntries()[constant]);
+                    return true;
+                }
+            });
 
             final ATESwitchPreference statusBarPref = (ATESwitchPreference) findPreference("colored_status_bar");
             final ATESwitchPreference navBarPref = (ATESwitchPreference) findPreference("colored_nav_bar");
