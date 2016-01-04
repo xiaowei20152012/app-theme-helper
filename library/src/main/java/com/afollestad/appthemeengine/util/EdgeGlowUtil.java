@@ -284,6 +284,7 @@ public class EdgeGlowUtil {
         if (edgeEffect instanceof EdgeEffectCompat) {
             // EdgeEffectCompat
             try {
+                EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT.setAccessible(true);
                 edgeEffect = EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT.get(edgeEffect);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -296,7 +297,9 @@ public class EdgeGlowUtil {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // EdgeGlow
             try {
+                EDGE_GLOW_FIELD_EDGE.setAccessible(true);
                 final Drawable mEdge = (Drawable) EDGE_GLOW_FIELD_EDGE.get(edgeEffect);
+                EDGE_GLOW_FIELD_GLOW.setAccessible(true);
                 final Drawable mGlow = (Drawable) EDGE_GLOW_FIELD_GLOW.get(edgeEffect);
                 mEdge.setColorFilter(color, PorterDuff.Mode.SRC_IN);
                 mGlow.setColorFilter(color, PorterDuff.Mode.SRC_IN);
