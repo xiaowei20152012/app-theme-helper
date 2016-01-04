@@ -201,7 +201,7 @@ public final class ATE extends ATEBase {
                     }
                 }
             } else if (activity.getActionBar() != null) {
-                activity.getActionBar().setBackgroundDrawable(new ColorDrawable(Config.toolbarColor(activity, key)));
+                activity.getActionBar().setBackgroundDrawable(new ColorDrawable(Config.toolbarColor(activity, key, null)));
             }
         }
 

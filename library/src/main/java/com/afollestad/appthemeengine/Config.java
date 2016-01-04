@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.afollestad.appthemeengine.customizers.ATENavigationBarCustomizer;
@@ -439,9 +440,9 @@ public final class Config extends ConfigBase {
 
     @CheckResult
     @ColorInt
-    public static int toolbarColor(@NonNull Context context, @Nullable String key) {
+    public static int toolbarColor(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
         if (context instanceof ATEToolbarCustomizer)
-            return ((ATEToolbarCustomizer) context).getToolbarColor();
+            return toolbar == null ? ((ATEToolbarCustomizer) context).getToolbarColor(new Toolbar(context)) : ((ATEToolbarCustomizer)context).getToolbarColor(toolbar);
         return prefs(context, key).getInt(KEY_TOOLBAR_COLOR, primaryColor(context, key));
     }
 
@@ -504,9 +505,9 @@ public final class Config extends ConfigBase {
     @SuppressWarnings("ResourceType")
     @CheckResult
     @LightToolbarMode
-    public static int lightToolbarMode(@NonNull Context context, @Nullable String key) {
+    public static int lightToolbarMode(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
         if (context instanceof ATEToolbarCustomizer)
-            return ((ATEToolbarCustomizer) context).getLightToolbarMode();
+            return toolbar == null ? ((ATEToolbarCustomizer) context).getLightToolbarMode(new Toolbar(context)) : ((ATEToolbarCustomizer)context).getLightToolbarMode(toolbar);
         return prefs(context, key).getInt(KEY_LIGHT_TOOLBAR_MODE, Config.LIGHT_TOOLBAR_AUTO);
     }
 

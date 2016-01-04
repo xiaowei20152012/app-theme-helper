@@ -1,6 +1,7 @@
 package com.afollestad.appthemeengine.customizers;
 
 import android.support.annotation.ColorInt;
+import android.support.v7.widget.Toolbar;
 
 import com.afollestad.appthemeengine.Config;
 
@@ -10,8 +11,8 @@ import com.afollestad.appthemeengine.Config;
 public interface ATEToolbarCustomizer {
 
     @Config.LightToolbarMode
-    int getLightToolbarMode();
+    int getLightToolbarMode(Toolbar toolbar);
 
     @ColorInt
-    int getToolbarColor();
+    int getToolbarColor(Toolbar toolbar);
 }

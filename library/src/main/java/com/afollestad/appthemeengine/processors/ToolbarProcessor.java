@@ -37,7 +37,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         if (toolbar == null && context instanceof AppCompatActivity)
             toolbar = Util.getSupportActionBarView(((AppCompatActivity) context).getSupportActionBar());
 
-        final int toolbarColor = Config.toolbarColor(context, key);
+        final int toolbarColor = Config.toolbarColor(context, key, toolbar);
         if (toolbar == null) {
             // No toolbar view, Activity might have another variation of Support ActionBar (e.g. window decor vs toolbar)
             if (context instanceof AppCompatActivity) {
@@ -65,7 +65,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
         boolean isLightMode;
         @Config.LightToolbarMode
-        final int lightToolbarMode = Config.lightToolbarMode(context, key);
+        final int lightToolbarMode = Config.lightToolbarMode(context, key, toolbar);
         switch (lightToolbarMode) {
             case Config.LIGHT_TOOLBAR_ON:
                 isLightMode = true;
