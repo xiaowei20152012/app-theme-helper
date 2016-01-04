@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuPresenter;
@@ -35,11 +36,25 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
     public void process(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar, @Nullable Menu menu) {
         if (toolbar == null && context instanceof AppCompatActivity)
             toolbar = Util.getSupportActionBarView(((AppCompatActivity) context).getSupportActionBar());
-        if (toolbar == null) return;
+
         final int toolbarColor = Config.toolbarColor(context, key);
+        if (toolbar == null) {
+            // No toolbar view, Activity might have another variation of Support ActionBar (e.g. window decor vs toolbar)
+            if (context instanceof AppCompatActivity) {
+                final ActionBar ab = ((AppCompatActivity) context).getSupportActionBar();
+                if (ab != null) ab.setBackgroundDrawable(new ColorDrawable(toolbarColor));
+            }
+            return;
+        }
 
         CollapsingToolbarLayout collapsingToolbar = null;
         if (toolbar.getParent() instanceof CollapsingToolbarLayout) {
+            // Reset support action bar background to transparent in case it was set to something else previously
+            if (context instanceof AppCompatActivity) {
+                final ActionBar ab = ((AppCompatActivity) context).getSupportActionBar();
+                if (ab != null) ab.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
+
             collapsingToolbar = (CollapsingToolbarLayout) toolbar.getParent();
             collapsingToolbar.setStatusBarScrimColor(Config.statusBarColor(context, key));
             collapsingToolbar.setContentScrim(new ColorDrawable(toolbarColor));

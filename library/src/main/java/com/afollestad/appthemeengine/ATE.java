@@ -194,12 +194,9 @@ public final class ATE extends ATEBase {
             if (activity instanceof AppCompatActivity) {
                 final AppCompatActivity aca = (AppCompatActivity) activity;
                 if (aca.getSupportActionBar() != null) {
-                    Toolbar toolbar = Util.getSupportActionBarView(aca.getSupportActionBar());
-                    if (toolbar == null)
-                        aca.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Config.toolbarColor(activity, key)));
                     Processor toolbarProcessor = getProcessor(Toolbar.class);
                     if (toolbarProcessor != null) {
-                        // The processor handles retrieving the toolbar
+                        // The processor handles retrieving the toolbar from the support action bar
                         toolbarProcessor.process(activity, key, null, null);
                     }
                 }
