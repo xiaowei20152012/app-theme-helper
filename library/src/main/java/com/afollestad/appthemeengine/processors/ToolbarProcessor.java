@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -74,6 +75,16 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         // Tint the toolbar navigation icon (e.g. back, drawer, etc.)
         if (toolbar.getNavigationIcon() != null)
             toolbar.setNavigationIcon(TintHelper.tintDrawable(toolbar.getNavigationIcon(), tintColor));
+
+        try {
+            final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
+            field.setAccessible(true);
+            Drawable collapseIcon = (Drawable) field.get(toolbar);
+            if (collapseIcon != null)
+                field.set(toolbar, TintHelper.tintDrawable(collapseIcon, tintColor));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // Tint visible action button icons on the toolbar
         if (menu == null) menu = toolbar.getMenu();
