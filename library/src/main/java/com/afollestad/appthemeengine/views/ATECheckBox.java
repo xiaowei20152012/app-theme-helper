@@ -1,12 +1,9 @@
 package com.afollestad.appthemeengine.views;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
-import android.widget.CheckBox;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
@@ -29,12 +26,6 @@ public class ATECheckBox extends AppCompatCheckBox {
 
     public ATECheckBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ATECheckBox(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
 
