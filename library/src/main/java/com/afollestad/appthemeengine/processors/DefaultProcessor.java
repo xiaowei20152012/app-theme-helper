@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.util.TypefaceHelper;
 import com.afollestad.appthemeengine.util.Util;
 
 /**
@@ -38,6 +39,14 @@ public class DefaultProcessor implements Processor<View, Void> {
     }
 
     private void processTagPart(@NonNull Context context, @NonNull View current, @NonNull String tag, @Nullable String key) {
+        if (tag.startsWith(KEY_FONT_PREFIX)) {
+            if (!(current instanceof TextView))
+                throw new IllegalStateException("Fonts can only be applied to TextViews or subclasses of TextView.");
+            final String fontName = tag.substring(tag.indexOf('_') + 1);
+            ((TextView) current).setTypeface(TypefaceHelper.get(context, fontName));
+            return;
+        }
+
         switch (tag) {
             case KEY_BG_PRIMARY_COLOR:
                 current.setBackgroundColor(Config.primaryColor(context, key));
@@ -318,4 +327,6 @@ public class DefaultProcessor implements Processor<View, Void> {
     private final static String KEY_BG_TINT_TEXT_PRIMARY_INVERSE_SELECTOR_DARKER = "bg_tint_text_primary_inverse_selector_darker";
     private final static String KEY_BG_TINT_TEXT_SECONDARY_SELECTOR_DARKER = "bg_tint_text_secondary_selector_darker";
     private final static String KEY_BG_TINT_TEXT_SECONDARY_INVERSE_SELECTOR_DARKER = "bg_tint_text_secondary_inverse_selector_darker";
+
+    private final static String KEY_FONT_PREFIX = "font_";
 }
