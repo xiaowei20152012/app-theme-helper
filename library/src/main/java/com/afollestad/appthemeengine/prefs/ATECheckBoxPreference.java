@@ -8,10 +8,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.CheckBox;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
-import com.afollestad.appthemeengine.views.ATECheckBox;
 
 import java.lang.reflect.Field;
 
@@ -75,8 +75,7 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        ATECheckBox checkbox = (ATECheckBox) view.findViewById(android.R.id.checkbox);
-        checkbox.setKey(mKey);
+        CheckBox checkbox = (CheckBox) view.findViewById(android.R.id.checkbox);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             checkbox.setBackground(null);
         }

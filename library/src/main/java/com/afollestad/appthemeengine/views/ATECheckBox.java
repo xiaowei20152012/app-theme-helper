@@ -46,9 +46,4 @@ public class ATECheckBox extends AppCompatCheckBox {
     public void setKey(String key) {
         ATE.apply(getContext(), this, key);
     }
-
-    @Override
-    public boolean isShown() {
-        return getVisibility() == VISIBLE;
-    }
 }
