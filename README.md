@@ -32,18 +32,19 @@ Only use this library if you intend to give the user the ability to change the c
     1. [ATEActivity](https://github.com/afollestad/app-theme-engine#ateactivity)
     2. [Custom Activities](https://github.com/afollestad/app-theme-engine#custom-activities)
     3. [Fragments](https://github.com/afollestad/app-theme-engine#fragments)
-    3. [Toolbars, Menus and Overflows](https://github.com/afollestad/app-theme-engine#toolbars-menus-and-overflows)
+    3. [Toolbars, Menus, Overflows, and SearchViews](https://github.com/afollestad/app-theme-engine#toolbars-menus-overflows-and-searchviews)
     4. [Individual Views and Lists](https://github.com/afollestad/app-theme-engine#individual-views-and-lists)
     5. [DrawerLayout and NavigationViews](https://github.com/afollestad/app-theme-engine#drawerlayout-and-navigationviews)
     6. [Task Description (Recents)](https://github.com/afollestad/app-theme-engine#task-description-recents)
     7. [TabLayouts](https://github.com/afollestad/app-theme-engine#tablayouts)
 4. [Tags](https://github.com/afollestad/app-theme-engine#tags)
-    1. [Background Colors](https://github.com/afollestad/app-theme-engine#background-colors) 
-    2. [Text Colors](https://github.com/afollestad/app-theme-engine#text-colors)
-    3. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
-    4. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
-    5. [Tint Colors](https://github.com/afollestad/app-theme-engine#tint-colors)
-    6. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
+    1. [Background Colors](https://github.com/afollestad/app-theme-engine#background-colors)
+    2. [Tint Colors](https://github.com/afollestad/app-theme-engine#tint-colors)
+    3. [Text Colors](https://github.com/afollestad/app-theme-engine#text-colors)
+    4. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
+    5. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
+    6. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
+    7. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
 5. [Pre-made Views](https://github.com/afollestad/app-theme-engine#pre-made-views)
 6. [Material Dialogs Integration](https://github.com/afollestad/app-theme-engine#material-dialogs-integration)
 7. [Preference UI](https://github.com/afollestad/app-theme-engine#preference-ui)
@@ -418,7 +419,7 @@ public class MyFragment extends Fragment {
 }
 ```
 
-#### Toolbars, Menus, and Overflows
+#### Toolbars, Menus, Overflows, and SearchViews
 
 ATE will automatically theme your toolbars or support action bars (if you use `ATEActivity` *or* follow
 the directions in [Custom Activities](https://github.com/afollestad/app-theme-engine#custom-activities)). 
@@ -427,8 +428,9 @@ If `lightToolbarMode` is set to `Config.LIGHT_TOOLBAR_ON`, or if it's set to *au
 background is light: the navigation icon (e.g. back or drawer), title, and menu icons will be tinted 
 black. Otherwise they will be white as normal. 
 
-ATE will automatically theme widgets in your overflow menu, such as checkboxes and radio buttons. It 
-will also correctly theme `CollapsingToolbarLayout`'s.
+ATE will automatically theme widgets in your overflow menu, along with expandable menu actions. 
+This includes checkboxes and radio buttons in your overflow sub-menus, and SearchViews expanded when 
+you tap a search icon. It will also correctly theme `CollapsingToolbarLayout`'s.
 
 #### Individual Views and Lists
 
@@ -585,42 +587,6 @@ You can change the background of any type of view.
 6. `bg_text_secondary` - sets the background to the secondary text color.
 7. `bg_text_secondary_inverse` - sets the background to the inverse secondary text color.
 
-#### Text Colors
-
-You can only change the text color of a view that extends `TextView`, which includes `Button`'s.
-
-1. `text_primary_color` - sets the text color to the primary color.
-2. `text_primary_color_dark` - sets the text color to the primary dark color.
-3. `text_accent_color` - sets the text color to the accent color.
-4. `text_primary` - sets the text color to the primary text color.
-5. `text_primary_inverse` - sets the text color to the inverse primary text color.
-6. `text_secondary` - sets the text color to the secondary text color.
-7. `text_secondary_inverse` - sets the text color to the inverse secondary text color.
-
-#### Text Link Colors
-
-This should only really be needed on `TextView'`s, it changes the color of links when TextViews are linkable.
-
-1. `text_link_primary_color` - sets the link text color to the primary color.
-2. `text_link_primary_color_dark` - sets the link text color to the primary dark color.
-3. `text_link_accent_color` - sets the link text color to the accent color.
-4. `text_link_primary` - sets the link text color to the primary text color.
-5. `text_link_primary_inverse` - sets the link text color to the inverse primary text color.
-6. `text_link_secondary` - sets the link text color to the secondary text color.
-7. `text_link_secondary_inverse` - sets the link text color to the inverse secondary text color.
-
-#### Text Shadow Colors
-
-This can be used on `TextView'`s, it changes the `shadowColor` value.
-
-1. `text_shadow_primary_color` - sets the link text color to the primary color.
-2. `text_shadow_primary_color_dark` - sets the link text color to the primary dark color.
-3. `text_shadow_accent_color` - sets the link text color to the accent color.
-4. `text_shadow_primary` - sets the link text color to the primary text color.
-5. `text_shadow_primary_inverse` - sets the link text color to the inverse primary text color.
-6. `text_shadow_secondary` - sets the link text color to the secondary text color.
-7. `text_shadow_secondary_inverse` - sets the link text color to the inverse secondary text color.
-
 #### Tint Colors
 
 You can tint `CheckBox`'s, `RadioButton`'s, `ProgressBar`'s, `EditText`'s, `SeekBar`'s, and `ImageView`'s. 
@@ -655,13 +621,66 @@ You can even use background tint selectors:
 4. `bg_tint_text_primary_selector_lighter` - tints the view background with a primary text color selector, which is lighter when pressed.
 5. `bg_tint_text_secondary_selector_lighter` - tints the view background with a secondary text color selector, which is lighter when pressed.
 6. `bg_tint_primary_color_selector_darker` - tints the view background with a primary color selector, which is lighter when pressed.
-6. `bg_tint_primary_color_selector_darker` - tints the view background with a primary color selector, which is lighter when pressed.
-7. `bg_tint_primary_color_dark_selector_darker` - tints the view background with a primary dark color selector, which is lighter when pressed.
-8. `bg_tint_accent_color_selector_darker` - tints the view background with a accent color selector, which is lighter when pressed.
-9. `bg_tint_text_primary_selector_darker` - tints the view background with a primary text color selector, which is lighter when pressed.
-10. `bg_tint_text_primary_inverse_selector_darker` - tints the view background with a inverse primary text color selector, which is lighter when pressed.
-11. `bg_tint_text_secondary_selector_darker` - tints the view background with a secondary text color selector, which is lighter when pressed.
-12. `bg_tint_text_secondary_inverse_selector_darker` - tints the view background with a inverse secondary text color selector, which is lighter when pressed.
+7. `bg_tint_primary_color_selector_darker` - tints the view background with a primary color selector, which is lighter when pressed.
+8. `bg_tint_primary_color_dark_selector_darker` - tints the view background with a primary dark color selector, which is lighter when pressed.
+9. `bg_tint_accent_color_selector_darker` - tints the view background with a accent color selector, which is lighter when pressed.
+10. `bg_tint_text_primary_selector_darker` - tints the view background with a primary text color selector, which is lighter when pressed.
+11. `bg_tint_text_primary_inverse_selector_darker` - tints the view background with a inverse primary text color selector, which is lighter when pressed.
+12. `bg_tint_text_secondary_selector_darker` - tints the view background with a secondary text color selector, which is lighter when pressed.
+13. `bg_tint_text_secondary_inverse_selector_darker` - tints the view background with a inverse secondary text color selector, which is lighter when pressed.
+
+#### Text Colors
+
+You can only change the text color of a view that extends `TextView`, which includes `Button`'s.
+
+1. `text_primary_color` - sets the text color to the primary color.
+2. `text_primary_color_dark` - sets the text color to the primary dark color.
+3. `text_accent_color` - sets the text color to the accent color.
+4. `text_primary` - sets the text color to the primary text color.
+5. `text_primary_inverse` - sets the text color to the inverse primary text color.
+6. `text_secondary` - sets the text color to the secondary text color.
+7. `text_secondary_inverse` - sets the text color to the inverse secondary text color.
+
+#### Text Link Colors
+
+This should only really be needed on `TextView'`s and subclasses of `TextView`, it changes the color of links when TextViews are linkable.
+
+1. `text_link_primary_color` - sets the link text color to the primary color.
+2. `text_link_primary_color_dark` - sets the link text color to the primary dark color.
+3. `text_link_accent_color` - sets the link text color to the accent color.
+4. `text_link_primary` - sets the link text color to the primary text color.
+5. `text_link_primary_inverse` - sets the link text color to the inverse primary text color.
+6. `text_link_secondary` - sets the link text color to the secondary text color.
+7. `text_link_secondary_inverse` - sets the link text color to the inverse secondary text color.
+
+#### Text Shadow Colors
+
+This can be used on `TextView'`s and subclasses of `TextView`, it changes the `shadowColor` value.
+
+1. `text_shadow_primary_color` - sets the link text color to the primary color.
+2. `text_shadow_primary_color_dark` - sets the link text color to the primary dark color.
+3. `text_shadow_accent_color` - sets the link text color to the accent color.
+4. `text_shadow_primary` - sets the link text color to the primary text color.
+5. `text_shadow_primary_inverse` - sets the link text color to the inverse primary text color.
+6. `text_shadow_secondary` - sets the link text color to the secondary text color.
+7. `text_shadow_secondary_inverse` - sets the link text color to the inverse secondary text color.
+
+#### Text Fonts
+
+This can be used on `TextView'`s and subclasses of `TextView`, it changes the Typeface (font). 
+ATE will automatically cache your Typefaces, so you don't have to worry about duplicate allocations.
+
+First, you need to copy your font files (e.g. TTF files) into your app's `/assets` folder. Let's say you 
+had a file called `Roboto.ttf`. You can reference it like this from any `TextView` instance:
+
+```xml
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:tag="font_Roboto.ttf" />
+```
+
+The tag is just `font_` plus the name of your file.
 
 #### TabLayouts - Continued
 
