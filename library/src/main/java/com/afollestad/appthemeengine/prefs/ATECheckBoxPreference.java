@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
+import com.afollestad.appthemeengine.views.ATECheckBox;
+
+import java.lang.reflect.Field;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -51,11 +55,31 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
                 a.recycle();
             }
         }
+
+        try {
+            Field canRecycleLayoutField = Preference.class.getDeclaredField("mCanRecycleLayout");
+            canRecycleLayoutField.setAccessible(true);
+            canRecycleLayoutField.setBoolean(this, true);
+            Field hasSpecifiedLayout = Preference.class.getDeclaredField("mHasSpecifiedLayout");
+            hasSpecifiedLayout.setAccessible(true);
+            hasSpecifiedLayout.setBoolean(this, true);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
+
+        ATECheckBox checkbox = (ATECheckBox) view.findViewById(android.R.id.checkbox);
+        checkbox.setKey(mKey);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            checkbox.setBackground(null);
+        }
+
         ATE.apply(view, mKey);
     }
 }

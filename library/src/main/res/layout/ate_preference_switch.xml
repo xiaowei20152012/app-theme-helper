@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<com.afollestad.appthemeengine.views.ATESwitch xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/switchWidget"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@null"
     android:clickable="false"
-    android:focusable="false"
-    android:focusableInTouchMode="false"
-    android:tag="tint_accent_color" />
+    android:focusable="false" />

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
@@ -41,5 +42,14 @@ public class ATESwitch extends SwitchCompat {
             }
         }
         ATE.apply(context, this, key);
+    }
+
+    public void setKey(String key) {
+        ATE.apply(getContext(), this, key);
+    }
+
+    @Override
+    public boolean isShown() {
+        return getVisibility() == View.VISIBLE;
     }
 }

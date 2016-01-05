@@ -60,7 +60,7 @@ public class SettingsActivity extends BaseThemedActivity
 
     public static class SettingsFragment extends PreferenceFragment {
 
-        private String mAteKey;
+        String mAteKey;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
