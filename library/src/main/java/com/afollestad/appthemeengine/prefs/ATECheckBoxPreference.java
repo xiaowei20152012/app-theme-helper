@@ -60,13 +60,14 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
             Field canRecycleLayoutField = Preference.class.getDeclaredField("mCanRecycleLayout");
             canRecycleLayoutField.setAccessible(true);
             canRecycleLayoutField.setBoolean(this, true);
+        } catch (Exception ignored) {
+        }
+
+        try {
             Field hasSpecifiedLayout = Preference.class.getDeclaredField("mHasSpecifiedLayout");
             hasSpecifiedLayout.setAccessible(true);
             hasSpecifiedLayout.setBoolean(this, true);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 
