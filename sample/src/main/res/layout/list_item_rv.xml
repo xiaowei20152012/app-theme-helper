@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:tag="text_accent_color"
+        android:tag="text_accent_color,font_RobotoSlab-Bold.ttf"
         android:textSize="@dimen/body_text_size"
         tools:text="Primary Text" />
 
