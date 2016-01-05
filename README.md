@@ -221,14 +221,14 @@ public class MyActivity extends AppCompatActivity
     
     @Config.LightToolbarMode
     @Override
-    public int getLightToolbarMode() {
+    public int getLightToolbarMode(@Nullable Toolbar forToolbar) {
         // When on, toolbar icons and text are made black when the toolbar background is light 
         return Config.LIGHT_TOOLBAR_AUTO;
     }
     
     @ColorInt
     @Override
-    public int getToolbarColor() {
+    public int getToolbarColor(@Nullable Toolbar forToolbar) {
         // Normally toolbars are the primary theme color
         return Color.BLACK;
     }
@@ -770,6 +770,7 @@ and enable Material Dialogs integration automatically when used. The preference 
 4. `ATEEditTextPreference`
 5. `ATEMultiSelectPreference`
 6. `ATEColorPreference` – doesn't actually display a dialog, just displays a color indicator on the right. Setting display color and displaying a dialog is done from the settings screen.
+7. `ATEPreferenceCategory` – used for section headers, see the sample project for an example.
 
 In your settings screen, the title will be themed to the primary text color, the summary will be 
 themed to the secondary text color. The actual dialogs are themed using the logic in 
