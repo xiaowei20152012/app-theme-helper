@@ -87,7 +87,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                 AppBarLayout appbarLayout = (AppBarLayout) collapsingToolbar.getParent();
                 try {
                     appbarLayout.addOnOffsetChangedListener(new ScrimsOffsetListener(
-                            context, key, toolbar, collapsingToolbar, menu, tintColor));
+                            context, key, toolbar, collapsingToolbar, menu));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -194,7 +194,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         private Menu mMenu;
 
         public ScrimsOffsetListener(@NonNull Context context, @Nullable String key, Toolbar toolbar,
-                                    CollapsingToolbarLayout toolbarLayout, Menu menu, @ColorInt int collapsedTintColor) throws Exception {
+                                    CollapsingToolbarLayout toolbarLayout, Menu menu) throws Exception {
             mContext = context;
             mKey = key;
             mToolbar = toolbar;
