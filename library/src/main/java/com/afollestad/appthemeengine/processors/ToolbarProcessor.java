@@ -53,24 +53,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
         if (menu == null)
             menu = toolbar.getMenu();
-
-        boolean isLightMode;
-        @Config.LightToolbarMode
-        final int lightToolbarMode = Config.lightToolbarMode(context, key, toolbar);
-        switch (lightToolbarMode) {
-            case Config.LIGHT_TOOLBAR_ON:
-                isLightMode = true;
-                break;
-            case Config.LIGHT_TOOLBAR_OFF:
-                isLightMode = false;
-                break;
-            default:
-            case Config.LIGHT_TOOLBAR_AUTO:
-                isLightMode = Util.isColorLight(toolbarColor);
-                break;
-        }
-
-        final int tintColor = isLightMode ? Color.BLACK : Color.WHITE;
+        final int tintColor = Config.getToolbarTitleColor(context, toolbar, key, toolbarColor);
 
         CollapsingToolbarLayout collapsingToolbar = null;
         if (toolbar.getParent() instanceof CollapsingToolbarLayout) {
@@ -195,6 +178,9 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         private final CollapsingToolbarLayout mCollapsingToolbar;
         private Menu mMenu;
 
+        private int mCollapsedColor;
+        private int mExpandedColor;
+
         public ScrimsOffsetListener(@NonNull Context context, @Nullable String key, Toolbar toolbar,
                                     CollapsingToolbarLayout toolbarLayout, Menu menu) throws Exception {
             mContext = context;
@@ -213,6 +199,16 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             if (context instanceof ATECollapsingTbCustomizer) {
                 mScrimsAreShown = CollapsingToolbarLayout.class.getDeclaredField("mScrimsAreShown");
                 mScrimsAreShown.setAccessible(true);
+
+                final ATECollapsingTbCustomizer customizer = (ATECollapsingTbCustomizer) mContext;
+                mCollapsedColor = customizer.getCollapsedTintColor();
+                mExpandedColor = customizer.getExpandedTintColor();
+
+                if (mCollapsedColor == 0 || mExpandedColor == 0) {
+                    final int tintColor = Config.getToolbarTitleColor(context, toolbar, key);
+                    if (mCollapsedColor == 0) mCollapsedColor = tintColor;
+                    if (mExpandedColor == 0) mExpandedColor = tintColor;
+                }
             } else {
                 mScrimsAreShown = null;
             }
@@ -231,8 +227,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         private void invalidateMenu() {
             final int tintColor;
             if (mScrimsAreShown != null) {
-                final ATECollapsingTbCustomizer customizer = (ATECollapsingTbCustomizer) mContext;
-                tintColor = scrimsAreShown() ? customizer.getCollapsedTintColor() : customizer.getExpandedTintColor();
+                tintColor = scrimsAreShown() ? mCollapsedColor : mExpandedColor;
             } else {
                 tintColor = mTextPaint.getColor();
             }

@@ -441,16 +441,20 @@ public final class Config extends ConfigBase {
     @CheckResult
     @ColorInt
     public static int toolbarColor(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
-        if (context instanceof ATEToolbarCustomizer)
-            return ((ATEToolbarCustomizer) context).getToolbarColor(toolbar);
+        if (context instanceof ATEToolbarCustomizer) {
+            int color = ((ATEToolbarCustomizer) context).getToolbarColor(toolbar);
+            if (color != 0) return color;
+        }
         return prefs(context, key).getInt(KEY_TOOLBAR_COLOR, primaryColor(context, key));
     }
 
     @CheckResult
     @ColorInt
     public static int navigationBarColor(@NonNull Context context, @Nullable String key) {
-        if (context instanceof ATENavigationBarCustomizer)
-            return ((ATENavigationBarCustomizer) context).getNavigationBarColor();
+        if (context instanceof ATENavigationBarCustomizer) {
+            int color = ((ATENavigationBarCustomizer) context).getNavigationBarColor();
+            if (color != 0) return color;
+        }
         return prefs(context, key).getInt(KEY_NAVIGATION_BAR_COLOR, primaryColor(context, key));
     }
 
@@ -497,8 +501,10 @@ public final class Config extends ConfigBase {
     @CheckResult
     @LightStatusBarMode
     public static int lightStatusBarMode(@NonNull Context context, @Nullable String key) {
-        if (context instanceof ATEStatusBarCustomizer)
-            return ((ATEStatusBarCustomizer) context).getLightStatusBarMode();
+        if (context instanceof ATEStatusBarCustomizer) {
+            int color = ((ATEStatusBarCustomizer) context).getLightStatusBarMode();
+            if (color != 0) return color;
+        }
         return prefs(context, key).getInt(KEY_LIGHT_STATUS_BAR_MODE, Config.LIGHT_STATUS_BAR_AUTO);
     }
 
@@ -580,4 +586,30 @@ public final class Config extends ConfigBase {
     public static final int LIGHT_TOOLBAR_OFF = 0;
     public static final int LIGHT_TOOLBAR_ON = 1;
     public static final int LIGHT_TOOLBAR_AUTO = 2;
+
+    @ColorInt
+    public static int getToolbarTitleColor(@NonNull Context context, @Nullable Toolbar toolbar, @Nullable String key) {
+        final int toolbarColor = Config.toolbarColor(context, key, toolbar);
+        return getToolbarTitleColor(context, toolbar, key, toolbarColor);
+    }
+
+    @ColorInt
+    public static int getToolbarTitleColor(@NonNull Context context, @Nullable Toolbar toolbar, @Nullable String key, @ColorInt int toolbarColor) {
+        boolean isLightMode;
+        @Config.LightToolbarMode
+        final int lightToolbarMode = Config.lightToolbarMode(context, key, toolbar);
+        switch (lightToolbarMode) {
+            case Config.LIGHT_TOOLBAR_ON:
+                isLightMode = true;
+                break;
+            case Config.LIGHT_TOOLBAR_OFF:
+                isLightMode = false;
+                break;
+            default:
+            case Config.LIGHT_TOOLBAR_AUTO:
+                isLightMode = Util.isColorLight(toolbarColor);
+                break;
+        }
+        return isLightMode ? Color.BLACK : Color.WHITE;
+    }
 }

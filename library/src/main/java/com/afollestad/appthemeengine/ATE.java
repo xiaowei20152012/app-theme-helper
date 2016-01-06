@@ -245,15 +245,15 @@ public final class ATE extends ATEBase {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static void applyTaskDescription(@NonNull Activity activity, @Nullable String key) {
-        int color;
+        int color = 0;
         Bitmap icon = null;
         if (activity instanceof ATETaskDescriptionCustomizer) {
             final ATETaskDescriptionCustomizer customizer = (ATETaskDescriptionCustomizer) activity;
             color = customizer.getTaskDescriptionColor();
             icon = customizer.getTaskDescriptionIcon();
-        } else {
-            color = Config.primaryColor(activity, key);
         }
+        if (color == 0)
+            color = Config.primaryColor(activity, key);
 
         // Task description requires fully opaque color
         color = Util.stripAlpha(color);
