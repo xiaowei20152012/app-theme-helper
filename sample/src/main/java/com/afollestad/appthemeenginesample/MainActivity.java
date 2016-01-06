@@ -66,8 +66,8 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
         final MenuItem searchItem = menu.findItem(R.id.search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search_view_example));
-        searchView.setIconifiedByDefault(false);
-        searchItem.expandActionView();
+//        searchView.setIconifiedByDefault(false);
+//        searchItem.expandActionView();
 
         return super.onCreateOptionsMenu(menu);
     }
