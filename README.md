@@ -670,6 +670,7 @@ You can only change the text color of a view that extends `TextView`, which incl
 5. `text_primary_inverse_dependent` - if the inverse primary text color is light, the text will be black. White if it's dark.
 6. `text_secondary_dependent` - if the secondary text color is light, the text will be black. White if it's dark.
 7. `text_secondary_inverse_dependent` - if the inverse secondary text color is light, the text will be black. White if it's dark.
+9. `window_background_dependent` - if the window background color is light, the text will be black. White if it's dark.
 
 #### Text Link Colors
 

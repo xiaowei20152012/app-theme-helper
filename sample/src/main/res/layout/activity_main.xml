@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:tag="text_primary,font_RobotoSlab-Bold.ttf"
+                        android:tag="window_background_dependent,font_RobotoSlab-Bold.ttf"
                         android:text="@string/header"
                         android:textSize="@dimen/header_text_size" />
 

@@ -16,6 +16,7 @@ import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.util.TypefaceHelper;
 import com.afollestad.appthemeengine.util.Util;
+import com.afollestad.materialdialogs.util.DialogUtils;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -134,6 +135,9 @@ public class DefaultProcessor implements Processor<View, Void> {
                 break;
             case KEY_TEXT_SECONDARY_INVERSE_DEPENDENT:
                 ((TextView) current).setTextColor(getTextSelector(Config.textColorSecondaryInverse(context, key), current, true));
+                break;
+            case KEY_WINDOW_BACKGROUND_DEPENDENT:
+                ((TextView) current).setTextColor(getTextSelector(DialogUtils.resolveColor(context, android.R.attr.windowBackground), current, true));
                 break;
 
             case KEY_TEXTLINK_PRIMARY_COLOR:
@@ -332,6 +336,7 @@ public class DefaultProcessor implements Processor<View, Void> {
     private final static String KEY_TEXT_SECONDARY_DEPENDENT = "text_secondary_dependent";
     private final static String KEY_TEXT_SECONDARY_INVERSE = "text_secondary_inverse";
     private final static String KEY_TEXT_SECONDARY_INVERSE_DEPENDENT = "text_secondary_inverse_dependent";
+    private final static String KEY_WINDOW_BACKGROUND_DEPENDENT = "window_background_dependent";
 
     private final static String KEY_TEXTLINK_PRIMARY_COLOR = "text_link_primary_color";
     private final static String KEY_TEXTLINK_PRIMARY_COLOR_DARK = "text_link_primary_color_dark";
