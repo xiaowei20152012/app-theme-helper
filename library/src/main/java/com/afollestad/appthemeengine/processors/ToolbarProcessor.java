@@ -107,19 +107,9 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         if (collapsingToolbar == null && toolbar.getNavigationIcon() != null)
             toolbar.setNavigationIcon(TintHelper.tintDrawable(toolbar.getNavigationIcon(), tintColor));
 
-        try {
-            final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
-            field.setAccessible(true);
-            Drawable collapseIcon = (Drawable) field.get(toolbar);
-            if (collapseIcon != null)
-                field.set(toolbar, TintHelper.tintDrawable(collapseIcon, tintColor));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         if (collapsingToolbar == null) {
             // If collapsing toolbar didn't take care of menu tinting initially, do it now
-            tintMenu(context, key, menu, tintColor);
+            tintMenu(context, toolbar, key, menu, tintColor);
         }
 
         if (context instanceof Activity) {
@@ -163,7 +153,17 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
     }
 
     @SuppressWarnings("unchecked")
-    private static void tintMenu(@NonNull Context context, @Nullable String key, @Nullable Menu menu, @ColorInt int tintColor) {
+    private static void tintMenu(@NonNull Context context, @NonNull Toolbar toolbar, @Nullable String key, @Nullable Menu menu, @ColorInt int tintColor) {
+        try {
+            final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
+            field.setAccessible(true);
+            Drawable collapseIcon = (Drawable) field.get(toolbar);
+            if (collapseIcon != null)
+                field.set(toolbar, TintHelper.tintDrawable(collapseIcon, tintColor));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if (menu != null && menu.size() > 0) {
             for (int i = 0; i < menu.size(); i++) {
                 final MenuItem item = menu.getItem(i);
@@ -215,7 +215,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             final int tintColor = mTextPaint.getColor();
             if (mToolbar.getNavigationIcon() != null)
                 mToolbar.setNavigationIcon(TintHelper.tintDrawable(mToolbar.getNavigationIcon(), tintColor));
-            tintMenu(mContext, mKey, mMenu, tintColor);
+            tintMenu(mContext, mToolbar, mKey, mMenu, tintColor);
             if (mContext instanceof Activity) {
                 // Set color of the overflow icon
                 Util.setOverflowButtonColor((Activity) mContext, tintColor);
