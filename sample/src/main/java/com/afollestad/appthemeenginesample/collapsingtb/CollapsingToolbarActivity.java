@@ -2,8 +2,13 @@ package com.afollestad.appthemeenginesample.collapsingtb;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.appthemeenginesample.R;
@@ -30,5 +35,18 @@ public class CollapsingToolbarActivity extends BaseThemedActivity {
                 finish();
             }
         });
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getString(R.string.search_view_example));
+        searchView.setIconifiedByDefault(true);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }
