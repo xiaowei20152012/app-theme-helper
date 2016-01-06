@@ -41,10 +41,11 @@ Only use this library if you intend to give the user the ability to change the c
     1. [Background Colors](https://github.com/afollestad/app-theme-engine#background-colors)
     2. [Tint Colors](https://github.com/afollestad/app-theme-engine#tint-colors)
     3. [Text Colors](https://github.com/afollestad/app-theme-engine#text-colors)
-    4. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
-    5. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
-    6. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
-    7. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
+    4. [Text Colors (Dependent)](https://github.com/afollestad/app-theme-engine#text-colors-dependent)
+    5. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
+    6. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
+    7. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
+    8. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
 5. [Pre-made Views](https://github.com/afollestad/app-theme-engine#pre-made-views)
 6. [Material Dialogs Integration](https://github.com/afollestad/app-theme-engine#material-dialogs-integration)
 7. [Preference UI](https://github.com/afollestad/app-theme-engine#preference-ui)
@@ -657,6 +658,18 @@ You can only change the text color of a view that extends `TextView`, which incl
 5. `text_primary_inverse` - sets the text color to the inverse primary text color.
 6. `text_secondary` - sets the text color to the secondary text color.
 7. `text_secondary_inverse` - sets the text color to the inverse secondary text color.
+
+#### Text Colors (Dependent)
+
+You can only change the text color of a view that extends `TextView`, which includes `Button`'s.
+
+1. `text_primary_color_dependent` - if the primary color is light, the text will be black. White if it's dark.
+2. `text_primary_color_dark_dependent` - if the primary dark color is light, the text will be black. White if it's dark.
+3. `text_accent_color_dependent` - if the accent color is light, the text will be black. White if it's dark.
+4. `text_primary_dependent` - if the primary text color is light, the text will be black. White if it's dark.
+5. `text_primary_inverse_dependent` - if the inverse primary text color is light, the text will be black. White if it's dark.
+6. `text_secondary_dependent` - if the secondary text color is light, the text will be black. White if it's dark.
+7. `text_secondary_inverse_dependent` - if the inverse secondary text color is light, the text will be black. White if it's dark.
 
 #### Text Link Colors
 
