@@ -24,6 +24,7 @@ import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEMenuPresenterCallback;
 import com.afollestad.appthemeengine.ATEOnMenuItemClickListener;
 import com.afollestad.appthemeengine.Config;
+import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
 import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.util.Util;
 
@@ -183,7 +184,8 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
     public static class ScrimsOffsetListener implements AppBarLayout.OnOffsetChangedListener {
 
-        private Paint mTextPaint;
+        private final Paint mTextPaint;
+        private final Field mScrimsAreShown;
 
         @NonNull
         private final Context mContext;
@@ -208,11 +210,33 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             mTextPaintField.setAccessible(true);
             mTextPaint = (Paint) mTextPaintField.get(textHelper);
 
+            if (context instanceof ATECollapsingTbCustomizer) {
+                mScrimsAreShown = CollapsingToolbarLayout.class.getDeclaredField("mScrimsAreShown");
+                mScrimsAreShown.setAccessible(true);
+            } else {
+                mScrimsAreShown = null;
+            }
+
             invalidateMenu();
         }
 
+        private boolean scrimsAreShown() {
+            try {
+                return mScrimsAreShown.getBoolean(mCollapsingToolbar);
+            } catch (IllegalAccessException e) {
+                return true;
+            }
+        }
+
         private void invalidateMenu() {
-            final int tintColor = mTextPaint.getColor();
+            final int tintColor;
+            if (mScrimsAreShown != null) {
+                final ATECollapsingTbCustomizer customizer = (ATECollapsingTbCustomizer) mContext;
+                tintColor = scrimsAreShown() ? customizer.getCollapsedTintColor() : customizer.getExpandedTintColor();
+            } else {
+                tintColor = mTextPaint.getColor();
+            }
+
             if (mToolbar.getNavigationIcon() != null)
                 mToolbar.setNavigationIcon(TintHelper.tintDrawable(mToolbar.getNavigationIcon(), tintColor));
             tintMenu(mContext, mToolbar, mKey, mMenu, tintColor);

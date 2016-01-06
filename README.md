@@ -210,7 +210,12 @@ in your Configuration (if you don't want to use separate keys for different scre
 
 ```java
 public class MyActivity extends AppCompatActivity 
-        implements ATEActivityThemeCustomizer, ATEToolbarCustomizer, ATEStatusBarCustomizer, ATETaskDescriptionCustomizer, ATENavigationBarCustomizer {
+        implements ATEActivityThemeCustomizer, 
+                   ATEToolbarCustomizer, 
+                   ATEStatusBarCustomizer, 
+                   ATETaskDescriptionCustomizer, 
+                   ATENavigationBarCustomizer,
+                   ATECollapsingTbCustomizer {
     
     @StyleRes
     @Override
@@ -267,6 +272,18 @@ public class MyActivity extends AppCompatActivity
     public int getNavigationBarColor() {
         // Navigation bar is usually either black, or equal to the primary theme color
         return Color.BLUE;
+    }
+    
+    @ColorInt
+    @Override
+    public int getExpandedTintColor() {
+        return Color.GRAY;
+    }
+    
+    @ColorInt
+    @Override
+    public int getCollapsedTintColor() {
+        return Color.DARKGRAY;
     }
 }
 ```
