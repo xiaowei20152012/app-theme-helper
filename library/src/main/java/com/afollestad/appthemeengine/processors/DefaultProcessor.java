@@ -316,7 +316,7 @@ public class DefaultProcessor implements Processor<View, Void> {
                 new int[]{-android.R.attr.state_enabled},
                 new int[]{android.R.attr.state_enabled}
         }, new int[]{
-                view instanceof Button ? Color.BLACK : Util.adjustAlpha(color, 0.15f),
+                view instanceof Button ? Color.BLACK : Util.adjustAlpha(color, 0.3f),
                 color
         });
     }
