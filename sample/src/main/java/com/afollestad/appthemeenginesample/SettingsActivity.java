@@ -214,10 +214,26 @@ public class SettingsActivity extends BaseThemedActivity
                     return false;
                 }
             };
-            findPreference("textsize_headline").setOnPreferenceClickListener(textsizeClickListener);
-            findPreference("textsize_title").setOnPreferenceClickListener(textsizeClickListener);
-            findPreference("textsize_subheading").setOnPreferenceClickListener(textsizeClickListener);
-            findPreference("textsize_body").setOnPreferenceClickListener(textsizeClickListener);
+
+            final Preference textsizeHeadline = findPreference("textsize_headline");
+            textsizeHeadline.setOnPreferenceClickListener(textsizeClickListener);
+            textsizeHeadline.setSummary(getString(R.string.headline_textsize_desc,
+                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_HEADLINE))));
+
+            final Preference textsizeTitle = findPreference("textsize_title");
+            textsizeTitle.setOnPreferenceClickListener(textsizeClickListener);
+            textsizeTitle.setSummary(getString(R.string.title_textsize_desc,
+                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_TITLE))));
+
+            final Preference textsizeSubheading = findPreference("textsize_subheading");
+            textsizeSubheading.setOnPreferenceClickListener(textsizeClickListener);
+            textsizeSubheading.setSummary(getString(R.string.subheading_textsize_desc,
+                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_SUBHEADING))));
+
+            final Preference textsizeBody = findPreference("textsize_body");
+            textsizeBody.setOnPreferenceClickListener(textsizeClickListener);
+            textsizeBody.setSummary(getString(R.string.body_textsize_desc,
+                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_BODY))));
         }
     }
 

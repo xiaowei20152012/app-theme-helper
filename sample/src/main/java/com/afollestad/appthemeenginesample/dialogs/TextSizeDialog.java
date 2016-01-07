@@ -3,6 +3,7 @@ package com.afollestad.appthemeenginesample.dialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -49,8 +50,8 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, getResources().getDisplayMetrics()));
     }
 
-    private int pxToSp(int px) {
-        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
+    public static int pxToSp(Fragment context, int px) {
+        float scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (px / scaledDensity);
     }
 
@@ -79,7 +80,7 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
                 getArguments().getString(KEY_MODE));
         mPreview.setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultValue);
         mSeeker.setMax(111);
-        final int dpValue = pxToSp(defaultValue);
+        final int dpValue = pxToSp(this, defaultValue);
         mSeeker.setProgress(dpValue - 1);
         mValue.setText(String.format("%dsp", dpValue));
 
@@ -154,7 +155,7 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
                     break;
             }
             mPreview.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
-            final int dpValue = pxToSp(size);
+            final int dpValue = pxToSp(this, size);
             mValue.setText(String.format("%dsp", dpValue));
             mSeeker.setProgress(dpValue - 1);
         } else {

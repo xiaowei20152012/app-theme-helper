@@ -70,10 +70,10 @@
     <string name="title_textsize">Title Text Size</string>
     <string name="subheading_textsize">Subheading Text Size</string>
     <string name="body_textsize">Body Text Size</string>
-    <string name="headline_textsize_desc">Apply a text size to all headline text views</string>
-    <string name="title_textsize_desc">Apply a text size to all title text views</string>
-    <string name="subheading_textsize_desc">Apply a text size to all subheading text views</string>
-    <string name="body_textsize_desc">Apply a text size to all body text views</string>
+    <string name="headline_textsize_desc">Apply a text size to all headline text views, %ddp</string>
+    <string name="title_textsize_desc">Apply a text size to all title text views, %ddp</string>
+    <string name="subheading_textsize_desc">Apply a text size to all subheading text views, %ddp</string>
+    <string name="body_textsize_desc">Apply a text size to all body text views, %ddp</string>
     <string name="text_sizes">Text Sizes</string>
     <string name="defaultValue">Default</string>
 
