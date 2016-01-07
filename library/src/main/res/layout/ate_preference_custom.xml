@@ -42,8 +42,7 @@
             android:fadingEdge="horizontal"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:tag="text_primary"
-            android:textSize="16sp"
+            android:tag="text_primary,textsize_subheading"
             tools:text="Title" />
 
         <TextView
@@ -56,8 +55,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:maxLines="4"
-            android:tag="text_secondary"
-            android:textSize="14sp"
+            android:tag="text_secondary,textsize_body"
             tools:text="Summary" />
 
     </RelativeLayout>

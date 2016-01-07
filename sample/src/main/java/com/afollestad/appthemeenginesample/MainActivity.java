@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
 import com.afollestad.appthemeenginesample.collapsingtb.CollapsingToolbarActivity;
+import com.afollestad.appthemeenginesample.dialogs.AboutDialog;
 import com.afollestad.appthemeenginesample.rv.RecyclerViewSampleActivity;
 import com.afollestad.appthemeenginesample.tabs.TabSampleActivity;
 

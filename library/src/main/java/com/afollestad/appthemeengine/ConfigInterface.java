@@ -5,6 +5,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -134,6 +135,14 @@ interface ConfigInterface {
     Config navigationViewSelectedBgRes(@ColorRes int colorRes);
 
     Config navigationViewSelectedBgAttr(@AttrRes int colorAttr);
+
+    // Text size
+
+    Config textSizePxForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int pxValue, @Config.TextSizeMode String mode);
+
+    Config textSizeSpForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int dpValue, @Config.TextSizeMode String mode);
+
+    Config textSizeResForMode(@DimenRes int resId, @Config.TextSizeMode String mode);
 
     // Misc
 

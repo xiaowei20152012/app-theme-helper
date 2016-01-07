@@ -65,6 +65,18 @@
     <string name="base_theme">Base Theme</string>
     <string name="ate_colors">ATE Colors</string>
 
+    <string name="other_textsizes_note">Note: there are other text size configurations not included here for simplicity reasons.</string>
+    <string name="headline_textsize">Headline Text Size</string>
+    <string name="title_textsize">Title Text Size</string>
+    <string name="subheading_textsize">Subheading Text Size</string>
+    <string name="body_textsize">Body Text Size</string>
+    <string name="headline_textsize_desc">Apply a text size to all headline text views</string>
+    <string name="title_textsize_desc">Apply a text size to all title text views</string>
+    <string name="subheading_textsize_desc">Apply a text size to all subheading text views</string>
+    <string name="body_textsize_desc">Apply a text size to all body text views</string>
+    <string name="text_sizes">Text Sizes</string>
+    <string name="defaultValue">Default</string>
+
     <string-array name="light_status_mode_entries">
         <item>Off, status bar icons will be white</item>
         <item>On, status bar icons will be black</item>

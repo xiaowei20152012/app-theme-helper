@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:orientation="vertical"
     android:gravity="center_vertical"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/content_inset"
     android:paddingRight="@dimen/content_inset"
     tools:ignore="UnusedAttribute">
@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:tag="text_accent_color,font_RobotoSlab-Bold.ttf"
-        android:textSize="@dimen/body_text_size"
+        android:tag="text_accent_color,font_RobotoSlab-Bold.ttf,textsize_subheading"
         tools:text="Primary Text" />
 
     <TextView
@@ -23,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:tag="text_secondary"
-        android:textSize="@dimen/secondary_text_size"
+        android:tag="text_secondary,textsize_body"
         tools:text="Secondary Text" />
 
 </LinearLayout>

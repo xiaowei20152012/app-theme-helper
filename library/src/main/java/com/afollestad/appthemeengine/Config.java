@@ -10,13 +10,16 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.afollestad.appthemeengine.customizers.ATENavigationBarCustomizer;
@@ -332,6 +335,25 @@ public final class Config extends ConfigBase {
         return this;
     }
 
+    // Text size
+
+    @Override
+    public Config textSizePxForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int pxValue, @TextSizeMode String mode) {
+        mEditor.putInt(mode, pxValue);
+        return this;
+    }
+
+    @Override
+    public Config textSizeSpForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int dpValue, @TextSizeMode String mode) {
+        final int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dpValue, mContext.getResources().getDisplayMetrics());
+        return textSizePxForMode(px, mode);
+    }
+
+    @Override
+    public Config textSizeResForMode(@DimenRes int resId, @TextSizeMode String mode) {
+        return textSizePxForMode(mContext.getResources().getDimensionPixelSize(resId), mode);
+    }
+
     // Apply and commit methods
 
     @Override
@@ -568,6 +590,45 @@ public final class Config extends ConfigBase {
         return prefs(context, key).getBoolean(KEY_USING_MATERIAL_DIALOGS, false);
     }
 
+    @CheckResult
+    @IntRange(from = 1, to = Integer.MAX_VALUE)
+    public static int textSizeForMode(@NonNull Context context, @Nullable String key, @TextSizeMode String mode) {
+        int size = prefs(context, key).getInt(mode, 0);
+        if (size == 0) {
+            switch (mode) {
+                default:
+                case TEXTSIZE_CAPTION:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_caption);
+                    break;
+                case TEXTSIZE_BODY:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_body);
+                    break;
+                case TEXTSIZE_SUBHEADING:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_subheading);
+                    break;
+                case TEXTSIZE_TITLE:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_title);
+                    break;
+                case TEXTSIZE_HEADLINE:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_headline);
+                    break;
+                case TEXTSIZE_DISPLAY1:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display1);
+                    break;
+                case TEXTSIZE_DISPLAY2:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display2);
+                    break;
+                case TEXTSIZE_DISPLAY3:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display3);
+                    break;
+                case TEXTSIZE_DISPLAY4:
+                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display4);
+                    break;
+            }
+        }
+        return size;
+    }
+
 
     @IntDef({LIGHT_STATUS_BAR_OFF, LIGHT_STATUS_BAR_ON, LIGHT_STATUS_BAR_AUTO})
     @Retention(RetentionPolicy.SOURCE)
@@ -579,6 +640,12 @@ public final class Config extends ConfigBase {
     public @interface LightToolbarMode {
     }
 
+    @StringDef({TEXTSIZE_DISPLAY4, TEXTSIZE_DISPLAY3, TEXTSIZE_DISPLAY2, TEXTSIZE_DISPLAY1,
+            TEXTSIZE_HEADLINE, TEXTSIZE_TITLE, TEXTSIZE_SUBHEADING, TEXTSIZE_BODY, TEXTSIZE_CAPTION})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface TextSizeMode {
+    }
+
     public static final int LIGHT_STATUS_BAR_OFF = 0;
     public static final int LIGHT_STATUS_BAR_ON = 1;
     public static final int LIGHT_STATUS_BAR_AUTO = 2;
@@ -586,6 +653,16 @@ public final class Config extends ConfigBase {
     public static final int LIGHT_TOOLBAR_OFF = 0;
     public static final int LIGHT_TOOLBAR_ON = 1;
     public static final int LIGHT_TOOLBAR_AUTO = 2;
+
+    public final static String TEXTSIZE_DISPLAY4 = "textsize_display4";
+    public final static String TEXTSIZE_DISPLAY3 = "textsize_display3";
+    public final static String TEXTSIZE_DISPLAY2 = "textsize_display2";
+    public final static String TEXTSIZE_DISPLAY1 = "textsize_display1";
+    public final static String TEXTSIZE_HEADLINE = "textsize_headline";
+    public final static String TEXTSIZE_TITLE = "textsize_title";
+    public final static String TEXTSIZE_SUBHEADING = "textsize_subheading";
+    public final static String TEXTSIZE_BODY = "textsize_body";
+    public final static String TEXTSIZE_CAPTION = "textsize_caption";
 
     @ColorInt
     public static int getToolbarTitleColor(@NonNull Context context, @Nullable Toolbar toolbar, @Nullable String key) {

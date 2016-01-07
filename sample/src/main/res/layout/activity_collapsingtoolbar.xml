@@ -15,10 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="#0099cc"
-            app:statusBarScrim="#0099cc"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:statusBarScrim="#0099cc">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -50,8 +50,8 @@
             android:fontFamily="sans-serif-light"
             android:lineSpacingMultiplier="2.0"
             android:padding="@dimen/content_inset"
+            android:tag="textsize_body"
             android:text="@string/lorem_ipsum_long"
-            android:textSize="@dimen/body_text_size"
             tools:ignore="UnusedAttribute" />
 
     </android.support.v4.widget.NestedScrollView>

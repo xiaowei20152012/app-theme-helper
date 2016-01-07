@@ -20,6 +20,8 @@ import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeengine.prefs.ATEColorPreference;
 import com.afollestad.appthemeengine.prefs.ATESwitchPreference;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
+import com.afollestad.appthemeenginesample.dialogs.AboutDialog;
+import com.afollestad.appthemeenginesample.dialogs.TextSizeDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.prefs.MaterialListPreference;
 
@@ -203,6 +205,19 @@ public class SettingsActivity extends BaseThemedActivity
                 navBarPref.setEnabled(false);
                 navBarPref.setSummary(R.string.not_available_below_lollipop);
             }
+
+            final Preference.OnPreferenceClickListener textsizeClickListener = new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    //noinspection ResourceType
+                    TextSizeDialog.show(getActivity(), preference.getKey(), mAteKey, preference.getTitleRes(), true);
+                    return false;
+                }
+            };
+            findPreference("textsize_headline").setOnPreferenceClickListener(textsizeClickListener);
+            findPreference("textsize_title").setOnPreferenceClickListener(textsizeClickListener);
+            findPreference("textsize_subheading").setOnPreferenceClickListener(textsizeClickListener);
+            findPreference("textsize_body").setOnPreferenceClickListener(textsizeClickListener);
         }
     }
 

@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,6 +47,12 @@ public class DefaultProcessor implements Processor<View, Void> {
                 throw new IllegalStateException("Fonts can only be applied to TextViews or subclasses of TextView.");
             final String fontName = tag.substring(tag.indexOf('_') + 1);
             ((TextView) current).setTypeface(TypefaceHelper.get(context, fontName));
+            return;
+        } else if (tag.startsWith(KEY_TEXTSIZE_PREFIX)) {
+            if (!(current instanceof TextView))
+                throw new IllegalStateException("Text size can only be applied to TextViews or subclasses of TextView.");
+            final int textSize = Config.textSizeForMode(context, key, tag);
+            ((TextView) current).setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             return;
         }
 
@@ -387,4 +394,5 @@ public class DefaultProcessor implements Processor<View, Void> {
     private final static String KEY_BG_TINT_TEXT_SECONDARY_INVERSE_SELECTOR_DARKER = "bg_tint_text_secondary_inverse_selector_darker";
 
     private final static String KEY_FONT_PREFIX = "font_";
+    private final static String KEY_TEXTSIZE_PREFIX = "textsize_";
 }

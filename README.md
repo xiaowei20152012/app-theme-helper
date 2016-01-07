@@ -44,8 +44,9 @@ Only use this library if you intend to give the user the ability to change the c
     4. [Text Colors (Dependent)](https://github.com/afollestad/app-theme-engine#text-colors-dependent)
     5. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
     6. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
-    7. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
-    8. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
+    7. [Text Size](https://github.com/afollestad/app-theme-engine#text-size)
+    8. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
+    9. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
 5. [Pre-made Views](https://github.com/afollestad/app-theme-engine#pre-made-views)
 6. [Material Dialogs Integration](https://github.com/afollestad/app-theme-engine#material-dialogs-integration)
 7. [Preference UI](https://github.com/afollestad/app-theme-engine#preference-ui)
@@ -674,7 +675,7 @@ You can only change the text color of a view that extends `TextView`, which incl
 
 #### Text Link Colors
 
-This should only really be needed on `TextView'`s and subclasses of `TextView`, it changes the color of links when TextViews are linkable.
+These should only really be needed on `TextView'`s and subclasses of `TextView`, it changes the color of links when TextViews are linkable.
 
 1. `text_link_primary_color` - sets the link text color to the primary color.
 2. `text_link_primary_color_dark` - sets the link text color to the primary dark color.
@@ -686,7 +687,7 @@ This should only really be needed on `TextView'`s and subclasses of `TextView`, 
 
 #### Text Shadow Colors
 
-This can be used on `TextView'`s and subclasses of `TextView`, it changes the `shadowColor` value.
+These can be used on `TextView'`s and subclasses of `TextView`, it changes the `shadowColor` value.
 
 1. `text_shadow_primary_color` - sets the link text color to the primary color.
 2. `text_shadow_primary_color_dark` - sets the link text color to the primary dark color.
@@ -695,6 +696,24 @@ This can be used on `TextView'`s and subclasses of `TextView`, it changes the `s
 5. `text_shadow_primary_inverse` - sets the link text color to the inverse primary text color.
 6. `text_shadow_secondary` - sets the link text color to the secondary text color.
 7. `text_shadow_secondary_inverse` - sets the link text color to the inverse secondary text color.
+
+#### Text Size
+
+These can be used on `TextView'`s and subclasses of `TextView`. The default values are taken
+from the Material Design Guidelines, [as seen here](https://www.google.com/design/spec/style/typography.html#typography-styles).
+
+1. `textsize_display4` -  applies the text size for large displays. Defaults to *112sp*.
+2. `textsize_display3` - applies the text size for large displays. Defaults to *56sp*.
+3. `textsize_display2` - applies the text size for large displays. Defaults to *45sp*.
+4. `textsize_display1` - applies the text size for large displays. Defaults to *34sp*.
+5. `textsize_headline` - applies the text size for headlines/headers. Defaults to *24sp*.
+6. `textsize_title` - applies the text size for titles. Defaults to *20sp*.
+7. `textsize_subheading` - applies the text size for subheadings. Defaults to *16sp*.
+8. `textsize_body` - applies the text size for bodies. Defaults to *14sp*.
+9. `textsize_caption` - applies the text size for captions. Defaults to *12sp*.  
+
+All of these values can be changed, as seen in the [Modifiers](https://github.com/afollestad/app-theme-engine#modifiers) 
+section.
 
 #### Text Fonts
 

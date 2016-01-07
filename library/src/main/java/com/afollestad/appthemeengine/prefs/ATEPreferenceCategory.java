@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.appthemeengine.Config;
+import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
 
 public class ATEPreferenceCategory extends PreferenceCategory {
@@ -40,6 +40,7 @@ public class ATEPreferenceCategory extends PreferenceCategory {
     protected void onBindView(View view) {
         super.onBindView(view);
         TextView mTitle = (TextView) view.findViewById(android.R.id.title);
-        mTitle.setTextColor(Config.accentColor(view.getContext(), mAteKey));
+        mTitle.setTag("textsize_body,text_accent_color");
+        ATE.apply(mTitle, mAteKey);
     }
 }
