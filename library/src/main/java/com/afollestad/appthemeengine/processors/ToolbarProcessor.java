@@ -70,8 +70,10 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             if (collapsingToolbar.getParent() instanceof AppBarLayout) {
                 AppBarLayout appbarLayout = (AppBarLayout) collapsingToolbar.getParent();
                 try {
-                    appbarLayout.addOnOffsetChangedListener(new ScrimsOffsetListener(
-                            context, key, toolbar, collapsingToolbar, menu));
+                    if (mCollapsingToolbarListener == null)
+                        mCollapsingToolbarListener = new ScrimsOffsetListener(context, key, toolbar, collapsingToolbar, menu);
+                    else appbarLayout.removeOnOffsetChangedListener(mCollapsingToolbarListener);
+                    appbarLayout.addOnOffsetChangedListener(mCollapsingToolbarListener);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -164,6 +166,8 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             }
         }
     }
+
+    private static ScrimsOffsetListener mCollapsingToolbarListener = null;
 
     public static class ScrimsOffsetListener implements AppBarLayout.OnOffsetChangedListener {
 
