@@ -40,7 +40,7 @@ public class TabLayoutProcessor implements Processor<TabLayout, Void> {
         }
 
         if (bg != null && bg instanceof ColorDrawable) {
-            final ColorDrawable cd = (ColorDrawable) view.getBackground();
+            final ColorDrawable cd = (ColorDrawable) bg;
             if (Util.isColorLight(cd.getColor()))
                 mTabTextColorSelected = mTabIndicatorColorSelected = Color.BLACK;
         }
