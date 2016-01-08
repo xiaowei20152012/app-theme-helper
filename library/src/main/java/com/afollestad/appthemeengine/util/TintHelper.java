@@ -30,6 +30,8 @@ import android.widget.TextView;
 
 import com.afollestad.appthemeengine.R;
 
+import java.lang.reflect.Field;
+
 /**
  * @author afollestad, plusCubed
  */
@@ -273,6 +275,7 @@ public final class TintHelper {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             editText.setBackgroundTintList(editTextColorStateList);
         }
+        setCursorTint(editText, color);
     }
 
     public static void setTint(@NonNull CheckBox box, @ColorInt int color, boolean useDarker) {
@@ -360,5 +363,27 @@ public final class TintHelper {
         drawable = DrawableCompat.wrap(drawable);
         DrawableCompat.setTintList(drawable, sl);
         return drawable;
+    }
+
+    private static void setCursorTint(@NonNull EditText editText, @ColorInt int color) {
+        try {
+            Field fCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
+            fCursorDrawableRes.setAccessible(true);
+            int mCursorDrawableRes = fCursorDrawableRes.getInt(editText);
+            Field fEditor = TextView.class.getDeclaredField("mEditor");
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(editText);
+            Class<?> clazz = editor.getClass();
+            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+            Drawable[] drawables = new Drawable[2];
+            drawables[0] = editText.getContext().getResources().getDrawable(mCursorDrawableRes);
+            drawables[1] = editText.getContext().getResources().getDrawable(mCursorDrawableRes);
+            drawables[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            drawables[1].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            fCursorDrawable.set(editor, drawables);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
