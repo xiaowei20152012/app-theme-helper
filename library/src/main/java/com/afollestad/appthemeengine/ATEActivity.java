@@ -1,6 +1,7 @@
 package com.afollestad.appthemeengine;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -34,7 +35,18 @@ public class ATEActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (ATE.didValuesChange(this, updateTime, getATEKey()))
-            recreate();
+            postRecreate();
+    }
+
+    // hack to prevent java.lang.RuntimeException: Performing pause of activity that is not resumed
+    private void postRecreate() {
+        // makes sure recreate() is called right after and not in onResume()
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                recreate();
+            }
+        });
     }
 
     @Override
