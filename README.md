@@ -47,6 +47,7 @@ Only use this library if you intend to give the user the ability to change the c
     7. [Text Size](https://github.com/afollestad/app-theme-engine#text-size)
     8. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
     9. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
+    10. [Edge Glows](https://github.com/afollestad/app-theme-engine#edge-glows)
 5. [Pre-made Views](https://github.com/afollestad/app-theme-engine#pre-made-views)
 6. [Material Dialogs Integration](https://github.com/afollestad/app-theme-engine#material-dialogs-integration)
 7. [Preference UI](https://github.com/afollestad/app-theme-engine#preference-ui)
@@ -758,6 +759,29 @@ their text color.
 7. `tab_indicator_text_secondary_inverse` - uses the inverse secondary text color for for the selected tab indicator color.
 
 **Note** that the indicator color is used for the color of tab icons, if they are used.
+
+#### Edge Glows
+
+By default, the edge glow (overscroll animation) of scrollable views are tinted to your accent color. 
+You can customize the edge glow color of views with tags:
+
+1. `edge_glow_primary_color` - sets the edge glow color to the primary color.
+2. `edge_glow_primary_color_dark` - sets the edge glow color to the primary dark color.
+3. `edge_glow_accent_color` - sets the edge glow color to the accent color.
+4. `edge_glow_primary` - sets the edge glow color to the primary text color.
+5. `edge_glow_primary_inverse` - sets the edge glow color to the inverse primary text color.
+6. `edge_glow_secondary` - sets the edge glow color to the secondary text color.
+7. `edge_glow_secondary_inverse` - sets the edge glow color to the inverse secondary text color.
+
+---
+
+Supported scrollable views include:
+
+1. `ScrollView`
+2. `NestedScrollView`
+3. `ListView`
+4. `RecyclerView`
+5. `ViewPager`
 
 ---
 

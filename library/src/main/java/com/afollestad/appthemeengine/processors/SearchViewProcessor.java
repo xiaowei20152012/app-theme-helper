@@ -21,7 +21,6 @@ public class SearchViewProcessor implements Processor<View, Integer> {
     public static final String MAIN_CLASS = "android.support.v7.widget.SearchView";
 
     private void tintImageView(Object target, Field field, int tintColor) throws Exception {
-        SearchView v;
         field.setAccessible(true);
         final ImageView imageView = (ImageView) field.get(target);
         if (imageView.getDrawable() != null)
