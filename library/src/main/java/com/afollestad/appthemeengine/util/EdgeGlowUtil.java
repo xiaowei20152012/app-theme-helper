@@ -170,11 +170,11 @@ public class EdgeGlowUtil {
             switch (f.getName()) {
                 case "mLeftEdge":
                     f.setAccessible(true);
-                    RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT = f;
+                    VIEW_PAGER_FIELD_EDGE_GLOW_LEFT = f;
                     break;
                 case "mRightEdge":
                     f.setAccessible(true);
-                    RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT = f;
+                    VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT = f;
                     break;
             }
         }
