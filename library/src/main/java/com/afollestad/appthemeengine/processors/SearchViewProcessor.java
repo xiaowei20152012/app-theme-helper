@@ -4,8 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.SearchView;
 
 import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.util.Util;
@@ -20,6 +21,7 @@ public class SearchViewProcessor implements Processor<View, Integer> {
     public static final String MAIN_CLASS = "android.support.v7.widget.SearchView";
 
     private void tintImageView(Object target, Field field, int tintColor) throws Exception {
+        SearchView v;
         field.setAccessible(true);
         final ImageView imageView = (ImageView) field.get(target);
         if (imageView.getDrawable() != null)
@@ -33,9 +35,10 @@ public class SearchViewProcessor implements Processor<View, Integer> {
         try {
             final Field mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView");
             mSearchSrcTextViewField.setAccessible(true);
-            final TextView mSearchSrcTextView = (TextView) mSearchSrcTextViewField.get(target);
+            final EditText mSearchSrcTextView = (EditText) mSearchSrcTextViewField.get(target);
             mSearchSrcTextView.setTextColor(tintColor);
             mSearchSrcTextView.setHintTextColor(Util.adjustAlpha(tintColor, 0.5f));
+            TintHelper.setCursorTint(mSearchSrcTextView, tintColor);
 
             Field field = cls.getDeclaredField("mSearchButton");
             tintImageView(target, field, tintColor);

@@ -365,7 +365,7 @@ public final class TintHelper {
         return drawable;
     }
 
-    private static void setCursorTint(@NonNull EditText editText, @ColorInt int color) {
+    public static void setCursorTint(@NonNull EditText editText, @ColorInt int color) {
         try {
             Field fCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
             fCursorDrawableRes.setAccessible(true);
