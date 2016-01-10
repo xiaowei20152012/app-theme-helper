@@ -768,10 +768,10 @@ You can customize the edge glow color of views with tags:
 1. `edge_glow_primary_color` - sets the edge glow color to the primary color.
 2. `edge_glow_primary_color_dark` - sets the edge glow color to the primary dark color.
 3. `edge_glow_accent_color` - sets the edge glow color to the accent color.
-4. `edge_glow_primary` - sets the edge glow color to the primary text color.
-5. `edge_glow_primary_inverse` - sets the edge glow color to the inverse primary text color.
-6. `edge_glow_secondary` - sets the edge glow color to the secondary text color.
-7. `edge_glow_secondary_inverse` - sets the edge glow color to the inverse secondary text color.
+4. `edge_glow_text_primary` - sets the edge glow color to the primary text color.
+5. `edge_glow_text_primary_inverse` - sets the edge glow color to the inverse primary text color.
+6. `edge_glow_text_secondary` - sets the edge glow color to the secondary text color.
+7. `edge_glow_text_secondary_inverse` - sets the edge glow color to the inverse secondary text color.
 
 ---
 
