@@ -5,7 +5,10 @@ their apps, similar to what's seen in [Cabinet](https://play.google.com/store/ap
 and [Impression](https://github.com/afollestad/impression).
 
 Download the [latest sample APK](https://github.com/afollestad/app-theme-engine/raw/master/sample/Sample.apk) to check it out! 
- The sample's icon was designed by [Alex Mueller](https://plus.google.com/109174583408308276235).
+You can also get it through Google Play, with the badge below. The sample's icon was designed by 
+[Alex Mueller](https://plus.google.com/109174583408308276235).
+ 
+<a href="play.google.com/store/apps/details?id=com.afollestad.appthemeenginesample&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" /></a>
 
 ![Showcase](https://raw.githubusercontent.com/afollestad/app-theme-engine/master/art/showcase.png)
 
@@ -80,7 +83,7 @@ Add this to your module's `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	compile('com.github.afollestad:app-theme-engine:0.7.5@aar') {
+	compile('com.github.afollestad:app-theme-engine:0.7.6@aar') {
 		transitive = true
 	}
 }
