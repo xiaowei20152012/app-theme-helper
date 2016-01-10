@@ -45,6 +45,8 @@ import java.lang.reflect.Field;
  */
 public final class ATE extends ATEBase {
 
+    private static final String IGNORE_TAG = "ate_ignore";
+
     private static boolean isPreMadeView(@NonNull View view) {
         return view.getClass().getAnnotation(PreMadeView.class) != null;
     }
@@ -77,7 +79,9 @@ public final class ATE extends ATEBase {
 
         for (int i = 0; i < view.getChildCount(); i++) {
             final View current = view.getChildAt(i);
-            if (current instanceof Toolbar && mToolbar == null)
+            if (current.getTag() != null && current.getTag().equals(IGNORE_TAG))
+                continue;
+            else if (current instanceof Toolbar && mToolbar == null)
                 mToolbar = (Toolbar) current;
 
             // Pre-made views handle themselves, don't need to apply theming

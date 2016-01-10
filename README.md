@@ -44,16 +44,17 @@ Only use this library if you intend to give the user the ability to change the c
     6. [Task Description (Recents)](https://github.com/afollestad/app-theme-engine#task-description-recents)
     7. [TabLayouts](https://github.com/afollestad/app-theme-engine#tablayouts)
 4. [Tags](https://github.com/afollestad/app-theme-engine#tags)
-    1. [Background Colors](https://github.com/afollestad/app-theme-engine#background-colors)
-    2. [Tint Colors](https://github.com/afollestad/app-theme-engine#tint-colors)
-    3. [Text Colors](https://github.com/afollestad/app-theme-engine#text-colors)
-    4. [Text Colors (Dependent)](https://github.com/afollestad/app-theme-engine#text-colors-dependent)
-    5. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
-    6. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
-    7. [Text Size](https://github.com/afollestad/app-theme-engine#text-size)
-    8. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
-    9. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
-    10. [Edge Glows](https://github.com/afollestad/app-theme-engine#edge-glows)
+    1. [Ignore](https://github.com/afollestad/app-theme-engine#ignore)
+    2. [Background Colors](https://github.com/afollestad/app-theme-engine#background-colors)
+    3. [Tint Colors](https://github.com/afollestad/app-theme-engine#tint-colors)
+    4. [Text Colors](https://github.com/afollestad/app-theme-engine#text-colors)
+    5. [Text Colors (Dependent)](https://github.com/afollestad/app-theme-engine#text-colors-dependent)
+    6. [Text Link Colors](https://github.com/afollestad/app-theme-engine#text-link-colors)
+    7. [Text Shadow Colors](https://github.com/afollestad/app-theme-engine#text-shadow-colors)
+    8. [Text Size](https://github.com/afollestad/app-theme-engine#text-size)
+    9. [Text Fonts](https://github.com/afollestad/app-theme-engine#text-fonts)
+    10. [TabLayouts - Continued](https://github.com/afollestad/app-theme-engine#tablayouts-continued)
+    11. [Edge Glows](https://github.com/afollestad/app-theme-engine#edge-glows)
 5. [Pre-made Views](https://github.com/afollestad/app-theme-engine#pre-made-views)
 6. [Material Dialogs Integration](https://github.com/afollestad/app-theme-engine#material-dialogs-integration)
 7. [Preference UI](https://github.com/afollestad/app-theme-engine#preference-ui)
@@ -600,6 +601,13 @@ The theme engine allows you to apply theme colors to any view using tags. **You 
 ```
 
 Here's a list of available tag values:
+
+#### Ignore
+
+If you want ATE to ignore a `View`, or more importantly a `ViewGroup`, you can set its tag to `ate_ignore`.
+
+The major advantage of using this on a `ViewGroup` is that ATE won't look through the view's children, thus 
+decreasing the amount of type it takes to apply.
 
 #### Background Colors
 
