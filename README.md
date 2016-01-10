@@ -806,6 +806,8 @@ ATE.config(this, null)
     .commit();
 ```
 
+You need to have Material Dialogs added as a dependency in your app, too.
+
 ---
 
 # Preference UI
