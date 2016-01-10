@@ -34,6 +34,13 @@ public class EdgeGlowUtil {
     private static Field EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT;
 
     private static void invalidateEdgeEffectFields() {
+        if (EDGE_GLOW_FIELD_EDGE != null && EDGE_GLOW_FIELD_GLOW != null &&
+                EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT != null) {
+            EDGE_GLOW_FIELD_EDGE.setAccessible(true);
+            EDGE_GLOW_FIELD_GLOW.setAccessible(true);
+            EDGE_EFFECT_COMPAT_FIELD_EDGE_EFFECT.setAccessible(true);
+            return;
+        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Field edge = null, glow = null;
             Class cls = null;
@@ -78,10 +85,13 @@ public class EdgeGlowUtil {
 
     private static Field SCROLL_VIEW_FIELD_EDGE_GLOW_TOP;
     private static Field SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM;
-    private static Field NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP;
-    private static Field NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM;
 
     private static void invalidateScrollViewFields() {
+        if (SCROLL_VIEW_FIELD_EDGE_GLOW_TOP != null && SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
+            SCROLL_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
+            SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+            return;
+        }
         final Class<?> cls = ScrollView.class;
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
@@ -97,7 +107,15 @@ public class EdgeGlowUtil {
         }
     }
 
+    private static Field NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP;
+    private static Field NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM;
+
     private static void invalidateNestedScrollViewFields() {
+        if (NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP != null && NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
+            NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
+            NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+            return;
+        }
         final Class<?> cls = Util.inClassPath(NestedScrollViewProcessor.MAIN_CLASS);
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
@@ -117,6 +135,11 @@ public class EdgeGlowUtil {
     private static Field LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM;
 
     private static void invalidateListViewFields() {
+        if (LIST_VIEW_FIELD_EDGE_GLOW_TOP != null && LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
+            LIST_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
+            LIST_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+            return;
+        }
         final Class<?> cls = AbsListView.class;
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
@@ -138,6 +161,14 @@ public class EdgeGlowUtil {
     private static Field RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM;
 
     private static void invalidateRecyclerViewFields() {
+        if (RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP != null && RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT != null &&
+                RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT != null && RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM != null) {
+            RECYCLER_VIEW_FIELD_EDGE_GLOW_TOP.setAccessible(true);
+            RECYCLER_VIEW_FIELD_EDGE_GLOW_LEFT.setAccessible(true);
+            RECYCLER_VIEW_FIELD_EDGE_GLOW_RIGHT.setAccessible(true);
+            RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
+            return;
+        }
         final Class<?> cls = Util.inClassPath(RecyclerViewProcessor.MAIN_CLASS);
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
@@ -165,6 +196,11 @@ public class EdgeGlowUtil {
     private static Field VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT;
 
     private static void invalidateViewPagerFields() {
+        if (VIEW_PAGER_FIELD_EDGE_GLOW_LEFT != null && VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT != null) {
+            VIEW_PAGER_FIELD_EDGE_GLOW_LEFT.setAccessible(true);
+            VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT.setAccessible(true);
+            return;
+        }
         final Class<?> cls = Util.inClassPath(ViewPagerProcessor.MAIN_CLASS);
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
