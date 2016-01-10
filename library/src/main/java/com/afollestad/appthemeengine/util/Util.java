@@ -124,6 +124,22 @@ public final class Util {
         return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
     }
 
+    public static boolean isInClassPath(@NonNull String clsName) {
+        try {
+            return inClassPath(clsName) != null;
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    public static Class<?> inClassPath(@NonNull String clsName) {
+        try {
+            return Class.forName(clsName);
+        } catch (Throwable t) {
+            throw new IllegalStateException(String.format("%s is not in your class path! You must include the associated library.", clsName));
+        }
+    }
+
     private Util() {
     }
 }

@@ -13,6 +13,8 @@ import com.afollestad.appthemeengine.util.EdgeGlowUtil;
  */
 public class RecyclerViewProcessor implements Processor<RecyclerView, Void> {
 
+    public static final String MAIN_CLASS = "android.support.v7.widget.RecyclerView";
+
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable RecyclerView target, @Nullable Void extra) {
         if (target == null) return;

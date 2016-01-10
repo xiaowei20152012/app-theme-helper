@@ -19,6 +19,8 @@ import com.afollestad.appthemeengine.util.Util;
  */
 public class NavigationViewProcessor implements Processor<NavigationView, Void> {
 
+    public static final String MAIN_CLASS = "android.support.design.widget.NavigationView";
+
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable NavigationView view, @Nullable Void extra) {
         if (view == null || !Config.navigationViewThemed(context, key))

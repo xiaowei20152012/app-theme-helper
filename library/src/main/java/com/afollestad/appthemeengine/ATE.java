@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,7 +37,6 @@ import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.util.Util;
 import com.afollestad.appthemeengine.views.PreMadeView;
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
 
 import java.lang.reflect.Field;
 
@@ -115,6 +113,7 @@ public final class ATE extends ATEBase {
         return ATE.config(context, key).isConfigured() && Config.prefs(context, key).getLong(Config.VALUES_CHANGED, -1) > updateTime;
     }
 
+    @SuppressWarnings("unchecked")
     public static void preApply(@NonNull Activity activity, @Nullable String key) {
         didPreApply = activity.getClass();
         mToolbar = null;
@@ -161,15 +160,8 @@ public final class ATE extends ATEBase {
 
         // MD integration
         if (Config.usingMaterialDialogs(activity, key)) {
-            final ThemeSingleton md = ThemeSingleton.get();
-            md.titleColor = Config.textColorPrimary(activity, key);
-            md.contentColor = Config.textColorSecondary(activity, key);
-            md.itemColor = md.titleColor;
-            md.widgetColor = Config.accentColor(activity, key);
-            md.linkColor = ColorStateList.valueOf(md.widgetColor);
-            md.positiveColor = ColorStateList.valueOf(md.widgetColor);
-            md.neutralColor = ColorStateList.valueOf(md.widgetColor);
-            md.negativeColor = ColorStateList.valueOf(md.widgetColor);
+            final Processor processor = getProcessors().get(MATERIALDIALOGS_PROCESSOR);
+            if (processor != null) processor.process(activity, key, null, null);
         }
     }
 

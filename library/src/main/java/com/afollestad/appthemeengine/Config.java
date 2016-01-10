@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.annotation.AttrRes;
 import android.support.annotation.CheckResult;
@@ -25,9 +24,9 @@ import android.view.View;
 import com.afollestad.appthemeengine.customizers.ATENavigationBarCustomizer;
 import com.afollestad.appthemeengine.customizers.ATEStatusBarCustomizer;
 import com.afollestad.appthemeengine.customizers.ATEToolbarCustomizer;
+import com.afollestad.appthemeengine.processors.MaterialDialogsProcessor;
+import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.Util;
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
-import com.afollestad.materialdialogs.util.DialogUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -324,13 +323,15 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationViewSelectedBgAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedBg(DialogUtils.resolveColor(mContext, colorAttr));
+        return navigationViewSelectedBg(Util.resolveColor(mContext, colorAttr));
     }
 
     // Misc
 
     @Override
     public Config usingMaterialDialogs(boolean enabled) {
+        // Triggers exception if Material Dialogs is not in the class path
+        Util.inClassPath(MaterialDialogsProcessor.MAIN_CLASS);
         mEditor.putBoolean(KEY_USING_MATERIAL_DIALOGS, enabled);
         return this;
     }
@@ -356,6 +357,7 @@ public final class Config extends ConfigBase {
 
     // Apply and commit methods
 
+    @SuppressWarnings("unchecked")
     @Override
     public void commit() {
         mEditor.putLong(VALUES_CHANGED, System.currentTimeMillis())
@@ -364,15 +366,8 @@ public final class Config extends ConfigBase {
 
         // MD integration
         if (Config.usingMaterialDialogs(mContext, mKey)) {
-            final ThemeSingleton md = ThemeSingleton.get();
-            md.titleColor = Config.textColorPrimary(mContext, mKey);
-            md.contentColor = Config.textColorSecondary(mContext, mKey);
-            md.itemColor = md.titleColor;
-            md.widgetColor = Config.accentColor(mContext, mKey);
-            md.linkColor = ColorStateList.valueOf(md.widgetColor);
-            md.positiveColor = ColorStateList.valueOf(md.widgetColor);
-            md.neutralColor = ColorStateList.valueOf(md.widgetColor);
-            md.negativeColor = ColorStateList.valueOf(md.widgetColor);
+            final Processor processor = ATE.getProcessors().get(ATE.MATERIALDIALOGS_PROCESSOR);
+            if (processor != null) processor.process(mContext, mKey, null, null);
         }
     }
 
@@ -587,7 +582,8 @@ public final class Config extends ConfigBase {
 
     @CheckResult
     public static boolean usingMaterialDialogs(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getBoolean(KEY_USING_MATERIAL_DIALOGS, false);
+        return Util.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS) &&
+                prefs(context, key).getBoolean(KEY_USING_MATERIAL_DIALOGS, false);
     }
 
     @CheckResult

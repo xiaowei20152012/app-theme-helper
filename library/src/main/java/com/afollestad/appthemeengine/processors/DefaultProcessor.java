@@ -7,17 +7,18 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.afollestad.appthemeengine.BuildConfig;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.util.TypefaceHelper;
 import com.afollestad.appthemeengine.util.Util;
-import com.afollestad.materialdialogs.util.DialogUtils;
+
+import java.lang.reflect.Method;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -41,6 +42,22 @@ public class DefaultProcessor implements Processor<View, Void> {
         }
     }
 
+    private void setBackgroundColor(@NonNull View view, @ColorInt int color) {
+        if (Util.isInClassPath("android.support.v7.widget.CardView") &&
+                (view.getClass().getName().equalsIgnoreCase("android.support.v7.widget.CardView") ||
+                        view.getClass().getSuperclass().getName().equals("android.support.v7.widget.CardView"))) {
+            try {
+                final Class<?> cardViewCls = Class.forName("android.support.v7.widget.CardView");
+                final Method setCardBg = cardViewCls.getMethod("setCardBackgroundColor", Integer.class);
+                setCardBg.invoke(view, color);
+            } catch (Throwable t) {
+                if (BuildConfig.DEBUG) t.printStackTrace();
+            }
+        } else {
+            view.setBackgroundColor(color);
+        }
+    }
+
     private void processTagPart(@NonNull Context context, @NonNull View current, @NonNull String tag, @Nullable String key) {
         if (tag.startsWith(KEY_FONT_PREFIX)) {
             if (!(current instanceof TextView))
@@ -58,46 +75,25 @@ public class DefaultProcessor implements Processor<View, Void> {
 
         switch (tag) {
             case KEY_BG_PRIMARY_COLOR:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.primaryColor(context, key));
-                else
-                    current.setBackgroundColor(Config.primaryColor(context, key));
+                setBackgroundColor(current, Config.primaryColor(context, key));
                 break;
             case KEY_BG_PRIMARY_COLOR_DARK:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.primaryColorDark(context, key));
-                else
-                    current.setBackgroundColor(Config.primaryColorDark(context, key));
+                setBackgroundColor(current, Config.primaryColorDark(context, key));
                 break;
             case KEY_BG_ACCENT_COLOR:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.accentColor(context, key));
-                else
-                    current.setBackgroundColor(Config.accentColor(context, key));
+                setBackgroundColor(current, Config.accentColor(context, key));
                 break;
             case KEY_BG_TEXT_PRIMARY:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.textColorPrimary(context, key));
-                else
-                    current.setBackgroundColor(Config.textColorPrimary(context, key));
+                setBackgroundColor(current, Config.textColorPrimary(context, key));
                 break;
             case KEY_BG_TEXT_PRIMARY_INVERSE:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.textColorPrimaryInverse(context, key));
-                else
-                    current.setBackgroundColor(Config.textColorPrimaryInverse(context, key));
+                setBackgroundColor(current, Config.textColorPrimaryInverse(context, key));
                 break;
             case KEY_BG_TEXT_SECONDARY:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.textColorSecondary(context, key));
-                else
-                    current.setBackgroundColor(Config.textColorSecondary(context, key));
+                setBackgroundColor(current, Config.textColorSecondary(context, key));
                 break;
             case KEY_BG_TEXT_SECONDARY_INVERSE:
-                if (current instanceof CardView)
-                    ((CardView) current).setCardBackgroundColor(Config.textColorSecondaryInverse(context, key));
-                else
-                    current.setBackgroundColor(Config.textColorSecondaryInverse(context, key));
+                setBackgroundColor(current, Config.textColorSecondaryInverse(context, key));
                 break;
 
             case KEY_TEXT_PRIMARY_COLOR:
@@ -144,7 +140,7 @@ public class DefaultProcessor implements Processor<View, Void> {
                 ((TextView) current).setTextColor(getTextSelector(Config.textColorSecondaryInverse(context, key), current, true));
                 break;
             case KEY_WINDOW_BACKGROUND_DEPENDENT:
-                ((TextView) current).setTextColor(getTextSelector(DialogUtils.resolveColor(context, android.R.attr.windowBackground), current, true));
+                ((TextView) current).setTextColor(getTextSelector(Util.resolveColor(context, android.R.attr.windowBackground), current, true));
                 break;
 
             case KEY_TEXTLINK_PRIMARY_COLOR:

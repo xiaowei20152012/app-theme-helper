@@ -19,6 +19,8 @@ import com.afollestad.appthemeengine.util.Util;
  */
 public class TabLayoutProcessor implements Processor<TabLayout, Void> {
 
+    public static final String MAIN_CLASS = "android.support.design.widget.TabLayout";
+
     private int mTabTextColorSelected;
     private int mTabIndicatorColorSelected;
 

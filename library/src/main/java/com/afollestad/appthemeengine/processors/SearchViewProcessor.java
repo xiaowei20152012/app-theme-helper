@@ -17,6 +17,8 @@ import java.lang.reflect.Field;
  */
 public class SearchViewProcessor implements Processor<View, Integer> {
 
+    public static final String MAIN_CLASS = "android.support.v7.widget.SearchView";
+
     private void tintImageView(Object target, Field field, int tintColor) throws Exception {
         field.setAccessible(true);
         final ImageView imageView = (ImageView) field.get(target);
