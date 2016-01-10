@@ -609,6 +609,10 @@ If you want ATE to ignore a `View`, or more importantly a `ViewGroup`, you can s
 The major advantage of using this on a `ViewGroup` is that ATE won't look through the view's children, thus 
 decreasing the amount of type it takes to apply.
 
+---
+
+This only works if the tag value is just `ate_ignore`, nothing else. You can't use this in conjunction with other tags.
+
 #### Background Colors
 
 You can change the background of any type of view.
