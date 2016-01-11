@@ -7,8 +7,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
+import android.view.View;
 
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.TintHelper;
@@ -36,29 +36,23 @@ public class TabLayoutProcessor implements Processor<TabLayout, Void> {
         mTabIndicatorColorSelected = Color.WHITE;
 
         Drawable bg = view.getBackground();
-        if (view.getParent() != null && view.getParent() instanceof AppBarLayout &&
-                ((AppBarLayout) view.getParent()).getBackground() instanceof ColorDrawable) {
-            bg = ((AppBarLayout) view.getParent()).getBackground();
-        }
-
+        if (bg == null)
+            bg = ((View) view.getParent()).getBackground();
         if (bg != null && bg instanceof ColorDrawable) {
             final ColorDrawable cd = (ColorDrawable) bg;
             if (Util.isColorLight(cd.getColor()))
                 mTabTextColorSelected = mTabIndicatorColorSelected = Color.BLACK;
         }
 
-        if (view.getTag() == null || !(view.getTag() instanceof String)) {
-            processTagPart(context, view, null, key);
-            return;
-        }
-
-        final String tag = (String) view.getTag();
-        if (tag.contains(",")) {
-            final String[] splitTag = tag.split(",");
-            for (String part : splitTag)
-                processTagPart(context, view, part, key);
-        } else {
-            processTagPart(context, view, tag, key);
+        if (view.getTag() != null && view.getTag() instanceof String) {
+            final String tag = (String) view.getTag();
+            if (tag.contains(",")) {
+                final String[] splitTag = tag.split(",");
+                for (String part : splitTag)
+                    processTagPart(context, part, key);
+            } else {
+                processTagPart(context, tag, key);
+            }
         }
 
         view.setTabTextColors(Util.adjustAlpha(mTabTextColorSelected, 0.5f), mTabTextColorSelected);
@@ -80,7 +74,7 @@ public class TabLayoutProcessor implements Processor<TabLayout, Void> {
         }
     }
 
-    private void processTagPart(@NonNull Context context, @NonNull TabLayout view, @Nullable String tag, @Nullable String key) {
+    private void processTagPart(@NonNull Context context, @Nullable String tag, @Nullable String key) {
         if (tag != null) {
             switch (tag) {
                 case KEY_TAB_TEXT_PRIMARY_COLOR:
