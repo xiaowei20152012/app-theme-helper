@@ -547,13 +547,13 @@ public final class Config extends ConfigBase {
     @CheckResult
     @ColorInt
     public static int navigationViewSelectedIcon(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_ICON, accentColor(context, key));
+        return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_ICON, primaryColor(context, key));
     }
 
     @CheckResult
     @ColorInt
     public static int navigationViewSelectedText(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_TEXT, accentColor(context, key));
+        return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_TEXT, primaryColor(context, key));
     }
 
     @CheckResult
