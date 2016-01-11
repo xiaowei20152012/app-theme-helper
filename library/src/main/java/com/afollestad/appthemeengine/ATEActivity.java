@@ -35,18 +35,14 @@ public class ATEActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (ATE.didValuesChange(this, updateTime, getATEKey()))
-            postRecreate();
-    }
-
-    // hack to prevent java.lang.RuntimeException: Performing pause of activity that is not resumed
-    private void postRecreate() {
-        // makes sure recreate() is called right after and not in onResume()
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                recreate();
-            }
-        });
+            // hack to prevent java.lang.RuntimeException: Performing pause of activity that is not resumed
+            // makes sure recreate() is called right after and not in onResume()
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            });
     }
 
     @Override
