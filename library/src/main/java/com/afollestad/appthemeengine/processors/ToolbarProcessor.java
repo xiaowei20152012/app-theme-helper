@@ -19,6 +19,7 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEMenuPresenterCallback;
@@ -78,6 +79,8 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                     e.printStackTrace();
                 }
             }
+        } else if (toolbar.getParent() instanceof AppBarLayout) {
+            Util.setBackgroundCompat((View) toolbar.getParent(), new ColorDrawable(toolbarColor));
         } else {
             Util.setBackgroundCompat(toolbar, new ColorDrawable(toolbarColor));
         }
