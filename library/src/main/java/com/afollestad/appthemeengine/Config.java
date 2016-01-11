@@ -522,7 +522,9 @@ public final class Config extends ConfigBase {
             int color = ((ATEStatusBarCustomizer) context).getLightStatusBarMode();
             if (color != 0) return color;
         }
-        return prefs(context, key).getInt(KEY_LIGHT_STATUS_BAR_MODE, Config.LIGHT_STATUS_BAR_AUTO);
+        int value = prefs(context, key).getInt(KEY_LIGHT_STATUS_BAR_MODE, Config.LIGHT_STATUS_BAR_AUTO);
+        if (value < 1) value = Config.LIGHT_STATUS_BAR_AUTO;
+        return value;
     }
 
     @SuppressWarnings("ResourceType")
@@ -531,7 +533,9 @@ public final class Config extends ConfigBase {
     public static int lightToolbarMode(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
         if (context instanceof ATEToolbarCustomizer)
             return ((ATEToolbarCustomizer) context).getLightToolbarMode(toolbar);
-        return prefs(context, key).getInt(KEY_LIGHT_TOOLBAR_MODE, Config.LIGHT_TOOLBAR_AUTO);
+        int value = prefs(context, key).getInt(KEY_LIGHT_TOOLBAR_MODE, Config.LIGHT_TOOLBAR_AUTO);
+        if (value < 1) value = Config.LIGHT_TOOLBAR_AUTO;
+        return value;
     }
 
     @CheckResult
@@ -642,13 +646,13 @@ public final class Config extends ConfigBase {
     public @interface TextSizeMode {
     }
 
-    public static final int LIGHT_STATUS_BAR_OFF = 0;
-    public static final int LIGHT_STATUS_BAR_ON = 1;
-    public static final int LIGHT_STATUS_BAR_AUTO = 2;
+    public static final int LIGHT_STATUS_BAR_AUTO = 1;
+    public static final int LIGHT_STATUS_BAR_ON = 2;
+    public static final int LIGHT_STATUS_BAR_OFF = 3;
 
-    public static final int LIGHT_TOOLBAR_OFF = 0;
-    public static final int LIGHT_TOOLBAR_ON = 1;
-    public static final int LIGHT_TOOLBAR_AUTO = 2;
+    public static final int LIGHT_TOOLBAR_AUTO = 1;
+    public static final int LIGHT_TOOLBAR_ON = 2;
+    public static final int LIGHT_TOOLBAR_OFF = 3;
 
     public final static String TEXTSIZE_DISPLAY4 = "textsize_display4";
     public final static String TEXTSIZE_DISPLAY3 = "textsize_display3";
