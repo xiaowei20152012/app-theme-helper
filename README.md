@@ -87,7 +87,7 @@ Add this to your module's `build.gradle` file:
 ```gradle
 dependencies {
 	...
-	compile('com.github.afollestad:app-theme-engine:0.7.6@aar') {
+	compile('com.github.afollestad:app-theme-engine:0.7.7@aar') {
 		transitive = true
 	}
 }
