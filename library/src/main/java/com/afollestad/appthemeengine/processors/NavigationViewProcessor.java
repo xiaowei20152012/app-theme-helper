@@ -39,7 +39,7 @@ public class NavigationViewProcessor implements Processor<NavigationView, Void> 
                 },
                 new int[]{
                         Config.navigationViewNormalIcon(context, key, darkTheme),
-                        Config.navigationViewSelectedIcon(context, key)
+                        Config.navigationViewSelectedIcon(context, key, darkTheme)
                 });
         final ColorStateList textSl = new ColorStateList(
                 new int[][]{
@@ -48,7 +48,7 @@ public class NavigationViewProcessor implements Processor<NavigationView, Void> 
                 },
                 new int[]{
                         Config.navigationViewNormalText(context, key, darkTheme),
-                        Config.navigationViewSelectedText(context, key)
+                        Config.navigationViewSelectedText(context, key, darkTheme)
                 });
         view.setItemTextColor(textSl);
         view.setItemIconTintList(iconSl);

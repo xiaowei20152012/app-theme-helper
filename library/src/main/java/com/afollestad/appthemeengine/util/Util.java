@@ -70,6 +70,14 @@ public final class Util {
         return darkness < 0.4;
     }
 
+    @ColorInt
+    public static int invertColor(@ColorInt int color) {
+        final int r = 255 - Color.red(color);
+        final int g = 255 - Color.green(color);
+        final int b = 255 - Color.blue(color);
+        return Color.argb(Color.alpha(color), r, g, b);
+    }
+
     @Nullable
     public static Toolbar getSupportActionBarView(@Nullable ActionBar ab) {
         if (ab == null || !(ab instanceof WindowDecorActionBar)) return null;
