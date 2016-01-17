@@ -46,6 +46,7 @@ import java.lang.reflect.Field;
 public final class ATE extends ATEBase {
 
     private static final String IGNORE_TAG = "ate_ignore";
+    public static final int USE_DEFAULT = Integer.MAX_VALUE;
 
     private static boolean isPreMadeView(@NonNull View view) {
         return view.getClass().getAnnotation(PreMadeView.class) != null;
@@ -248,7 +249,7 @@ public final class ATE extends ATEBase {
             color = customizer.getTaskDescriptionColor();
             icon = customizer.getTaskDescriptionIcon();
         }
-        if (color == 0)
+        if (color == ATE.USE_DEFAULT)
             color = Config.primaryColor(activity, key);
 
         // Task description requires fully opaque color

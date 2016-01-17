@@ -211,10 +211,10 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                 mCollapsedColor = customizer.getCollapsedTintColor();
                 mExpandedColor = customizer.getExpandedTintColor();
 
-                if (mCollapsedColor == 0 || mExpandedColor == 0) {
+                if (mCollapsedColor == ATE.USE_DEFAULT || mExpandedColor == ATE.USE_DEFAULT) {
                     final int tintColor = Config.getToolbarTitleColor(context, toolbar, key);
-                    if (mCollapsedColor == 0) mCollapsedColor = tintColor;
-                    if (mExpandedColor == 0) mExpandedColor = tintColor;
+                    if (mCollapsedColor == ATE.USE_DEFAULT) mCollapsedColor = tintColor;
+                    if (mExpandedColor == ATE.USE_DEFAULT) mExpandedColor = tintColor;
                 }
             } else {
                 mScrimsAreShown = null;

@@ -448,10 +448,12 @@ public final class Config extends ConfigBase {
     @CheckResult
     @ColorInt
     public static int statusBarColor(@NonNull Context context, @Nullable String key) {
-        if (context instanceof ATEStatusBarCustomizer)
-            return ((ATEStatusBarCustomizer) context).getStatusBarColor();
-        else if (!coloredStatusBar(context, key))
+        if (context instanceof ATEStatusBarCustomizer) {
+            final int color = ((ATEStatusBarCustomizer) context).getStatusBarColor();
+            if (color != ATE.USE_DEFAULT) return color;
+        } else if (!coloredStatusBar(context, key)) {
             return Color.BLACK;
+        }
         return prefs(context, key).getInt(KEY_STATUS_BAR_COLOR, primaryColorDark(context, key));
     }
 
@@ -460,7 +462,7 @@ public final class Config extends ConfigBase {
     public static int toolbarColor(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar) {
         if (context instanceof ATEToolbarCustomizer) {
             int color = ((ATEToolbarCustomizer) context).getToolbarColor(toolbar);
-            if (color != 0) return color;
+            if (color != ATE.USE_DEFAULT) return color;
         }
         return prefs(context, key).getInt(KEY_TOOLBAR_COLOR, primaryColor(context, key));
     }
@@ -470,7 +472,7 @@ public final class Config extends ConfigBase {
     public static int navigationBarColor(@NonNull Context context, @Nullable String key) {
         if (context instanceof ATENavigationBarCustomizer) {
             int color = ((ATENavigationBarCustomizer) context).getNavigationBarColor();
-            if (color != 0) return color;
+            if (color != ATE.USE_DEFAULT) return color;
         }
         return prefs(context, key).getInt(KEY_NAVIGATION_BAR_COLOR, primaryColor(context, key));
     }
