@@ -118,7 +118,6 @@ public final class ATE extends ATEBase {
         return ATE.config(context, key).isConfigured() && Config.prefs(context, key).getLong(Config.VALUES_CHANGED, -1) > updateTime;
     }
 
-    @SuppressWarnings("unchecked")
     public static void preApply(@NonNull Activity activity, @Nullable String key) {
         didPreApply = activity.getClass();
         mToolbar = null;
@@ -126,7 +125,10 @@ public final class ATE extends ATEBase {
         int activityTheme = activity instanceof ATEActivityThemeCustomizer ?
                 ((ATEActivityThemeCustomizer) activity).getActivityTheme() : Config.activityTheme(activity, key);
         if (activityTheme != 0) activity.setTheme(activityTheme);
+    }
 
+    @SuppressWarnings("unchecked")
+    private static void performMainTheming(@NonNull Activity activity, @Nullable String key) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Window window = activity.getWindow();
             if (Config.coloredStatusBar(activity, key))
@@ -187,6 +189,8 @@ public final class ATE extends ATEBase {
     public static void apply(@NonNull Activity activity, @Nullable String key) {
         if (didPreApply == null)
             preApply(activity, key);
+        performMainTheming(activity, key);
+
         if (Config.coloredActionBar(activity, key)) {
             if (activity instanceof AppCompatActivity) {
                 final AppCompatActivity aca = (AppCompatActivity) activity;
