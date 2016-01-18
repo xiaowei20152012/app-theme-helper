@@ -554,8 +554,7 @@ public final class Config extends ConfigBase {
     @ColorInt
     public static int navigationViewSelectedIcon(@NonNull Context context, @Nullable String key, boolean darkTheme) {
         int defaultColor = primaryColor(context, key);
-        final boolean defaultIsLight = Util.isColorLight(defaultColor);
-        if ((!darkTheme && defaultIsLight) || (darkTheme && !defaultIsLight))
+        if (darkTheme != Util.isColorLight(defaultColor))
             defaultColor = Util.invertColor(defaultColor);
         return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_ICON, defaultColor);
     }
@@ -564,8 +563,7 @@ public final class Config extends ConfigBase {
     @ColorInt
     public static int navigationViewSelectedText(@NonNull Context context, @Nullable String key, boolean darkTheme) {
         int defaultColor = primaryColor(context, key);
-        final boolean defaultIsLight = Util.isColorLight(defaultColor);
-        if ((!darkTheme && defaultIsLight) || (darkTheme && !defaultIsLight))
+        if (darkTheme != Util.isColorLight(defaultColor))
             defaultColor = Util.invertColor(defaultColor);
         return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_TEXT, defaultColor);
     }
