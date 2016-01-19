@@ -11,8 +11,8 @@ import android.support.design.widget.TabLayout;
 import android.view.View;
 
 import com.afollestad.appthemeengine.Config;
+import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.util.Util;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -40,7 +40,7 @@ public class TabLayoutProcessor implements Processor<TabLayout, Void> {
             bg = ((View) view.getParent()).getBackground();
         if (bg != null && bg instanceof ColorDrawable) {
             final ColorDrawable cd = (ColorDrawable) bg;
-            if (Util.isColorLight(cd.getColor()))
+            if (ATEUtil.isColorLight(cd.getColor()))
                 mTabTextColorSelected = mTabIndicatorColorSelected = Color.BLACK;
         }
 
@@ -55,7 +55,7 @@ public class TabLayoutProcessor implements Processor<TabLayout, Void> {
             }
         }
 
-        view.setTabTextColors(Util.adjustAlpha(mTabTextColorSelected, 0.5f), mTabTextColorSelected);
+        view.setTabTextColors(ATEUtil.adjustAlpha(mTabTextColorSelected, 0.5f), mTabTextColorSelected);
         view.setSelectedTabIndicatorColor(mTabIndicatorColorSelected);
 
         final ColorStateList sl = new ColorStateList(new int[][]{
@@ -63,7 +63,7 @@ public class TabLayoutProcessor implements Processor<TabLayout, Void> {
                 new int[]{android.R.attr.state_selected}
         },
                 new int[]{
-                        Util.adjustAlpha(mTabIndicatorColorSelected, 0.5f),
+                        ATEUtil.adjustAlpha(mTabIndicatorColorSelected, 0.5f),
                         mTabIndicatorColorSelected
                 });
         for (int i = 0; i < view.getTabCount(); i++) {

@@ -116,7 +116,7 @@ public class EdgeGlowUtil {
             NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
             return;
         }
-        final Class<?> cls = Util.inClassPath(NestedScrollViewProcessor.MAIN_CLASS);
+        final Class<?> cls = ATEUtil.inClassPath(NestedScrollViewProcessor.MAIN_CLASS);
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
                 case "mEdgeGlowTop":
@@ -169,7 +169,7 @@ public class EdgeGlowUtil {
             RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
             return;
         }
-        final Class<?> cls = Util.inClassPath(RecyclerViewProcessor.MAIN_CLASS);
+        final Class<?> cls = ATEUtil.inClassPath(RecyclerViewProcessor.MAIN_CLASS);
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
                 case "mTopGlow":
@@ -201,7 +201,7 @@ public class EdgeGlowUtil {
             VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT.setAccessible(true);
             return;
         }
-        final Class<?> cls = Util.inClassPath(ViewPagerProcessor.MAIN_CLASS);
+        final Class<?> cls = ATEUtil.inClassPath(ViewPagerProcessor.MAIN_CLASS);
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
                 case "mLeftEdge":

@@ -21,7 +21,7 @@ import com.afollestad.appthemeengine.processors.SearchViewProcessor;
 import com.afollestad.appthemeengine.processors.TabLayoutProcessor;
 import com.afollestad.appthemeengine.processors.ToolbarProcessor;
 import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
-import com.afollestad.appthemeengine.util.Util;
+import com.afollestad.appthemeengine.util.ATEUtil;
 
 import java.util.HashMap;
 
@@ -38,7 +38,7 @@ class ATEBase {
     private static void initProcessors() {
         mProcessors = new HashMap<>();
         mProcessors.put(DEFAULT_PROCESSOR, new DefaultProcessor());
-        if (Util.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS))
             mProcessors.put(MATERIALDIALOGS_PROCESSOR, new MaterialDialogsProcessor());
         else Log.d("ATEBase", "MaterialDialogs isn't in the class path. Ignoring.");
 
@@ -47,22 +47,22 @@ class ATEBase {
         mProcessors.put(SearchView.class.getName(), new SearchViewProcessor());
         mProcessors.put(Toolbar.class.getName(), new ToolbarProcessor());
 
-        if (Util.isInClassPath(NestedScrollViewProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(NestedScrollViewProcessor.MAIN_CLASS))
             mProcessors.put(NestedScrollViewProcessor.MAIN_CLASS, new NestedScrollViewProcessor());
         else Log.d("ATEBase", "NestedScrollView isn't in the class path. Ignoring.");
-        if (Util.isInClassPath(RecyclerViewProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(RecyclerViewProcessor.MAIN_CLASS))
             mProcessors.put(RecyclerViewProcessor.MAIN_CLASS, new RecyclerViewProcessor());
         else Log.d("ATEBase", "RecyclerView isn't in the class path. Ignoring.");
-        if (Util.isInClassPath(NavigationViewProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(NavigationViewProcessor.MAIN_CLASS))
             mProcessors.put(NavigationViewProcessor.MAIN_CLASS, new NavigationViewProcessor());
         else Log.d("ATEBase", "NavigationView isn't in the class path. Ignoring.");
-        if (Util.isInClassPath(TabLayoutProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(TabLayoutProcessor.MAIN_CLASS))
             mProcessors.put(TabLayoutProcessor.MAIN_CLASS, new TabLayoutProcessor());
         else Log.d("ATEBase", "TabLayout isn't in the class path. Ignoring.");
-        if (Util.isInClassPath(SearchViewProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(SearchViewProcessor.MAIN_CLASS))
             mProcessors.put(SearchViewProcessor.MAIN_CLASS, new SearchViewProcessor());
         else Log.d("ATEBase", "SearchView isn't in the class path. Ignoring.");
-        if (Util.isInClassPath(ViewPagerProcessor.MAIN_CLASS))
+        if (ATEUtil.isInClassPath(ViewPagerProcessor.MAIN_CLASS))
             mProcessors.put(ViewPagerProcessor.MAIN_CLASS, new ViewPagerProcessor());
         else Log.d("ATEBase", "ViewPager isn't in the class path. Ignoring.");
     }

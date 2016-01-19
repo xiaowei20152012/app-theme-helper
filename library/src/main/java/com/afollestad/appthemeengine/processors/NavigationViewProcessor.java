@@ -7,12 +7,11 @@ import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.view.Menu;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
-import com.afollestad.appthemeengine.util.Util;
+import com.afollestad.appthemeengine.util.ATEUtil;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,7 +28,7 @@ public class NavigationViewProcessor implements Processor<NavigationView, Void> 
         boolean darkTheme = false;
         if (view.getBackground() != null && view.getBackground() instanceof ColorDrawable) {
             final ColorDrawable cd = (ColorDrawable) view.getBackground();
-            darkTheme = !Util.isColorLight(cd.getColor());
+            darkTheme = !ATEUtil.isColorLight(cd.getColor());
         }
 
         final ColorStateList iconSl = new ColorStateList(

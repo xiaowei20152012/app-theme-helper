@@ -28,7 +28,7 @@ import java.util.ArrayList;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public final class Util {
+public final class ATEUtil {
 
     public static int adjustAlpha(@ColorInt int color, @FloatRange(from = 0.0, to = 1.0) float factor) {
         int alpha = Math.round(Color.alpha(color) * factor);
@@ -148,6 +148,6 @@ public final class Util {
         }
     }
 
-    private Util() {
+    private ATEUtil() {
     }
 }
