@@ -6,10 +6,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SearchView;
 
+import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.util.Util;
 
 import java.lang.reflect.Field;
 
@@ -36,7 +35,7 @@ public class SearchViewProcessor implements Processor<View, Integer> {
             mSearchSrcTextViewField.setAccessible(true);
             final EditText mSearchSrcTextView = (EditText) mSearchSrcTextViewField.get(target);
             mSearchSrcTextView.setTextColor(tintColor);
-            mSearchSrcTextView.setHintTextColor(Util.adjustAlpha(tintColor, 0.5f));
+            mSearchSrcTextView.setHintTextColor(ATEUtil.adjustAlpha(tintColor, 0.5f));
             TintHelper.setCursorTint(mSearchSrcTextView, tintColor);
 
             Field field = cls.getDeclaredField("mSearchButton");

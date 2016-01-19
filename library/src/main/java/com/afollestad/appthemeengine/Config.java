@@ -26,7 +26,7 @@ import com.afollestad.appthemeengine.customizers.ATEStatusBarCustomizer;
 import com.afollestad.appthemeengine.customizers.ATEToolbarCustomizer;
 import com.afollestad.appthemeengine.processors.MaterialDialogsProcessor;
 import com.afollestad.appthemeengine.processors.Processor;
-import com.afollestad.appthemeengine.util.Util;
+import com.afollestad.appthemeengine.util.ATEUtil;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -78,7 +78,7 @@ public final class Config extends ConfigBase {
     public Config primaryColor(@ColorInt int color) {
         mEditor.putInt(KEY_PRIMARY_COLOR, color);
         if (autoGeneratePrimaryDark(mContext, mKey))
-            primaryColorDark(Util.darkenColor(color));
+            primaryColorDark(ATEUtil.darkenColor(color));
         return this;
     }
 
@@ -89,7 +89,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config primaryColorAttr(@AttrRes int colorAttr) {
-        return primaryColor(Util.resolveColor(mContext, colorAttr));
+        return primaryColor(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -105,7 +105,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config primaryColorDarkAttr(@AttrRes int colorAttr) {
-        return primaryColorDark(Util.resolveColor(mContext, colorAttr));
+        return primaryColorDark(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -121,7 +121,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config accentColorAttr(@AttrRes int colorAttr) {
-        return accentColor(Util.resolveColor(mContext, colorAttr));
+        return accentColor(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -137,7 +137,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config statusBarColorAttr(@AttrRes int colorAttr) {
-        return statusBarColor(Util.resolveColor(mContext, colorAttr));
+        return statusBarColor(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -153,7 +153,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config toolbarColorAttr(@AttrRes int colorAttr) {
-        return toolbarColor(Util.resolveColor(mContext, colorAttr));
+        return toolbarColor(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -169,7 +169,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationBarColorAttr(@AttrRes int colorAttr) {
-        return navigationBarColor(Util.resolveColor(mContext, colorAttr));
+        return navigationBarColor(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -185,7 +185,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config textColorPrimaryAttr(@AttrRes int colorAttr) {
-        return textColorPrimary(Util.resolveColor(mContext, colorAttr));
+        return textColorPrimary(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -201,7 +201,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config textColorSecondaryAttr(@AttrRes int colorAttr) {
-        return textColorSecondary(Util.resolveColor(mContext, colorAttr));
+        return textColorSecondary(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -259,7 +259,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationViewSelectedIconAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedIcon(Util.resolveColor(mContext, colorAttr));
+        return navigationViewSelectedIcon(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -275,7 +275,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationViewSelectedTextAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedText(Util.resolveColor(mContext, colorAttr));
+        return navigationViewSelectedText(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -291,7 +291,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationViewNormalIconAttr(@AttrRes int colorAttr) {
-        return navigationViewNormalIcon(Util.resolveColor(mContext, colorAttr));
+        return navigationViewNormalIcon(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -307,7 +307,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationViewNormalTextAttr(@AttrRes int colorAttr) {
-        return navigationViewNormalText(Util.resolveColor(mContext, colorAttr));
+        return navigationViewNormalText(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
@@ -323,7 +323,7 @@ public final class Config extends ConfigBase {
 
     @Override
     public Config navigationViewSelectedBgAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedBg(Util.resolveColor(mContext, colorAttr));
+        return navigationViewSelectedBg(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
     // Misc
@@ -331,7 +331,7 @@ public final class Config extends ConfigBase {
     @Override
     public Config usingMaterialDialogs(boolean enabled) {
         // Triggers exception if Material Dialogs is not in the class path
-        Util.inClassPath(MaterialDialogsProcessor.MAIN_CLASS);
+        ATEUtil.inClassPath(MaterialDialogsProcessor.MAIN_CLASS);
         mEditor.putBoolean(KEY_USING_MATERIAL_DIALOGS, enabled);
         return this;
     }
@@ -430,19 +430,19 @@ public final class Config extends ConfigBase {
     @CheckResult
     @ColorInt
     public static int primaryColor(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_PRIMARY_COLOR, Util.resolveColor(context, R.attr.colorPrimary, Color.parseColor("#455A64")));
+        return prefs(context, key).getInt(KEY_PRIMARY_COLOR, ATEUtil.resolveColor(context, R.attr.colorPrimary, Color.parseColor("#455A64")));
     }
 
     @CheckResult
     @ColorInt
     public static int primaryColorDark(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_PRIMARY_COLOR_DARK, Util.resolveColor(context, R.attr.colorPrimaryDark, Color.parseColor("#37474F")));
+        return prefs(context, key).getInt(KEY_PRIMARY_COLOR_DARK, ATEUtil.resolveColor(context, R.attr.colorPrimaryDark, Color.parseColor("#37474F")));
     }
 
     @CheckResult
     @ColorInt
     public static int accentColor(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_ACCENT_COLOR, Util.resolveColor(context, R.attr.colorAccent, Color.parseColor("#263238")));
+        return prefs(context, key).getInt(KEY_ACCENT_COLOR, ATEUtil.resolveColor(context, R.attr.colorAccent, Color.parseColor("#263238")));
     }
 
     @CheckResult
@@ -480,25 +480,25 @@ public final class Config extends ConfigBase {
     @CheckResult
     @ColorInt
     public static int textColorPrimary(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_TEXT_COLOR_PRIMARY, Util.resolveColor(context, android.R.attr.textColorPrimary));
+        return prefs(context, key).getInt(KEY_TEXT_COLOR_PRIMARY, ATEUtil.resolveColor(context, android.R.attr.textColorPrimary));
     }
 
     @CheckResult
     @ColorInt
     public static int textColorPrimaryInverse(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_TEXT_COLOR_PRIMARY_INVERSE, Util.resolveColor(context, android.R.attr.textColorPrimaryInverse));
+        return prefs(context, key).getInt(KEY_TEXT_COLOR_PRIMARY_INVERSE, ATEUtil.resolveColor(context, android.R.attr.textColorPrimaryInverse));
     }
 
     @CheckResult
     @ColorInt
     public static int textColorSecondary(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_TEXT_COLOR_SECONDARY, Util.resolveColor(context, android.R.attr.textColorSecondary));
+        return prefs(context, key).getInt(KEY_TEXT_COLOR_SECONDARY, ATEUtil.resolveColor(context, android.R.attr.textColorSecondary));
     }
 
     @CheckResult
     @ColorInt
     public static int textColorSecondaryInverse(@NonNull Context context, @Nullable String key) {
-        return prefs(context, key).getInt(KEY_TEXT_COLOR_SECONDARY_INVERSE, Util.resolveColor(context, android.R.attr.textColorSecondaryInverse));
+        return prefs(context, key).getInt(KEY_TEXT_COLOR_SECONDARY_INVERSE, ATEUtil.resolveColor(context, android.R.attr.textColorSecondaryInverse));
     }
 
     @CheckResult
@@ -554,8 +554,8 @@ public final class Config extends ConfigBase {
     @ColorInt
     public static int navigationViewSelectedIcon(@NonNull Context context, @Nullable String key, boolean darkTheme) {
         int defaultColor = primaryColor(context, key);
-        if (darkTheme != Util.isColorLight(defaultColor))
-            defaultColor = Util.invertColor(defaultColor);
+        if (darkTheme != ATEUtil.isColorLight(defaultColor))
+            defaultColor = ATEUtil.invertColor(defaultColor);
         return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_ICON, defaultColor);
     }
 
@@ -563,8 +563,8 @@ public final class Config extends ConfigBase {
     @ColorInt
     public static int navigationViewSelectedText(@NonNull Context context, @Nullable String key, boolean darkTheme) {
         int defaultColor = primaryColor(context, key);
-        if (darkTheme != Util.isColorLight(defaultColor))
-            defaultColor = Util.invertColor(defaultColor);
+        if (darkTheme != ATEUtil.isColorLight(defaultColor))
+            defaultColor = ATEUtil.invertColor(defaultColor);
         return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_TEXT, defaultColor);
     }
 
@@ -594,7 +594,7 @@ public final class Config extends ConfigBase {
 
     @CheckResult
     public static boolean usingMaterialDialogs(@NonNull Context context, @Nullable String key) {
-        return Util.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS) &&
+        return ATEUtil.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS) &&
                 prefs(context, key).getBoolean(KEY_USING_MATERIAL_DIALOGS, false);
     }
 
@@ -692,7 +692,7 @@ public final class Config extends ConfigBase {
                 break;
             default:
             case Config.LIGHT_TOOLBAR_AUTO:
-                isLightMode = Util.isColorLight(toolbarColor);
+                isLightMode = ATEUtil.isColorLight(toolbarColor);
                 break;
         }
         return isLightMode ? Color.BLACK : Color.WHITE;

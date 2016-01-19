@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 import com.afollestad.appthemeengine.BuildConfig;
 import com.afollestad.appthemeengine.Config;
+import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.util.TypefaceHelper;
-import com.afollestad.appthemeengine.util.Util;
 
 import java.lang.reflect.Method;
 
@@ -31,7 +31,7 @@ public class DefaultProcessor implements Processor<View, Void> {
     public void process(@NonNull Context context, @Nullable String key, @Nullable View view, @Nullable Void extra) {
         if (view == null || view.getTag() == null || !(view.getTag() instanceof String))
             return;
-        isDark = !Util.isColorLight(Util.resolveColor(view.getContext(), android.R.attr.windowBackground));
+        isDark = !ATEUtil.isColorLight(ATEUtil.resolveColor(view.getContext(), android.R.attr.windowBackground));
         final String tag = (String) view.getTag();
         if (tag.contains(",")) {
             final String[] splitTag = tag.split(",");
@@ -43,7 +43,7 @@ public class DefaultProcessor implements Processor<View, Void> {
     }
 
     private void setBackgroundColor(@NonNull View view, @ColorInt int color) {
-        if (Util.isInClassPath("android.support.v7.widget.CardView") &&
+        if (ATEUtil.isInClassPath("android.support.v7.widget.CardView") &&
                 (view.getClass().getName().equalsIgnoreCase("android.support.v7.widget.CardView") ||
                         view.getClass().getSuperclass().getName().equals("android.support.v7.widget.CardView"))) {
             try {
@@ -140,7 +140,7 @@ public class DefaultProcessor implements Processor<View, Void> {
                 ((TextView) current).setTextColor(getTextSelector(Config.textColorSecondaryInverse(context, key), current, true));
                 break;
             case KEY_WINDOW_BACKGROUND_DEPENDENT:
-                ((TextView) current).setTextColor(getTextSelector(Util.resolveColor(context, android.R.attr.windowBackground), current, true));
+                ((TextView) current).setTextColor(getTextSelector(ATEUtil.resolveColor(context, android.R.attr.windowBackground), current, true));
                 break;
 
             case KEY_TEXTLINK_PRIMARY_COLOR:
@@ -307,12 +307,12 @@ public class DefaultProcessor implements Processor<View, Void> {
 
     private static ColorStateList getTextSelector(@ColorInt int color, View view, boolean dependent) {
         if (dependent)
-            color = Util.isColorLight(color) ? Color.BLACK : Color.WHITE;
+            color = ATEUtil.isColorLight(color) ? Color.BLACK : Color.WHITE;
         return new ColorStateList(new int[][]{
                 new int[]{-android.R.attr.state_enabled},
                 new int[]{android.R.attr.state_enabled}
         }, new int[]{
-                view instanceof Button ? Color.BLACK : Util.adjustAlpha(color, 0.3f),
+                view instanceof Button ? Color.BLACK : ATEUtil.adjustAlpha(color, 0.3f),
                 color
         });
     }

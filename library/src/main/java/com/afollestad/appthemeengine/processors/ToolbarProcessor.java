@@ -26,8 +26,8 @@ import com.afollestad.appthemeengine.ATEMenuPresenterCallback;
 import com.afollestad.appthemeengine.ATEOnMenuItemClickListener;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
+import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.util.Util;
 
 import java.lang.reflect.Field;
 
@@ -40,7 +40,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar, @Nullable Menu menu) {
         if (toolbar == null && context instanceof AppCompatActivity)
-            toolbar = Util.getSupportActionBarView(((AppCompatActivity) context).getSupportActionBar());
+            toolbar = ATEUtil.getSupportActionBarView(((AppCompatActivity) context).getSupportActionBar());
 
         final int toolbarColor = Config.toolbarColor(context, key, toolbar);
         if (toolbar == null) {
@@ -80,9 +80,9 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                 }
             }
         } else if (toolbar.getParent() instanceof AppBarLayout) {
-            Util.setBackgroundCompat((View) toolbar.getParent(), new ColorDrawable(toolbarColor));
+            ATEUtil.setBackgroundCompat((View) toolbar.getParent(), new ColorDrawable(toolbarColor));
         } else {
-            Util.setBackgroundCompat(toolbar, new ColorDrawable(toolbarColor));
+            ATEUtil.setBackgroundCompat(toolbar, new ColorDrawable(toolbarColor));
         }
 
 
@@ -104,7 +104,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         if (context instanceof Activity) {
             if (collapsingToolbar == null) {
                 // Set color of the overflow icon, otherwise handled by CollapsingToolbarLayout listener above
-                Util.setOverflowButtonColor((Activity) context, tintColor);
+                ATEUtil.setOverflowButtonColor((Activity) context, tintColor);
             }
 
             try {
@@ -244,7 +244,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             tintMenu(mContext, mToolbar, mKey, mMenu, tintColor);
             if (mContext instanceof Activity) {
                 // Set color of the overflow icon
-                Util.setOverflowButtonColor((Activity) mContext, tintColor);
+                ATEUtil.setOverflowButtonColor((Activity) mContext, tintColor);
             }
         }
 

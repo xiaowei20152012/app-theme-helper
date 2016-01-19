@@ -34,8 +34,8 @@ import android.widget.RadioButton;
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
+import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.util.Util;
 import com.afollestad.appthemeengine.views.PreMadeView;
 
 import java.lang.reflect.Field;
@@ -152,7 +152,7 @@ public final class ATE extends ATEBase {
                         lightStatusEnabled = true;
                         break;
                     case Config.LIGHT_STATUS_BAR_AUTO:
-                        lightStatusEnabled = Util.isColorLight(Config.primaryColor(activity, key));
+                        lightStatusEnabled = ATEUtil.isColorLight(Config.primaryColor(activity, key));
                         break;
                 }
             }
@@ -257,7 +257,7 @@ public final class ATE extends ATEBase {
             color = Config.primaryColor(activity, key);
 
         // Task description requires fully opaque color
-        color = Util.stripAlpha(color);
+        color = ATEUtil.stripAlpha(color);
         // Default is app's launcher icon
         if (icon == null)
             icon = ((BitmapDrawable) activity.getApplicationInfo().loadIcon(activity.getPackageManager())).getBitmap();
@@ -276,7 +276,7 @@ public final class ATE extends ATEBase {
     }
 
     public static void applyOverflow(@NonNull AppCompatActivity activity, @Nullable String key) {
-        final Toolbar toolbar = mToolbar != null ? mToolbar : Util.getSupportActionBarView(activity.getSupportActionBar());
+        final Toolbar toolbar = mToolbar != null ? mToolbar : ATEUtil.getSupportActionBarView(activity.getSupportActionBar());
         applyOverflow(activity, key, toolbar);
     }
 
@@ -322,7 +322,7 @@ public final class ATE extends ATEBase {
                         Field radioButtonField = ListMenuItemView.class.getDeclaredField("mRadioButton");
                         radioButtonField.setAccessible(true);
 
-                        final boolean isDark = !Util.isColorLight(Util.resolveColor(context, android.R.attr.windowBackground));
+                        final boolean isDark = !ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground));
 
                         for (int i = 0; i < listView.getChildCount(); i++) {
                             View v = listView.getChildAt(i);
