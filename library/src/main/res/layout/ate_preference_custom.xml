@@ -32,7 +32,7 @@
         android:layout_marginTop="12dip"
         android:layout_weight="1">
 
-        <TextView
+        <com.kabouzeid.appthemehelper.views.ATEPrimaryTextView
             android:id="@android:id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,10 +42,10 @@
             android:fadingEdge="horizontal"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:tag="text_primary,textsize_subheading"
+            android:textSize="@dimen/ate_default_textsize_subheading"
             tools:text="Title" />
 
-        <TextView
+        <com.kabouzeid.appthemehelper.views.ATESecondaryTextView
             android:id="@android:id/summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
             android:maxLines="4"
-            android:tag="text_secondary,textsize_body"
+            android:textSize="@dimen/ate_default_textsize_body"
             tools:text="Summary" />
 
     </RelativeLayout>
