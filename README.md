@@ -29,7 +29,7 @@ Add this to your module's `build.gradle` file (make sure the version matches the
 ```gradle
 dependencies {
 	...
-	compile ('com.github.kabouzeid:app-theme-helper:0.7.7kmod'@aar) {
+	compile ('com.github.kabouzeid:app-theme-helper:0.1kmod'@aar) {
 		transitive = true
 	}
 }
