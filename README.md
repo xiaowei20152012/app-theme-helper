@@ -37,7 +37,7 @@ dependencies {
 
 ---
 
-The following part is the content of the original README which doesn't neccessary apply to this library.
+##_The following part is the content of the original README which doesn't neccessary apply to this library._
 
 # App Theme Engine (BETA)
 
