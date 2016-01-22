@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample.rv;
+package com.kabouzeid.appthemehelpersample.rv;
 
 import android.content.Context;
 import android.content.res.TypedArray;

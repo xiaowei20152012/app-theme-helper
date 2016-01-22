@@ -16,9 +16,6 @@ import android.widget.EdgeEffect;
 import android.widget.ScrollView;
 
 import com.kabouzeid.appthemehelper.BuildConfig;
-import com.kabouzeid.appthemehelper.processors.NestedScrollViewProcessor;
-import com.kabouzeid.appthemehelper.processors.RecyclerViewProcessor;
-import com.kabouzeid.appthemehelper.processors.ViewPagerProcessor;
 
 import java.lang.reflect.Field;
 
@@ -116,7 +113,7 @@ public class EdgeGlowUtil {
             NESTED_SCROLL_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
             return;
         }
-        final Class<?> cls = ATHUtil.inClassPath(NestedScrollViewProcessor.MAIN_CLASS);
+        final Class<?> cls = ATHUtil.inClassPath("android.support.v4.widget.NestedScrollView");
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
                 case "mEdgeGlowTop":
@@ -169,7 +166,7 @@ public class EdgeGlowUtil {
             RECYCLER_VIEW_FIELD_EDGE_GLOW_BOTTOM.setAccessible(true);
             return;
         }
-        final Class<?> cls = ATHUtil.inClassPath(RecyclerViewProcessor.MAIN_CLASS);
+        final Class<?> cls = ATHUtil.inClassPath("android.support.v7.widget.RecyclerView");
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
                 case "mTopGlow":
@@ -201,7 +198,7 @@ public class EdgeGlowUtil {
             VIEW_PAGER_FIELD_EDGE_GLOW_RIGHT.setAccessible(true);
             return;
         }
-        final Class<?> cls = ATHUtil.inClassPath(ViewPagerProcessor.MAIN_CLASS);
+        final Class<?> cls = ATHUtil.inClassPath("android.support.v4.view.ViewPager");
         for (Field f : cls.getDeclaredFields()) {
             switch (f.getName()) {
                 case "mLeftEdge":

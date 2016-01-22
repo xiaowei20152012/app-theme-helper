@@ -41,20 +41,5 @@ public class ATEPreference extends Preference {
 
     private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
-
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEPreference, 0, 0);
-            try {
-                mKey = a.getString(R.styleable.ATEPreference_ateKey_pref);
-            } finally {
-                a.recycle();
-            }
-        }
-    }
-
-    @Override
-    protected void onBindView(View view) {
-        super.onBindView(view);
-        ATH.apply(view, mKey);
     }
 }

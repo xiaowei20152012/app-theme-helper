@@ -61,7 +61,7 @@ interface ConfigInterface {
 
     Config navigationBarColorAttr(@AttrRes int colorAttr);
 
-    //Toolbar color
+    // Toolbar color
 
     Config toolbarColor(@ColorInt int color);
 
@@ -95,51 +95,9 @@ interface ConfigInterface {
 
     Config coloredStatusBar(boolean colored);
 
-    Config coloredActionBar(boolean applyToActionBar);
+    Config coloredToolbar(boolean applyToActionBar);
 
     Config coloredNavigationBar(boolean applyToNavBar);
-
-    Config navigationViewThemed(boolean themed);
-
-    // NavigationView colors
-
-    Config navigationViewSelectedIcon(@ColorInt int color);
-
-    Config navigationViewSelectedIconRes(@ColorRes int colorRes);
-
-    Config navigationViewSelectedIconAttr(@AttrRes int colorAttr);
-
-    Config navigationViewNormalIcon(@ColorInt int color);
-
-    Config navigationViewNormalIconRes(@ColorRes int colorRes);
-
-    Config navigationViewNormalIconAttr(@AttrRes int colorAttr);
-
-    Config navigationViewSelectedText(@ColorInt int color);
-
-    Config navigationViewSelectedTextRes(@ColorRes int colorRes);
-
-    Config navigationViewSelectedTextAttr(@AttrRes int colorAttr);
-
-    Config navigationViewNormalText(@ColorInt int color);
-
-    Config navigationViewNormalTextRes(@ColorRes int colorRes);
-
-    Config navigationViewNormalTextAttr(@AttrRes int colorAttr);
-
-    Config navigationViewSelectedBg(@ColorInt int color);
-
-    Config navigationViewSelectedBgRes(@ColorRes int colorRes);
-
-    Config navigationViewSelectedBgAttr(@AttrRes int colorAttr);
-
-    // Text size
-
-    Config textSizePxForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int pxValue, @Config.TextSizeMode String mode);
-
-    Config textSizeSpForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int dpValue, @Config.TextSizeMode String mode);
-
-    Config textSizeResForMode(@DimenRes int resId, @Config.TextSizeMode String mode);
 
     // Commit/apply
 

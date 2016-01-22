@@ -28,14 +28,7 @@ abstract class ConfigBase implements ConfigInterface {
     protected final static String KEY_TEXT_COLOR_SECONDARY_INVERSE = "text_color_secondary_inverse";
 
     protected final static String KEY_APPLY_PRIMARYDARK_STATUSBAR = "apply_primarydark_statusbar";
-    protected final static String KEY_APPLY_PRIMARY_SUPPORTAB = "apply_primary_supportab";
+    protected final static String KEY_APPLY_PRIMARY_TOOLBAR = "apply_primary_toolbar";
     protected final static String KEY_APPLY_PRIMARY_NAVBAR = "apply_primary_navbar";
     protected final static String KEY_AUTO_GENERATE_PRIMARYDARK = "auto_generate_primarydark";
-
-    protected final static String KEY_THEMED_NAVIGATION_VIEW = "apply_navigation_view";
-    protected final static String KEY_NAVIGATIONVIEW_SELECTED_TEXT = "navigation_view_selected_text";
-    protected final static String KEY_NAVIGATIONVIEW_NORMAL_TEXT = "navigation_view_normal_text";
-    protected final static String KEY_NAVIGATIONVIEW_SELECTED_ICON = "navigation_view_selected_icon";
-    protected final static String KEY_NAVIGATIONVIEW_NORMAL_ICON = "navigation_view_normal_icon";
-    protected final static String KEY_NAVIGATIONVIEW_SELECTED_BG = "navigation_view_selected_bg";
 }

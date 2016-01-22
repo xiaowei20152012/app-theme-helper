@@ -8,39 +8,31 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.R;
+import com.kabouzeid.appthemehelper.Config;
 
 public class ATEPreferenceCategory extends PreferenceCategory {
-
-    private String mAteKey;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ATEPreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mAteKey = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEPreferenceCategory, 0, 0).getString(R.styleable.ATEPreferenceCategory_ateKey_prefCategory_textColor);
     }
 
     public ATEPreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mAteKey = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEPreferenceCategory, 0, 0).getString(R.styleable.ATEPreferenceCategory_ateKey_prefCategory_textColor);
     }
 
     public ATEPreferenceCategory(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mAteKey = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEPreferenceCategory, 0, 0).getString(R.styleable.ATEPreferenceCategory_ateKey_prefCategory_textColor);
     }
 
-    public ATEPreferenceCategory(Context context, String ateKey) {
+    public ATEPreferenceCategory(Context context) {
         super(context);
-        this.mAteKey = ateKey;
     }
 
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
         TextView mTitle = (TextView) view.findViewById(android.R.id.title);
-        mTitle.setTag("textsize_body,text_accent_color");
-        ATH.apply(mTitle, mAteKey);
+        mTitle.setTextColor(Config.accentColor(view.getContext()));
     }
 }

@@ -37,27 +37,10 @@ public class ATEColorPreference extends Preference {
 
     }
 
-    private String mKey;
-
     private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
         setWidgetLayoutResource(R.layout.ate_preference_color);
         setPersistent(false);
-
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEColorPreference, 0, 0);
-            try {
-                mKey = a.getString(R.styleable.ATEColorPreference_ateKey_pref_color);
-            } finally {
-                a.recycle();
-            }
-        }
-
-        if (!Config.usingMaterialDialogs(context, mKey)) {
-            ATH.config(context, mKey)
-                    .usingMaterialDialogs(true)
-                    .commit();
-        }
     }
 
     @Override

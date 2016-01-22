@@ -13,6 +13,7 @@ import com.kabouzeid.appthemehelper.Config;
 import com.kabouzeid.appthemehelper.R;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.TintHelper;
+import com.kabouzeid.appthemehelper.views.ATECheckBox;
 
 import java.lang.reflect.Field;
 
@@ -65,7 +66,7 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        CheckBox checkbox = (CheckBox) view.findViewById(android.R.id.checkbox);
+        CheckBox checkbox = (ATECheckBox) view.findViewById(android.R.id.checkbox);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             checkbox.setBackground(null);
         }

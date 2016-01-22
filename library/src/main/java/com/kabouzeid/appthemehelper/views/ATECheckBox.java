@@ -1,49 +1,33 @@
 package com.kabouzeid.appthemehelper.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
-import com.afollestad.appthemeengine.ATE;
-import com.afollestad.appthemeengine.R;
+import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.util.TintHelper;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-@PreMadeView
 public class ATECheckBox extends AppCompatCheckBox {
 
     public ATECheckBox(Context context) {
         super(context);
-        init(context, null);
+        init(context);
     }
 
     public ATECheckBox(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        init(context);
     }
 
     public ATECheckBox(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context);
     }
 
-    private void init(Context context, AttributeSet attrs) {
-        setTag("tint_accent_color,text_primary");
-        String key = null;
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATECheckBox, 0, 0);
-            try {
-                key = a.getString(R.styleable.ATECheckBox_ateKey_checkBox);
-            } finally {
-                a.recycle();
-            }
-        }
-        ATE.apply(context, this, key);
-    }
-
-    public void setKey(String key) {
-        ATE.apply(getContext(), this, key);
+    private void init(Context context) {
+        TintHelper.setTintAuto(this, Config.accentColor(context), false);
     }
 }

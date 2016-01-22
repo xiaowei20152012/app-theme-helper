@@ -17,13 +17,13 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
  */
 public final class ATH {
 
-    public static Config config(@NonNull Context context, @Nullable String key) {
-        return new Config(context, key);
+    public static Config config(@NonNull Context context) {
+        return new Config(context);
     }
 
     @SuppressLint("CommitPrefEdits")
-    public static boolean didValuesChange(@NonNull Context context, long since, @Nullable String key) {
-        return ATH.config(context, key).isConfigured() && Config.prefs(context, key).getLong(Config.VALUES_CHANGED, -1) > since;
+    public static boolean didValuesChange(@NonNull Context context, long since) {
+        return ATH.config(context).isConfigured() && Config.prefs(context).getLong(Config.VALUES_CHANGED, -1) > since;
     }
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

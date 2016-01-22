@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample;
+package com.kabouzeid.appthemehelpersample;
 
 import android.content.Context;
 import android.support.annotation.AttrRes;

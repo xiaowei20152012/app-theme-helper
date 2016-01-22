@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample;
+package com.kabouzeid.appthemehelpersample;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemeenginesample.base.BaseThemedActivity;
-import com.kabouzeid.appthemeenginesample.collapsingtb.CollapsingToolbarActivity;
-import com.kabouzeid.appthemeenginesample.dialogs.AboutDialog;
-import com.kabouzeid.appthemeenginesample.rv.RecyclerViewSampleActivity;
-import com.kabouzeid.appthemeenginesample.tabs.TabSampleActivity;
+import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.util.TintHelper;
+import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
+import com.kabouzeid.appthemehelpersample.collapsingtb.CollapsingToolbarActivity;
+import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
+import com.kabouzeid.appthemehelpersample.rv.RecyclerViewSampleActivity;
+import com.kabouzeid.appthemehelpersample.tabs.TabSampleActivity;
 
 public class MainActivity extends BaseThemedActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -26,26 +28,12 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Default config
-        if (!ATH.config(this, "light_theme").isConfigured(2)) {
-            ATH.config(this, "light_theme")
+        if (!ATH.config(this).isConfigured(1)) {
+            ATH.config(this)
                     .activityTheme(R.style.AppTheme)
                     .primaryColorRes(R.color.colorPrimaryLightDefault)
                     .accentColorRes(R.color.colorAccentLightDefault)
                     .coloredNavigationBar(false)
-                    .usingMaterialDialogs(true)
-                    .navigationViewSelectedIconRes(R.color.colorAccentLightDefault)
-                    .navigationViewSelectedTextRes(R.color.colorAccentLightDefault)
-                    .commit();
-        }
-        if (!ATH.config(this, "dark_theme").isConfigured(2)) {
-            ATH.config(this, "dark_theme")
-                    .activityTheme(R.style.AppThemeDark)
-                    .primaryColorRes(R.color.colorPrimaryDarkDefault)
-                    .accentColorRes(R.color.colorAccentDarkDefault)
-                    .coloredNavigationBar(true)
-                    .usingMaterialDialogs(true)
-                    .navigationViewSelectedIconRes(R.color.colorAccentDarkDefault)
-                    .navigationViewSelectedTextRes(R.color.colorAccentDarkDefault)
                     .commit();
         }
 
@@ -57,11 +45,16 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
         toolbar.setTitle(R.string.app_name);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
 
+        toolbar.setBackgroundColor(Config.primaryColor(this));
+
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer.setDrawerListener(new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close));
 
         final NavigationView navView = (NavigationView) findViewById(R.id.navigation_view);
         navView.setNavigationItemSelectedListener(this);
+
+        TintHelper.setTintAuto(findViewById(R.id.fab), Config.accentColor(this), true);
+        TintHelper.setTintAuto(findViewById(R.id.button), Config.accentColor(this), true);
     }
 
     @Override

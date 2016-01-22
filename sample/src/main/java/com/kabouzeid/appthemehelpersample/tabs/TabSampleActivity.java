@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample.tabs;
+package com.kabouzeid.appthemehelpersample.tabs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,8 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.kabouzeid.appthemeenginesample.R;
-import com.kabouzeid.appthemeenginesample.base.BaseThemedActivity;
+import com.kabouzeid.appthemehelpersample.R;
+import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)

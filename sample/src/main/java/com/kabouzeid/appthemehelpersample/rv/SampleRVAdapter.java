@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample.rv;
+package com.kabouzeid.appthemehelpersample.rv;
 
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemeenginesample.R;
-import com.kabouzeid.appthemeenginesample.Util;
+import com.kabouzeid.appthemehelpersample.R;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -47,9 +45,6 @@ public class SampleRVAdapter extends RecyclerView.Adapter<SampleRVAdapter.Sample
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-
-            // Pull current config key from Activity theme attr
-            ATH.apply(itemView, Util.resolveString(itemView.getContext(), R.attr.ate_key));
         }
     }
 }

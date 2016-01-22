@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample.collapsingtb;
+package com.kabouzeid.appthemehelpersample.collapsingtb;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.kabouzeid.appthemeenginesample.R;
-import com.kabouzeid.appthemeenginesample.base.BaseThemedActivity;
+import com.kabouzeid.appthemehelpersample.R;
+import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)

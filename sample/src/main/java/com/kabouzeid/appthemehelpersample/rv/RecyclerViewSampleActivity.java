@@ -1,28 +1,17 @@
-package com.kabouzeid.appthemeenginesample.rv;
+package com.kabouzeid.appthemehelpersample.rv;
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.StyleRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import com.afollestad.appthemehelper.customizers.ATEActivityThemeCustomizer;
-import com.kabouzeid.appthemeenginesample.R;
-import com.kabouzeid.appthemeenginesample.base.BaseThemedActivity;
+import com.kabouzeid.appthemehelpersample.R;
+import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class RecyclerViewSampleActivity extends BaseThemedActivity implements ATEActivityThemeCustomizer {
-
-    @StyleRes
-    @Override
-    public int getActivityTheme() {
-        // Make sure we don't use the one set to the Config, since we want a non-toolbar-actionbar for this activity
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
-                R.style.AppThemeDark_ActionBar : R.style.AppTheme_ActionBar;
-    }
+public class RecyclerViewSampleActivity extends BaseThemedActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

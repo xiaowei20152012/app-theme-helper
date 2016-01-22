@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample.tabs;
+package com.kabouzeid.appthemehelpersample.tabs;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

@@ -17,7 +17,7 @@ android {
         abortOnError false
     }
     defaultConfig {
-        applicationId "com.afollestad.appthemeenginesample"
+        applicationId "com.kabouzeid.appthemehelpersample"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 2

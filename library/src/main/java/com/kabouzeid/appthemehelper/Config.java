@@ -8,15 +8,11 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
-import android.util.TypedValue;
 
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
@@ -200,8 +196,8 @@ public final class Config extends ConfigBase {
     }
 
     @Override
-    public Config coloredActionBar(boolean applyToActionBar) {
-        mEditor.putBoolean(KEY_APPLY_PRIMARY_SUPPORTAB, applyToActionBar);
+    public Config coloredToolbar(boolean applyToToolbar) {
+        mEditor.putBoolean(KEY_APPLY_PRIMARY_TOOLBAR, applyToToolbar);
         return this;
     }
 
@@ -229,112 +225,7 @@ public final class Config extends ConfigBase {
         return this;
     }
 
-    @Override
-    public Config navigationViewThemed(boolean themed) {
-        mEditor.putBoolean(KEY_THEMED_NAVIGATION_VIEW, themed);
-        return this;
-    }
-
-    @Override
-    public Config navigationViewSelectedIcon(@ColorInt int color) {
-        mEditor.putInt(KEY_NAVIGATIONVIEW_SELECTED_ICON, color);
-        return this;
-    }
-
-    @Override
-    public Config navigationViewSelectedIconRes(@ColorRes int colorRes) {
-        return navigationViewSelectedIcon(ContextCompat.getColor(mContext, colorRes));
-    }
-
-    @Override
-    public Config navigationViewSelectedIconAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedIcon(ATHUtil.resolveColor(mContext, colorAttr));
-    }
-
-    @Override
-    public Config navigationViewSelectedText(@ColorInt int color) {
-        mEditor.putInt(KEY_NAVIGATIONVIEW_SELECTED_TEXT, color);
-        return this;
-    }
-
-    @Override
-    public Config navigationViewSelectedTextRes(@ColorRes int colorRes) {
-        return navigationViewSelectedText(ContextCompat.getColor(mContext, colorRes));
-    }
-
-    @Override
-    public Config navigationViewSelectedTextAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedText(ATHUtil.resolveColor(mContext, colorAttr));
-    }
-
-    @Override
-    public Config navigationViewNormalIcon(@ColorInt int color) {
-        mEditor.putInt(KEY_NAVIGATIONVIEW_NORMAL_ICON, color);
-        return this;
-    }
-
-    @Override
-    public Config navigationViewNormalIconRes(@ColorRes int colorRes) {
-        return navigationViewNormalIcon(ContextCompat.getColor(mContext, colorRes));
-    }
-
-    @Override
-    public Config navigationViewNormalIconAttr(@AttrRes int colorAttr) {
-        return navigationViewNormalIcon(ATHUtil.resolveColor(mContext, colorAttr));
-    }
-
-    @Override
-    public Config navigationViewNormalText(@ColorInt int color) {
-        mEditor.putInt(KEY_NAVIGATIONVIEW_NORMAL_TEXT, color);
-        return this;
-    }
-
-    @Override
-    public Config navigationViewNormalTextRes(@ColorRes int colorRes) {
-        return navigationViewNormalText(ContextCompat.getColor(mContext, colorRes));
-    }
-
-    @Override
-    public Config navigationViewNormalTextAttr(@AttrRes int colorAttr) {
-        return navigationViewNormalText(ATHUtil.resolveColor(mContext, colorAttr));
-    }
-
-    @Override
-    public Config navigationViewSelectedBg(@ColorInt int color) {
-        mEditor.putInt(KEY_NAVIGATIONVIEW_SELECTED_BG, color);
-        return this;
-    }
-
-    @Override
-    public Config navigationViewSelectedBgRes(@ColorRes int colorRes) {
-        return navigationViewSelectedBg(ContextCompat.getColor(mContext, colorRes));
-    }
-
-    @Override
-    public Config navigationViewSelectedBgAttr(@AttrRes int colorAttr) {
-        return navigationViewSelectedBg(ATHUtil.resolveColor(mContext, colorAttr));
-    }
-
-    // Text size
-
-    @Override
-    public Config textSizePxForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int pxValue, @TextSizeMode String mode) {
-        mEditor.putInt(mode, pxValue);
-        return this;
-    }
-
-    @Override
-    public Config textSizeSpForMode(@IntRange(from = 1, to = Integer.MAX_VALUE) int dpValue, @TextSizeMode String mode) {
-        final int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dpValue, mContext.getResources().getDisplayMetrics());
-        return textSizePxForMode(px, mode);
-    }
-
-    @Override
-    public Config textSizeResForMode(@DimenRes int resId, @TextSizeMode String mode) {
-        return textSizePxForMode(mContext.getResources().getDimensionPixelSize(resId), mode);
-    }
-
-    // Apply and commit methods
+    // Commit method
 
     @SuppressWarnings("unchecked")
     @Override
@@ -354,13 +245,6 @@ public final class Config extends ConfigBase {
 
     public static void markChanged(@NonNull Context context) {
         new Config(context).commit();
-    }
-
-    @Nullable
-    protected static String getKey(@NonNull Context context) {
-        if (context instanceof ATHBaseActivity)
-            return ((ATHBaseActivity) context).getATEKey();
-        return null;
     }
 
     @CheckResult
@@ -439,7 +323,7 @@ public final class Config extends ConfigBase {
 
     @CheckResult
     public static boolean coloredActionBar(@NonNull Context context) {
-        return prefs(context).getBoolean(KEY_APPLY_PRIMARY_SUPPORTAB, true);
+        return prefs(context).getBoolean(KEY_APPLY_PRIMARY_TOOLBAR, true);
     }
 
     @CheckResult
@@ -454,6 +338,26 @@ public final class Config extends ConfigBase {
         int value = prefs(context).getInt(KEY_LIGHT_STATUS_BAR_MODE, Config.LIGHT_STATUS_BAR_AUTO);
         if (value < 1) value = Config.LIGHT_STATUS_BAR_AUTO;
         return value;
+    }
+
+    @CheckResult
+    public static boolean lightStatusBar(@NonNull Context context, int statusbarColor) {
+        boolean isLightMode;
+        @Config.LightToolbarMode
+        final int lightToolbarMode = Config.lightToolbarMode(context);
+        switch (lightToolbarMode) {
+            case Config.LIGHT_TOOLBAR_ON:
+                isLightMode = true;
+                break;
+            case Config.LIGHT_TOOLBAR_OFF:
+                isLightMode = false;
+                break;
+            default:
+            case Config.LIGHT_TOOLBAR_AUTO:
+                isLightMode = ColorUtil.isColorLight(statusbarColor);
+                break;
+        }
+        return isLightMode;
     }
 
     @SuppressWarnings("ResourceType")
@@ -532,46 +436,6 @@ public final class Config extends ConfigBase {
         return prefs(context).getBoolean(KEY_AUTO_GENERATE_PRIMARYDARK, true);
     }
 
-    @CheckResult
-    @IntRange(from = 1, to = Integer.MAX_VALUE)
-    public static int textSizeForMode(@NonNull Context context, @TextSizeMode String mode) {
-        int size = prefs(context).getInt(mode, 0);
-        if (size == 0) {
-            switch (mode) {
-                default:
-                case TEXTSIZE_CAPTION:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_caption);
-                    break;
-                case TEXTSIZE_BODY:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_body);
-                    break;
-                case TEXTSIZE_SUBHEADING:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_subheading);
-                    break;
-                case TEXTSIZE_TITLE:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_title);
-                    break;
-                case TEXTSIZE_HEADLINE:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_headline);
-                    break;
-                case TEXTSIZE_DISPLAY1:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display1);
-                    break;
-                case TEXTSIZE_DISPLAY2:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display2);
-                    break;
-                case TEXTSIZE_DISPLAY3:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display3);
-                    break;
-                case TEXTSIZE_DISPLAY4:
-                    size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_display4);
-                    break;
-            }
-        }
-        return size;
-    }
-
-
     @IntDef({LIGHT_STATUS_BAR_OFF, LIGHT_STATUS_BAR_ON, LIGHT_STATUS_BAR_AUTO})
     @Retention(RetentionPolicy.SOURCE)
     public @interface LightStatusBarMode {
@@ -582,12 +446,6 @@ public final class Config extends ConfigBase {
     public @interface LightToolbarMode {
     }
 
-    @StringDef({TEXTSIZE_DISPLAY4, TEXTSIZE_DISPLAY3, TEXTSIZE_DISPLAY2, TEXTSIZE_DISPLAY1,
-            TEXTSIZE_HEADLINE, TEXTSIZE_TITLE, TEXTSIZE_SUBHEADING, TEXTSIZE_BODY, TEXTSIZE_CAPTION})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface TextSizeMode {
-    }
-
     public static final int LIGHT_STATUS_BAR_AUTO = 1;
     public static final int LIGHT_STATUS_BAR_ON = 2;
     public static final int LIGHT_STATUS_BAR_OFF = 3;
@@ -595,14 +453,4 @@ public final class Config extends ConfigBase {
     public static final int LIGHT_TOOLBAR_AUTO = 1;
     public static final int LIGHT_TOOLBAR_ON = 2;
     public static final int LIGHT_TOOLBAR_OFF = 3;
-
-    public final static String TEXTSIZE_DISPLAY4 = "textsize_display4";
-    public final static String TEXTSIZE_DISPLAY3 = "textsize_display3";
-    public final static String TEXTSIZE_DISPLAY2 = "textsize_display2";
-    public final static String TEXTSIZE_DISPLAY1 = "textsize_display1";
-    public final static String TEXTSIZE_HEADLINE = "textsize_headline";
-    public final static String TEXTSIZE_TITLE = "textsize_title";
-    public final static String TEXTSIZE_SUBHEADING = "textsize_subheading";
-    public final static String TEXTSIZE_BODY = "textsize_body";
-    public final static String TEXTSIZE_CAPTION = "textsize_caption";
 }

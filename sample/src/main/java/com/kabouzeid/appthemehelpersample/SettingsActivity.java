@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample;
+package com.kabouzeid.appthemehelpersample;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -6,52 +6,37 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.Config;
-import com.afollestad.appthemehelper.customizers.ATEActivityThemeCustomizer;
-import com.kabouzeid.appthemehelper.prefs.ATEColorPreference;
-import com.kabouzeid.appthemehelper.prefs.ATESwitchPreference;
-import com.kabouzeid.appthemeenginesample.base.BaseThemedActivity;
-import com.kabouzeid.appthemeenginesample.dialogs.AboutDialog;
-import com.kabouzeid.appthemeenginesample.dialogs.TextSizeDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.afollestad.materialdialogs.prefs.MaterialListPreference;
+import com.kabouzeid.appthemehelper.ATH;
+import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.prefs.ATEColorPreference;
+import com.kabouzeid.appthemehelper.prefs.ATESwitchPreference;
+import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
+import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
 @SuppressLint("NewApi")
 public class SettingsActivity extends BaseThemedActivity
-        implements ColorChooserDialog.ColorCallback, ATEActivityThemeCustomizer {
-
-    @StyleRes
-    @Override
-    public int getActivityTheme() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
-                R.style.AppThemeDark_ActionBar : R.style.AppTheme_ActionBar;
-    }
+        implements ColorChooserDialog.ColorCallback {
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
-        final Config config = ATH.config(this, getATEKey());
+        final Config config = ATH.config(this);
         switch (dialog.getTitle()) {
             case R.string.primary_color:
                 config.primaryColor(selectedColor);
                 break;
             case R.string.accent_color:
                 config.accentColor(selectedColor);
-                // We've overridden the navigation view selected colors in the default config,
-                // which means we are responsible for keeping those colors up to date.
-                config.navigationViewSelectedIcon(selectedColor);
-                config.navigationViewSelectedText(selectedColor);
                 break;
             case R.string.primary_text_color:
                 config.textColorPrimary(selectedColor);
@@ -61,12 +46,10 @@ public class SettingsActivity extends BaseThemedActivity
                 break;
         }
         config.commit();
-        recreate(); // recreation needed to reach the checkboxes in the preferences layout
+        recreate();
     }
 
     public static class SettingsFragment extends PreferenceFragment {
-
-        String mAteKey;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -81,51 +64,49 @@ public class SettingsActivity extends BaseThemedActivity
         }
 
         public void invalidateSettings() {
-            mAteKey = ((SettingsActivity) getActivity()).getATEKey();
-
             ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
-            primaryColorPref.setColor(Config.primaryColor(getActivity(), mAteKey), Color.BLACK);
+            primaryColorPref.setColor(Config.primaryColor(getActivity()), Color.BLACK);
             primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
-                            .preselect(Config.primaryColor(getActivity(), mAteKey))
+                            .preselect(Config.primaryColor(getActivity()))
                             .show();
                     return true;
                 }
             });
 
             ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
-            accentColorPref.setColor(Config.accentColor(getActivity(), mAteKey), Color.BLACK);
+            accentColorPref.setColor(Config.accentColor(getActivity()), Color.BLACK);
             accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
-                            .preselect(Config.accentColor(getActivity(), mAteKey))
+                            .preselect(Config.accentColor(getActivity()))
                             .show();
                     return true;
                 }
             });
 
             ATEColorPreference textColorPrimaryPref = (ATEColorPreference) findPreference("text_primary");
-            textColorPrimaryPref.setColor(Config.textColorPrimary(getActivity(), mAteKey), Color.BLACK);
+            textColorPrimaryPref.setColor(Config.textColorPrimary(getActivity()), Color.BLACK);
             textColorPrimaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_text_color)
-                            .preselect(Config.textColorPrimary(getActivity(), mAteKey))
+                            .preselect(Config.textColorPrimary(getActivity()))
                             .show();
                     return true;
                 }
             });
 
             ATEColorPreference textColorSecondaryPref = (ATEColorPreference) findPreference("text_secondary");
-            textColorSecondaryPref.setColor(Config.textColorSecondary(getActivity(), mAteKey), Color.BLACK);
+            textColorSecondaryPref.setColor(Config.textColorSecondary(getActivity()), Color.BLACK);
             textColorSecondaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.secondary_text_color)
-                            .preselect(Config.textColorSecondary(getActivity(), mAteKey))
+                            .preselect(Config.textColorSecondary(getActivity()))
                             .show();
                     return true;
                 }
@@ -135,8 +116,7 @@ public class SettingsActivity extends BaseThemedActivity
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     // Marks both theme configs as changed so MainActivity restarts itself on return
-                    Config.markChanged(getActivity(), "light_theme");
-                    Config.markChanged(getActivity(), "dark_theme");
+                    Config.markChanged(getActivity());
                     // The dark_theme preference value gets saved by Android in the default PreferenceManager.
                     // It's used in getATEKey() of both the Activities.
                     getActivity().recreate();
@@ -154,9 +134,10 @@ public class SettingsActivity extends BaseThemedActivity
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         @Config.LightStatusBarMode
                         int constant = Integer.parseInt((String) newValue);
-                        ATH.config(getActivity(), mAteKey)
+                        ATH.config(getActivity())
                                 .lightStatusBarMode(constant)
-                                .apply(getActivity());
+                                .commit();
+                        getActivity().recreate();
                         return true;
                     }
                 });
@@ -170,9 +151,10 @@ public class SettingsActivity extends BaseThemedActivity
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     @Config.LightToolbarMode
                     int constant = Integer.parseInt((String) newValue);
-                    ATH.config(getActivity(), mAteKey)
+                    ATH.config(getActivity())
                             .lightToolbarMode(constant)
-                            .apply(getActivity());
+                            .commit();
+                    getActivity().recreate();
                     return true;
                 }
             });
@@ -181,25 +163,27 @@ public class SettingsActivity extends BaseThemedActivity
             final ATESwitchPreference navBarPref = (ATESwitchPreference) findPreference("colored_nav_bar");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                statusBarPref.setChecked(Config.coloredStatusBar(getActivity(), mAteKey));
+                statusBarPref.setChecked(Config.coloredStatusBar(getActivity()));
                 statusBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        ATH.config(getActivity(), mAteKey)
+                        ATH.config(getActivity())
                                 .coloredStatusBar((Boolean) newValue)
-                                .apply(getActivity());
+                                .commit();
+                        getActivity().recreate();
                         return true;
                     }
                 });
 
 
-                navBarPref.setChecked(Config.coloredNavigationBar(getActivity(), mAteKey));
+                navBarPref.setChecked(Config.coloredNavigationBar(getActivity()));
                 navBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        ATH.config(getActivity(), mAteKey)
+                        ATH.config(getActivity())
                                 .coloredNavigationBar((Boolean) newValue)
-                                .apply(getActivity());
+                                .commit();
+                        getActivity().recreate();
                         return true;
                     }
                 });
@@ -209,35 +193,6 @@ public class SettingsActivity extends BaseThemedActivity
                 navBarPref.setEnabled(false);
                 navBarPref.setSummary(R.string.not_available_below_lollipop);
             }
-
-            final Preference.OnPreferenceClickListener textsizeClickListener = new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    //noinspection ResourceType
-                    TextSizeDialog.show(getActivity(), preference.getKey(), mAteKey, preference.getTitleRes(), true);
-                    return false;
-                }
-            };
-
-            final Preference textsizeHeadline = findPreference("textsize_headline");
-            textsizeHeadline.setOnPreferenceClickListener(textsizeClickListener);
-            textsizeHeadline.setSummary(getString(R.string.headline_textsize_desc,
-                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_HEADLINE))));
-
-            final Preference textsizeTitle = findPreference("textsize_title");
-            textsizeTitle.setOnPreferenceClickListener(textsizeClickListener);
-            textsizeTitle.setSummary(getString(R.string.title_textsize_desc,
-                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_TITLE))));
-
-            final Preference textsizeSubheading = findPreference("textsize_subheading");
-            textsizeSubheading.setOnPreferenceClickListener(textsizeClickListener);
-            textsizeSubheading.setSummary(getString(R.string.subheading_textsize_desc,
-                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_SUBHEADING))));
-
-            final Preference textsizeBody = findPreference("textsize_body");
-            textsizeBody.setOnPreferenceClickListener(textsizeClickListener);
-            textsizeBody.setSummary(getString(R.string.body_textsize_desc,
-                    TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_BODY))));
         }
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.afollestad.appthemeenginesample">
+    package="com.kabouzeid.appthemehelpersample">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme.ActionBar">
 
         <activity
-            android:name="com.kabouzeid.appthemeenginesample.MainActivity"
+            android:name="com.kabouzeid.appthemehelpersample.MainActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -21,22 +21,22 @@
         </activity>
 
         <activity
-            android:name="com.kabouzeid.appthemeenginesample.collapsingtb.CollapsingToolbarActivity"
+            android:name="com.kabouzeid.appthemehelpersample.collapsingtb.CollapsingToolbarActivity"
             android:label="@string/collapsing_toolbar"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.kabouzeid.appthemeenginesample.rv.RecyclerViewSampleActivity"
+            android:name="com.kabouzeid.appthemehelpersample.rv.RecyclerViewSampleActivity"
             android:label="@string/rv_sample"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.kabouzeid.appthemeenginesample.tabs.TabSampleActivity"
+            android:name="com.kabouzeid.appthemehelpersample.tabs.TabSampleActivity"
             android:label="@string/tabs_sample"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.kabouzeid.appthemeenginesample.SettingsActivity"
+            android:name="com.kabouzeid.appthemehelpersample.SettingsActivity"
             android:label="@string/settings"
             android:windowSoftInputMode="stateAlwaysHidden" />
 

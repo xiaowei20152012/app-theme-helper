@@ -1,52 +1,35 @@
 package com.kabouzeid.appthemehelper.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
 
-import com.afollestad.appthemeengine.ATE;
-import com.afollestad.appthemeengine.R;
+import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.util.TintHelper;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-@PreMadeView
 public class ATESwitch extends SwitchCompat {
 
     public ATESwitch(Context context) {
         super(context);
-        init(context, null);
+        init(context);
     }
 
     public ATESwitch(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs);
+        init(context);
     }
 
     public ATESwitch(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context);
     }
 
-    private void init(Context context, AttributeSet attrs) {
-        setTag("tint_accent_color,text_primary");
-        String key = null;
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATESwitch, 0, 0);
-            try {
-                key = a.getString(R.styleable.ATESwitch_ateKey_switch);
-            } finally {
-                a.recycle();
-            }
-        }
-        ATE.apply(context, this, key);
-    }
-
-    public void setKey(String key) {
-        ATE.apply(getContext(), this, key);
+    private void init(Context context) {
+        TintHelper.setTintAuto(this, Config.accentColor(context), false);
     }
 
     @Override

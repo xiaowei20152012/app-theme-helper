@@ -15,20 +15,20 @@ import com.kabouzeid.appthemehelper.Config;
  */
 public final class ToolbarHelper {
 
-    public static void handleOnPrepareOptionsMenu(Activity activity, Toolbar toolbar, @Nullable String key) {
-        handleOnPrepareOptionsMenu(activity, toolbar, Config.accentColor(activity, key));
+    public static void handleOnPrepareOptionsMenu(Activity activity, Toolbar toolbar) {
+        handleOnPrepareOptionsMenu(activity, toolbar, Config.accentColor(activity));
     }
 
     public static void handleOnPrepareOptionsMenu(Activity activity, Toolbar toolbar, int widgetColor) {
         ToolbarUtil.applyOverflowMenuTint(activity, toolbar, widgetColor);
     }
 
-    public static void handleOnCreateOptionsMenu(Context context, Toolbar toolbar, Menu menu, @Nullable String key) {
-        handleOnCreateOptionsMenu(context, toolbar, menu, Config.toolbarContentColor(context, key), Config.toolbarTitleColor(context, key), Config.toolbarSubtitleColor(context, key), Config.accentColor(context, key));
+    public static void handleOnCreateOptionsMenu(Context context, Toolbar toolbar, Menu menu) {
+        handleOnCreateOptionsMenu(context, toolbar, menu, Config.toolbarContentColor(context), Config.toolbarTitleColor(context), Config.toolbarSubtitleColor(context), Config.accentColor(context));
     }
 
-    public static void handleOnCreateOptionsMenu(Context context, Toolbar toolbar, Menu menu, int toolbarColor, @Nullable String key) {
-        handleOnCreateOptionsMenu(context, toolbar, menu, Config.toolbarContentColor(context, key, toolbarColor), Config.toolbarTitleColor(context, key, toolbarColor), Config.toolbarSubtitleColor(context, key, toolbarColor), Config.accentColor(context, key));
+    public static void handleOnCreateOptionsMenu(Context context, Toolbar toolbar, Menu menu, int toolbarColor) {
+        handleOnCreateOptionsMenu(context, toolbar, menu, Config.toolbarContentColor(context, toolbarColor), Config.toolbarTitleColor(context, toolbarColor), Config.toolbarSubtitleColor(context, toolbarColor), Config.accentColor(context));
     }
 
     public static void handleOnCreateOptionsMenu(Context context, Toolbar toolbar, Menu menu, @ColorInt int toolbarContentColor, @ColorInt int titleTextColor, @ColorInt int subtitleTextColor, @ColorInt int menuWidgetColor) {

@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemeenginesample.tabs;
+package com.kabouzeid.appthemehelpersample.tabs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemeenginesample.R;
-import com.kabouzeid.appthemeenginesample.Util;
+import com.kabouzeid.appthemehelpersample.R;
+import com.kabouzeid.appthemehelpersample.Util;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -31,13 +31,5 @@ public class TabFragment extends Fragment {
         TextView view = (TextView) inflater.inflate(R.layout.fragment_tab, container, false);
         view.setText(String.format("TAB %d", getArguments().getInt("position")));
         return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Apply theming to the Fragment view
-        ATH.apply(this, Util.resolveString(getActivity(), R.attr.ate_key));
     }
 }
