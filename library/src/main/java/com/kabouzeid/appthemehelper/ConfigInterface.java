@@ -4,12 +4,11 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.StyleRes;
 
 /**
- * @author Aidan Follestad (afollestad)
+ * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
 interface ConfigInterface {
 
@@ -47,7 +46,7 @@ interface ConfigInterface {
 
     Config accentColorAttr(@AttrRes int colorAttr);
 
-    // Status/nav bar color
+    // Status bar color
 
     Config statusBarColor(@ColorInt int color);
 
@@ -55,25 +54,13 @@ interface ConfigInterface {
 
     Config statusBarColorAttr(@AttrRes int colorAttr);
 
+    // Navigation bar color
+
     Config navigationBarColor(@ColorInt int color);
 
     Config navigationBarColorRes(@ColorRes int colorRes);
 
     Config navigationBarColorAttr(@AttrRes int colorAttr);
-
-    // Toolbar color
-
-    Config toolbarColor(@ColorInt int color);
-
-    Config toolbarColorRes(@ColorRes int colorRes);
-
-    Config toolbarColorAttr(@AttrRes int colorAttr);
-
-    // Light UI
-
-    Config lightStatusBarMode(@Config.LightStatusBarMode int mode);
-
-    Config lightToolbarMode(@Config.LightToolbarMode int mode);
 
     // Primary text color
 
@@ -83,6 +70,12 @@ interface ConfigInterface {
 
     Config textColorPrimaryAttr(@AttrRes int colorAttr);
 
+    Config textColorPrimaryInverse(@ColorInt int color);
+
+    Config textColorPrimaryInverseRes(@ColorRes int colorRes);
+
+    Config textColorPrimaryInverseAttr(@AttrRes int colorAttr);
+
     // Secondary text color
 
     Config textColorSecondary(@ColorInt int color);
@@ -91,11 +84,15 @@ interface ConfigInterface {
 
     Config textColorSecondaryAttr(@AttrRes int colorAttr);
 
+    Config textColorSecondaryInverse(@ColorInt int color);
+
+    Config textColorSecondaryInverseRes(@ColorRes int colorRes);
+
+    Config textColorSecondaryInverseAttr(@AttrRes int colorAttr);
+
     // Toggle configurations
 
     Config coloredStatusBar(boolean colored);
-
-    Config coloredToolbar(boolean applyToActionBar);
 
     Config coloredNavigationBar(boolean applyToNavBar);
 

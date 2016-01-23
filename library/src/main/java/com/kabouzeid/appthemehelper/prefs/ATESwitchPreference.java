@@ -19,28 +19,28 @@ public class ATESwitchPreference extends SwitchPreference {
 
     public ATESwitchPreference(Context context) {
         super(context);
-        init();
+        init(context, null);
     }
 
     public ATESwitchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
     public ATESwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ATESwitchPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context, attrs);
     }
 
     private ATESwitch mSwitch;
 
-    private void init() {
+    private void init(Context context, AttributeSet attrs) {
         setLayoutResource(com.kabouzeid.appthemehelper.R.layout.ate_preference_custom);
         setWidgetLayoutResource(com.kabouzeid.appthemehelper.R.layout.ate_preference_switch);
 

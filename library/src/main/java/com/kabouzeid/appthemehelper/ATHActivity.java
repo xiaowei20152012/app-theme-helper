@@ -1,21 +1,33 @@
 package com.kabouzeid.appthemehelper;
 
-import android.view.Menu;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 
-import com.kabouzeid.appthemehelper.util.ToolbarHelper;
-import com.kabouzeid.appthemehelper.util.ToolbarUtil;
+/**
+ * @author Aidan Follestad (afollestad)
+ */
+public class ATHActivity extends AppCompatActivity {
 
-public class ATHActivity extends ATHBaseActivity {
+    private long updateTime = -1;
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        ToolbarHelper.handleOnCreateOptionsMenu(this, ToolbarUtil.getSupportActionBarView(getSupportActionBar()), menu);
-        return super.onCreateOptionsMenu(menu);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        updateTime = System.currentTimeMillis();
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        ToolbarHelper.handleOnPrepareOptionsMenu(this, ToolbarUtil.getSupportActionBarView(getSupportActionBar()));
-        return super.onPrepareOptionsMenu(menu);
+    protected void onResume() {
+        super.onResume();
+        if (ATH.didValuesChange(this, updateTime))
+            // hack to prevent java.lang.RuntimeException: Performing pause of activity that is not resumed
+            // makes sure recreate() is called right after and not in onResume()
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            });
     }
 }

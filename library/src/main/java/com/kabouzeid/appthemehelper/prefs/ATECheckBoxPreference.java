@@ -9,10 +9,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.Config;
 import com.kabouzeid.appthemehelper.R;
-import com.kabouzeid.appthemehelper.util.ATHUtil;
-import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelper.views.ATECheckBox;
 
 import java.lang.reflect.Field;
@@ -71,6 +70,6 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
             checkbox.setBackground(null);
         }
 
-        TintHelper.setTint(checkbox, Config.accentColor(view.getContext()), ATHUtil.isWindowBackgroundDark(view.getContext()));
+        ATH.setTint(checkbox, Config.accentColor(view.getContext()));
     }
 }

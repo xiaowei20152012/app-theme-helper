@@ -15,26 +15,26 @@ public class ATEPrimaryTextView extends TextView {
 
     public ATEPrimaryTextView(Context context) {
         super(context);
-        init(context);
+        init(context, null);
     }
 
     public ATEPrimaryTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs);
     }
 
     public ATEPrimaryTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ATEPrimaryTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        init(context, attrs);
     }
 
-    private void init(Context context) {
+    private void init(Context context, AttributeSet attrs) {
         setTextColor(Config.textColorPrimary(context));
     }
 }

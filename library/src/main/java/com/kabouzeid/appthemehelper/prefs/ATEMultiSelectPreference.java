@@ -13,25 +13,25 @@ public class ATEMultiSelectPreference extends MaterialListPreference {
 
     public ATEMultiSelectPreference(Context context) {
         super(context);
-        init();
+        init(context, null);
     }
 
     public ATEMultiSelectPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context, attrs);
     }
 
     public ATEMultiSelectPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context, attrs);
     }
 
     public ATEMultiSelectPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context, attrs);
     }
 
-    private void init() {
+    private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
     }
 }

@@ -3,8 +3,8 @@
     package="com.kabouzeid.appthemehelper">
 
     <application>
-        <activity android:name="com.kabouzeid.appthemehelper.ATHActivity"></activity>
-        <activity android:name="com.kabouzeid.appthemehelper.ATHBaseActivity"></activity>
+        <activity android:name=".ATHToolbarActivity"></activity>
+        <activity android:name=".ATHActivity"></activity>
     </application>
 
 </manifest>

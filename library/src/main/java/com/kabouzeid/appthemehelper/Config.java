@@ -8,7 +8,6 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -16,15 +15,11 @@ import android.support.v4.content.ContextCompat;
 
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
-import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
- * @author Aidan Follestad (afollestad)
+ * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
-public final class Config extends ConfigBase {
+public final class Config implements ConfigPrefKeys, ConfigInterface {
 
     private final Context mContext;
     private final SharedPreferences.Editor mEditor;
@@ -126,22 +121,6 @@ public final class Config extends ConfigBase {
     }
 
     @Override
-    public Config toolbarColor(@ColorInt int color) {
-        mEditor.putInt(KEY_TOOLBAR_COLOR, color);
-        return this;
-    }
-
-    @Override
-    public Config toolbarColorRes(@ColorRes int colorRes) {
-        return toolbarColor(ContextCompat.getColor(mContext, colorRes));
-    }
-
-    @Override
-    public Config toolbarColorAttr(@AttrRes int colorAttr) {
-        return toolbarColor(ATHUtil.resolveColor(mContext, colorAttr));
-    }
-
-    @Override
     public Config navigationBarColor(@ColorInt int color) {
         mEditor.putInt(KEY_NAVIGATION_BAR_COLOR, color);
         return this;
@@ -174,6 +153,22 @@ public final class Config extends ConfigBase {
     }
 
     @Override
+    public Config textColorPrimaryInverse(@ColorInt int color) {
+        mEditor.putInt(KEY_TEXT_COLOR_PRIMARY_INVERSE, color);
+        return this;
+    }
+
+    @Override
+    public Config textColorPrimaryInverseRes(@ColorRes int colorRes) {
+        return textColorPrimaryInverse(ContextCompat.getColor(mContext, colorRes));
+    }
+
+    @Override
+    public Config textColorPrimaryInverseAttr(@AttrRes int colorAttr) {
+        return textColorPrimaryInverse(ATHUtil.resolveColor(mContext, colorAttr));
+    }
+
+    @Override
     public Config textColorSecondary(@ColorInt int color) {
         mEditor.putInt(KEY_TEXT_COLOR_SECONDARY, color);
         return this;
@@ -190,14 +185,24 @@ public final class Config extends ConfigBase {
     }
 
     @Override
-    public Config coloredStatusBar(boolean colored) {
-        mEditor.putBoolean(KEY_APPLY_PRIMARYDARK_STATUSBAR, colored);
+    public Config textColorSecondaryInverse(@ColorInt int color) {
+        mEditor.putInt(KEY_TEXT_COLOR_SECONDARY_INVERSE, color);
         return this;
     }
 
     @Override
-    public Config coloredToolbar(boolean applyToToolbar) {
-        mEditor.putBoolean(KEY_APPLY_PRIMARY_TOOLBAR, applyToToolbar);
+    public Config textColorSecondaryInverseRes(@ColorRes int colorRes) {
+        return textColorSecondaryInverse(ContextCompat.getColor(mContext, colorRes));
+    }
+
+    @Override
+    public Config textColorSecondaryInverseAttr(@AttrRes int colorAttr) {
+        return textColorSecondaryInverse(ATHUtil.resolveColor(mContext, colorAttr));
+    }
+
+    @Override
+    public Config coloredStatusBar(boolean colored) {
+        mEditor.putBoolean(KEY_APPLY_PRIMARYDARK_STATUSBAR, colored);
         return this;
     }
 
@@ -210,18 +215,6 @@ public final class Config extends ConfigBase {
     @Override
     public Config autoGeneratePrimaryDark(boolean autoGenerate) {
         mEditor.putBoolean(KEY_AUTO_GENERATE_PRIMARYDARK, autoGenerate);
-        return this;
-    }
-
-    @Override
-    public Config lightStatusBarMode(@LightStatusBarMode int mode) {
-        mEditor.putInt(KEY_LIGHT_STATUS_BAR_MODE, mode);
-        return this;
-    }
-
-    @Override
-    public Config lightToolbarMode(@LightToolbarMode int mode) {
-        mEditor.putInt(KEY_LIGHT_TOOLBAR_MODE, mode);
         return this;
     }
 
@@ -282,13 +275,10 @@ public final class Config extends ConfigBase {
 
     @CheckResult
     @ColorInt
-    public static int toolbarColor(@NonNull Context context) {
-        return prefs(context).getInt(KEY_TOOLBAR_COLOR, primaryColor(context));
-    }
-
-    @CheckResult
-    @ColorInt
     public static int navigationBarColor(@NonNull Context context) {
+        if (!coloredNavigationBar(context)) {
+            return Color.BLACK;
+        }
         return prefs(context).getInt(KEY_NAVIGATION_BAR_COLOR, primaryColor(context));
     }
 
@@ -322,135 +312,12 @@ public final class Config extends ConfigBase {
     }
 
     @CheckResult
-    public static boolean coloredActionBar(@NonNull Context context) {
-        return prefs(context).getBoolean(KEY_APPLY_PRIMARY_TOOLBAR, true);
-    }
-
-    @CheckResult
     public static boolean coloredNavigationBar(@NonNull Context context) {
         return prefs(context).getBoolean(KEY_APPLY_PRIMARY_NAVBAR, false);
-    }
-
-    @SuppressWarnings("ResourceType")
-    @CheckResult
-    @LightStatusBarMode
-    public static int lightStatusBarMode(@NonNull Context context) {
-        int value = prefs(context).getInt(KEY_LIGHT_STATUS_BAR_MODE, Config.LIGHT_STATUS_BAR_AUTO);
-        if (value < 1) value = Config.LIGHT_STATUS_BAR_AUTO;
-        return value;
-    }
-
-    @CheckResult
-    public static boolean lightStatusBar(@NonNull Context context, int statusbarColor) {
-        boolean isLightMode;
-        @Config.LightToolbarMode
-        final int lightToolbarMode = Config.lightToolbarMode(context);
-        switch (lightToolbarMode) {
-            case Config.LIGHT_TOOLBAR_ON:
-                isLightMode = true;
-                break;
-            case Config.LIGHT_TOOLBAR_OFF:
-                isLightMode = false;
-                break;
-            default:
-            case Config.LIGHT_TOOLBAR_AUTO:
-                isLightMode = ColorUtil.isColorLight(statusbarColor);
-                break;
-        }
-        return isLightMode;
-    }
-
-    @SuppressWarnings("ResourceType")
-    @CheckResult
-    @LightToolbarMode
-    public static int lightToolbarMode(@NonNull Context context) {
-        int value = prefs(context).getInt(KEY_LIGHT_TOOLBAR_MODE, Config.LIGHT_TOOLBAR_AUTO);
-        if (value < 1) value = Config.LIGHT_TOOLBAR_AUTO;
-        return value;
-    }
-
-    @CheckResult
-    public static boolean lightToolbar(@NonNull Context context, int toolbarColor) {
-        boolean isLightMode;
-        @Config.LightToolbarMode
-        final int lightToolbarMode = Config.lightToolbarMode(context);
-        switch (lightToolbarMode) {
-            case Config.LIGHT_TOOLBAR_ON:
-                isLightMode = true;
-                break;
-            case Config.LIGHT_TOOLBAR_OFF:
-                isLightMode = false;
-                break;
-            default:
-            case Config.LIGHT_TOOLBAR_AUTO:
-                isLightMode = ColorUtil.isColorLight(toolbarColor);
-                break;
-        }
-        return isLightMode;
-    }
-
-    @CheckResult
-    @ColorInt
-    public static int toolbarContentColor(@NonNull Context context) {
-        final int toolbarColor = Config.toolbarColor(context);
-        return toolbarContentColor(context, toolbarColor);
-    }
-
-    @CheckResult
-    @ColorInt
-    public static int toolbarContentColor(@NonNull Context context, @ColorInt int toolbarColor) {
-        if (lightToolbar(context, toolbarColor)) {
-            return toolbarSubtitleColor(context, toolbarColor);
-        }
-        return toolbarTitleColor(context, toolbarColor);
-    }
-
-    @CheckResult
-    @ColorInt
-    public static int toolbarSubtitleColor(@NonNull Context context) {
-        final int toolbarColor = Config.toolbarColor(context);
-        return toolbarSubtitleColor(context, toolbarColor);
-    }
-
-    @CheckResult
-    @ColorInt
-    public static int toolbarSubtitleColor(@NonNull Context context, @ColorInt int toolbarColor) {
-        return MaterialValueHelper.getSecondaryTextColor(context, lightToolbar(context, toolbarColor));
-    }
-
-    @CheckResult
-    @ColorInt
-    public static int toolbarTitleColor(@NonNull Context context) {
-        final int toolbarColor = Config.toolbarColor(context);
-        return toolbarTitleColor(context, toolbarColor);
-    }
-
-    @CheckResult
-    @ColorInt
-    public static int toolbarTitleColor(@NonNull Context context, @ColorInt int toolbarColor) {
-        return MaterialValueHelper.getPrimaryTextColor(context, lightToolbar(context, toolbarColor));
     }
 
     @CheckResult
     public static boolean autoGeneratePrimaryDark(@NonNull Context context) {
         return prefs(context).getBoolean(KEY_AUTO_GENERATE_PRIMARYDARK, true);
     }
-
-    @IntDef({LIGHT_STATUS_BAR_OFF, LIGHT_STATUS_BAR_ON, LIGHT_STATUS_BAR_AUTO})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface LightStatusBarMode {
-    }
-
-    @IntDef({LIGHT_TOOLBAR_OFF, LIGHT_TOOLBAR_ON, LIGHT_TOOLBAR_AUTO})
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface LightToolbarMode {
-    }
-
-    public static final int LIGHT_STATUS_BAR_AUTO = 1;
-    public static final int LIGHT_STATUS_BAR_ON = 2;
-    public static final int LIGHT_STATUS_BAR_OFF = 3;
-
-    public static final int LIGHT_TOOLBAR_AUTO = 1;
-    public static final int LIGHT_TOOLBAR_ON = 2;
-    public static final int LIGHT_TOOLBAR_OFF = 3;
 }
