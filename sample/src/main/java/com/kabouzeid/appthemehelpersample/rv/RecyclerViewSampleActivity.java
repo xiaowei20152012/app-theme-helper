@@ -5,13 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
-import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
+import com.kabouzeid.appthemehelper.common.ATHActionBarActivity;
 import com.kabouzeid.appthemehelpersample.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class RecyclerViewSampleActivity extends ATHToolbarActivity {
+public class RecyclerViewSampleActivity extends ATHActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +34,17 @@ public class RecyclerViewSampleActivity extends ATHToolbarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected int getThemeRes() {
+        int defaultThemeRes = super.getThemeRes();
+        switch (defaultThemeRes) {
+            case R.style.AppTheme:
+                return R.style.AppTheme_ActionBar;
+            case R.style.AppThemeDark:
+                return R.style.AppThemeDark_ActionBar;
+        }
+        return defaultThemeRes;
     }
 }

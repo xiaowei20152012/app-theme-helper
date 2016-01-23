@@ -7,8 +7,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 
-import com.kabouzeid.appthemehelpersample.R;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.kabouzeid.appthemehelpersample.R;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -23,7 +23,6 @@ public class AboutDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Color theming is handled by ATH's MD integration
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.about)
                 .positiveText(R.string.dismiss)

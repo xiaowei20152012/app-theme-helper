@@ -7,7 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.kabouzeid.appthemehelper.ATH;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
+import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.appthemehelpersample.R;
 
 /**
@@ -20,7 +24,7 @@ public class TabSampleActivity extends ATHToolbarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tablayout);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.appbar_toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -30,6 +34,14 @@ public class TabSampleActivity extends ATHToolbarActivity {
         mPager.setOffscreenPageLimit(2);
         final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mPager);
+
+
+        int appbarColor = ThemeStore.primaryColor(this);
+        findViewById(R.id.appbar).setBackgroundColor(appbarColor);
+        TabLayoutUtil.setTabLayoutColors(tabs, ToolbarContentTintHelper.toolbarTitleColor(this, appbarColor), ThemeStore.accentColor(this));
+
+        ATH.setStatusbarColorAuto(this);
+        ATH.setActivityToolbarColorAuto(this, toolbar);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.kabouzeid.appthemehelpersample;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.MenuItemCompat;
@@ -11,8 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
+import com.kabouzeid.appthemehelper.util.MaterialDialogsUtil;
+import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelpersample.collapsingtb.CollapsingToolbarActivity;
 import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
@@ -43,17 +47,33 @@ public class MainActivity extends ATHToolbarActivity implements NavigationView.O
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
-
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer.setDrawerListener(new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close));
 
+        int accentColor = ThemeStore.accentColor(this);
+
         final NavigationView navView = (NavigationView) findViewById(R.id.navigation_view);
         navView.setNavigationItemSelectedListener(this);
+        navView.getHeaderView(0).setBackgroundColor(accentColor);
 
-        TintHelper.setTintAuto(findViewById(R.id.fab), ThemeStore.accentColor(this), true);
-        TintHelper.setTintAuto(findViewById(R.id.button), ThemeStore.accentColor(this), true);
+        NavigationViewUtil.setItemTextColors(navView, ThemeStore.textColorPrimary(this), accentColor);
+        NavigationViewUtil.setItemIconColors(navView, ThemeStore.textColorSecondary(this), accentColor);
+
+        TintHelper.setTintAuto(findViewById(R.id.fab), accentColor, true);
+        TintHelper.setTintAuto(findViewById(R.id.button), accentColor, true);
+
+        boolean coloredStatusBar = ThemeStore.coloredStatusBar(this);
+        int statusBarColor = coloredStatusBar ? Color.TRANSPARENT : Color.BLACK;
+        ATH.setStatusbarColor(this, statusBarColor);
+        if (coloredStatusBar) {
+            statusBarColor = ThemeStore.statusBarColor(this);
+        }
+        mDrawer.setStatusBarBackgroundColor(statusBarColor);
+        ATH.setLightStatusbarAuto(this, statusBarColor);
+
+        MaterialDialogsUtil.updateMaterialDialogsThemeSingleton(this);
     }
 
     @Override

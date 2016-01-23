@@ -8,15 +8,16 @@
     tools:ignore="NewApi,RtlSymmetry,UnusedAttribute">
 
     <!-- LinearLayout background is set only so elevation renders, toolbar/tabs cover bg color anyways -->
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@android:color/transparent"
         android:elevation="@dimen/toolbar_elevation"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/appbar_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -26,10 +27,9 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:tag="tab_text_primary,tab_indicator_accent_color,bg_primary_color" />
+            android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

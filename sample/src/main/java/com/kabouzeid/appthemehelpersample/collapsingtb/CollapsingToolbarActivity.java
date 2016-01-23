@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.kabouzeid.appthemehelper.ATH;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelpersample.R;
 
@@ -25,6 +27,9 @@ public class CollapsingToolbarActivity extends ATHToolbarActivity {
 
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle(getTitle());
+        collapsingToolbar.setContentScrimColor(ThemeStore.primaryColor(this));
+
+        findViewById(R.id.image).setBackgroundColor(ThemeStore.accentColor(this));
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -35,6 +40,8 @@ public class CollapsingToolbarActivity extends ATHToolbarActivity {
             }
         });
         setSupportActionBar(toolbar);
+
+        ATH.setStatusbarColorAuto(this);
     }
 
     @Override

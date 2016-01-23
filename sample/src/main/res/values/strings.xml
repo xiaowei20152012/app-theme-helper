@@ -34,13 +34,8 @@
 
     <string name="about">About</string>
     <string name="about_body"><![CDATA[
-        <b>App Theme Engine</b>, a library  designed by <b>Aidan Follestad</b> (along with various contributors on GitHub).<br/>
-        <a href=\'http://aidanfollestad.com\'>Website</a>&nbsp;&nbsp;
-        <a href=\'https://twitter.com/afollestad\'>Twitter</a>&nbsp;&nbsp;
-        <a href=\'https://google.com/+AidanFollestad\'>Google+</a>&nbsp;&nbsp;
-        <a href=\'https://github.com/afollestad\'>GitHub</a>&nbsp;&nbsp;
-        <a href=\'https://www.linkedin.com/in/afollestad\'>LinkedIn</a>
-    ]]></string>
+        <b>App Theme Helper</b>, a library by <b>Karim Abou Zeid</b> based on <b>Aidan Follestad</b>s <b>App Theme Engine</b>.
+        ]]></string>
     <string name="dismiss">Dismiss</string>
     <string name="radiobutton_clickme">Radio button (click me)</string>
     <string name="dark_theme">Dark Theme</string>

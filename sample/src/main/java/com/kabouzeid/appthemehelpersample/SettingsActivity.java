@@ -167,6 +167,7 @@ public class SettingsActivity extends ATHActionBarActivity
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ATH.setActivityToolbarColorAuto(this, extractWrappedToolbar());
+        ATH.setStatusbarColorAuto(this);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
