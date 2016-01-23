@@ -1,16 +1,11 @@
-package com.kabouzeid.appthemehelper.prefs;
+package com.kabouzeid.appthemehelper.common.prefs;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.Config;
 import com.kabouzeid.appthemehelper.R;
-import com.kabouzeid.appthemehelper.util.ATHUtil;
-import com.kabouzeid.appthemehelper.util.TintHelper;
 
 /**
  * @author Aidan Follestad (afollestad)

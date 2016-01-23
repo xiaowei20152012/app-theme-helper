@@ -7,28 +7,25 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.TintHelper;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 
 /**
- * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public final class ATH {
 
-    public static Config config(@NonNull Context context) {
-        return new Config(context);
-    }
-
     @SuppressLint("CommitPrefEdits")
-    public static boolean didValuesChange(@NonNull Context context, long since) {
-        return ATH.config(context).isConfigured() && Config.prefs(context).getLong(Config.VALUES_CHANGED, -1) > since;
+    public static boolean didThemeValuesChange(@NonNull Context context, long since) {
+        return ThemeStore.isConfigured(context) && ThemeStore.prefs(context).getLong(ThemeStore.VALUES_CHANGED, -1) > since;
     }
-
 
     public static void setStatusbarColorAuto(Activity activity) {
-        setStatusbarColor(activity, Config.statusBarColor(activity));
+        setStatusbarColor(activity, ThemeStore.statusBarColor(activity));
     }
 
     public static void setStatusbarColor(Activity activity, int color) {
@@ -55,7 +52,7 @@ public final class ATH {
     }
 
     public static void setNavigationbarColorAuto(Activity activity) {
-        setNavigationbarColor(activity, Config.navigationBarColor(activity));
+        setNavigationbarColor(activity, ThemeStore.navigationBarColor(activity));
     }
 
     public static void setNavigationbarColor(Activity activity, int color) {
@@ -64,8 +61,17 @@ public final class ATH {
         }
     }
 
+    public static void setActivityToolbarColorAuto(Activity activity, Toolbar toolbar) {
+        setActivityToolbarColor(activity, toolbar, ThemeStore.primaryColor(activity));
+    }
+
+    public static void setActivityToolbarColor(Activity activity, Toolbar toolbar, int color) {
+        toolbar.setBackgroundColor(color);
+        ToolbarContentTintHelper.setToolbarContentColorBasedOnToolbarColor(activity, toolbar, color);
+    }
+
     public static void setTaskDescriptionColorAuto(@NonNull Activity activity) {
-        setTaskDescriptionColor(activity, Config.primaryColor(activity));
+        setTaskDescriptionColor(activity, ThemeStore.primaryColor(activity));
     }
 
     public static void setTaskDescriptionColor(@NonNull Activity activity, @ColorInt int color) {

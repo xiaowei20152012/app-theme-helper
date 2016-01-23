@@ -3,7 +3,7 @@ package com.kabouzeid.appthemehelper;
 /**
  * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
-interface ConfigPrefKeys {
+interface ThemeStorePrefKeys {
 
     String CONFIG_PREFS_KEY_DEFAULT = "[[kabouzeid_app-theme-helper]]";
     String IS_CONFIGURED_KEY = "is_configured";

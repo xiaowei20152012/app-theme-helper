@@ -1,40 +1,40 @@
-package com.kabouzeid.appthemehelper.views;
+package com.kabouzeid.appthemehelper.common.prefs;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.preference.Preference;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEPrimaryTextView extends TextView {
+public class ATEPreference extends Preference {
 
-    public ATEPrimaryTextView(Context context) {
+    public ATEPreference(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATEPrimaryTextView(Context context, AttributeSet attrs) {
+    public ATEPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ATEPrimaryTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ATEPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ATEPrimaryTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ATEPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        setTextColor(Config.textColorPrimary(context));
+        setLayoutResource(R.layout.ate_preference_custom);
     }
 }

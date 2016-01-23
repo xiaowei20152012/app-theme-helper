@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemehelper.prefs;
+package com.kabouzeid.appthemehelper.common.prefs;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -13,11 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
-import com.afollestad.materialdialogs.prefs.MaterialListPreference;
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.Config;
-import com.kabouzeid.appthemehelper.prefs.ATEColorPreference;
-import com.kabouzeid.appthemehelper.prefs.ATESwitchPreference;
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference;
+import com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference;
 import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
 
@@ -30,22 +29,22 @@ public class SettingsActivity extends BaseThemedActivity
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
-        final Config config = ATH.config(this);
+        final ThemeStore themeStore = ATH.editTheme(this);
         switch (dialog.getTitle()) {
             case R.string.primary_color:
-                config.primaryColor(selectedColor);
+                themeStore.primaryColor(selectedColor);
                 break;
             case R.string.accent_color:
-                config.accentColor(selectedColor);
+                themeStore.accentColor(selectedColor);
                 break;
             case R.string.primary_text_color:
-                config.textColorPrimary(selectedColor);
+                themeStore.textColorPrimary(selectedColor);
                 break;
             case R.string.secondary_text_color:
-                config.textColorSecondary(selectedColor);
+                themeStore.textColorSecondary(selectedColor);
                 break;
         }
-        config.commit();
+        themeStore.commit();
         recreate();
     }
 
@@ -65,48 +64,48 @@ public class SettingsActivity extends BaseThemedActivity
 
         public void invalidateSettings() {
             ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
-            primaryColorPref.setColor(Config.primaryColor(getActivity()), Color.BLACK);
+            primaryColorPref.setColor(ThemeStore.primaryColor(getActivity()), Color.BLACK);
             primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
-                            .preselect(Config.primaryColor(getActivity()))
+                            .preselect(ThemeStore.primaryColor(getActivity()))
                             .show();
                     return true;
                 }
             });
 
             ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
-            accentColorPref.setColor(Config.accentColor(getActivity()), Color.BLACK);
+            accentColorPref.setColor(ThemeStore.accentColor(getActivity()), Color.BLACK);
             accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
-                            .preselect(Config.accentColor(getActivity()))
+                            .preselect(ThemeStore.accentColor(getActivity()))
                             .show();
                     return true;
                 }
             });
 
             ATEColorPreference textColorPrimaryPref = (ATEColorPreference) findPreference("text_primary");
-            textColorPrimaryPref.setColor(Config.textColorPrimary(getActivity()), Color.BLACK);
+            textColorPrimaryPref.setColor(ThemeStore.textColorPrimary(getActivity()), Color.BLACK);
             textColorPrimaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_text_color)
-                            .preselect(Config.textColorPrimary(getActivity()))
+                            .preselect(ThemeStore.textColorPrimary(getActivity()))
                             .show();
                     return true;
                 }
             });
 
             ATEColorPreference textColorSecondaryPref = (ATEColorPreference) findPreference("text_secondary");
-            textColorSecondaryPref.setColor(Config.textColorSecondary(getActivity()), Color.BLACK);
+            textColorSecondaryPref.setColor(ThemeStore.textColorSecondary(getActivity()), Color.BLACK);
             textColorSecondaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.secondary_text_color)
-                            .preselect(Config.textColorSecondary(getActivity()))
+                            .preselect(ThemeStore.textColorSecondary(getActivity()))
                             .show();
                     return true;
                 }
@@ -115,45 +114,6 @@ public class SettingsActivity extends BaseThemedActivity
             findPreference("dark_theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    // Marks both theme configs as changed so MainActivity restarts itself on return
-                    Config.markChanged(getActivity());
-                    // The dark_theme preference value gets saved by Android in the default PreferenceManager.
-                    // It's used in getATEKey() of both the Activities.
-                    getActivity().recreate();
-                    return true;
-                }
-            });
-
-            final MaterialListPreference lightStatusMode = (MaterialListPreference) findPreference("light_status_bar_mode");
-            final MaterialListPreference lightToolbarMode = (MaterialListPreference) findPreference("light_toolbar_mode");
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                lightStatusMode.setEnabled(true);
-                lightStatusMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        @Config.LightStatusBarMode
-                        int constant = Integer.parseInt((String) newValue);
-                        ATH.config(getActivity())
-                                .lightStatusBarMode(constant)
-                                .commit();
-                        getActivity().recreate();
-                        return true;
-                    }
-                });
-            } else {
-                lightStatusMode.setEnabled(false);
-                lightStatusMode.setSummary(R.string.not_available_below_m);
-            }
-
-            lightToolbarMode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    @Config.LightToolbarMode
-                    int constant = Integer.parseInt((String) newValue);
-                    ATH.config(getActivity())
-                            .lightToolbarMode(constant)
-                            .commit();
                     getActivity().recreate();
                     return true;
                 }
@@ -163,11 +123,11 @@ public class SettingsActivity extends BaseThemedActivity
             final ATESwitchPreference navBarPref = (ATESwitchPreference) findPreference("colored_nav_bar");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                statusBarPref.setChecked(Config.coloredStatusBar(getActivity()));
+                statusBarPref.setChecked(ThemeStore.coloredStatusBar(getActivity()));
                 statusBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        ATH.config(getActivity())
+                        ATH.editTheme(getActivity())
                                 .coloredStatusBar((Boolean) newValue)
                                 .commit();
                         getActivity().recreate();
@@ -176,11 +136,11 @@ public class SettingsActivity extends BaseThemedActivity
                 });
 
 
-                navBarPref.setChecked(Config.coloredNavigationBar(getActivity()));
+                navBarPref.setChecked(ThemeStore.coloredNavigationBar(getActivity()));
                 navBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        ATH.config(getActivity())
+                        ATH.editTheme(getActivity())
                                 .coloredNavigationBar((Boolean) newValue)
                                 .commit();
                         getActivity().recreate();

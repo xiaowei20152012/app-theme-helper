@@ -1,40 +1,41 @@
-package com.kabouzeid.appthemehelper.prefs;
+package com.kabouzeid.appthemehelper.common.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.preference.Preference;
 import android.util.AttributeSet;
+import android.widget.RadioButton;
 
-import com.kabouzeid.appthemehelper.R;
+import com.kabouzeid.appthemehelper.ATH;
+import com.kabouzeid.appthemehelper.ThemeStore;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEPreference extends Preference {
+public class ATERadioButton extends RadioButton {
 
-    public ATEPreference(Context context) {
+    public ATERadioButton(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATEPreference(Context context, AttributeSet attrs) {
+    public ATERadioButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ATEPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ATERadioButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ATEPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ATERadioButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        setLayoutResource(R.layout.ate_preference_custom);
+        ATH.setTint(this, ThemeStore.accentColor(context));
     }
 }

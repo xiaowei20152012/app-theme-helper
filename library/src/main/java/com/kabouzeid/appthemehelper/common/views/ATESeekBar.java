@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemehelper.views;
+package com.kabouzeid.appthemehelper.common.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.widget.SeekBar;
 
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.ThemeStore;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -36,6 +36,6 @@ public class ATESeekBar extends SeekBar {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        ATH.setTint(this, Config.accentColor(context));
+        ATH.setTint(this, ThemeStore.accentColor(context));
     }
 }

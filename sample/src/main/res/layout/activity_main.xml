@@ -45,14 +45,14 @@
                     android:paddingTop="@dimen/content_inset"
                     tools:ignore="UnusedAttribute">
 
-                    <com.kabouzeid.appthemehelper.views.ATEPrimaryTextView
+                    <com.kabouzeid.appthemehelper.common.views.ATEPrimaryTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
                         android:tag="window_background_dependent,textsize_headline,font_RobotoSlab-Bold.ttf"
                         android:text="@string/header" />
 
-                    <com.kabouzeid.appthemehelper.views.ATESecondaryTextView
+                    <com.kabouzeid.appthemehelper.common.views.ATESecondaryTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/content_inset_half"
@@ -62,7 +62,7 @@
                         android:tag="text_secondary,textsize_body"
                         android:text="@string/lorem_ipsum" />
 
-                    <com.kabouzeid.appthemehelper.views.ATECheckBox
+                    <com.kabouzeid.appthemehelper.common.views.ATECheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
@@ -70,7 +70,7 @@
                         android:tag="tint_accent_color,text_primary,textsize_body"
                         android:text="@string/checkbox" />
 
-                    <com.kabouzeid.appthemehelper.views.ATESwitch
+                    <com.kabouzeid.appthemehelper.common.views.ATESwitch
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
@@ -78,7 +78,7 @@
                         android:tag="tint_accent_color,text_primary,textsize_body"
                         android:text="@string/switchView" />
 
-                    <com.kabouzeid.appthemehelper.views.ATERadioButton
+                    <com.kabouzeid.appthemehelper.common.views.ATERadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
@@ -87,14 +87,14 @@
                         android:tag="tint_accent_color,text_primary,textsize_body"
                         android:text="@string/radiobutton" />
 
-                    <com.kabouzeid.appthemehelper.views.ATEEditText
+                    <com.kabouzeid.appthemehelper.common.views.ATEEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
                         android:hint="@string/edit_text"
                         android:tag="tint_accent_color,text_primary,textsize_body" />
 
-                    <com.kabouzeid.appthemehelper.views.ATEProgressBar
+                    <com.kabouzeid.appthemehelper.common.views.ATEProgressBar
                         android:id="@+id/progress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                         android:layout_marginTop="@dimen/content_inset"
                         android:tag="tint_accent_color" />
 
-                    <com.kabouzeid.appthemehelper.views.ATESeekBar
+                    <com.kabouzeid.appthemehelper.common.views.ATESeekBar
                         android:id="@+id/seek"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

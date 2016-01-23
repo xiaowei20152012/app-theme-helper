@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemehelper.prefs;
+package com.kabouzeid.appthemehelper.common.prefs;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.ThemeStore;
 
 public class ATEPreferenceCategory extends PreferenceCategory {
 
@@ -33,6 +33,6 @@ public class ATEPreferenceCategory extends PreferenceCategory {
     protected void onBindView(View view) {
         super.onBindView(view);
         TextView mTitle = (TextView) view.findViewById(android.R.id.title);
-        mTitle.setTextColor(Config.accentColor(view.getContext()));
+        mTitle.setTextColor(ThemeStore.accentColor(view.getContext()));
     }
 }

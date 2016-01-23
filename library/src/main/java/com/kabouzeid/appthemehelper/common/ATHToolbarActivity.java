@@ -1,10 +1,11 @@
-package com.kabouzeid.appthemehelper;
+package com.kabouzeid.appthemehelper.common;
 
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import com.kabouzeid.appthemehelper.ATHActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 
 /**

@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemehelper.prefs;
+package com.kabouzeid.appthemehelper.common.prefs;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.kabouzeid.appthemehelper.views.ATESwitch;
+import com.kabouzeid.appthemehelper.common.views.ATESwitch;
 
 import java.lang.reflect.Field;
 

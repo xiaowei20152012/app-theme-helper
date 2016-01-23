@@ -12,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 import com.kabouzeid.appthemehelpersample.collapsingtb.CollapsingToolbarActivity;
@@ -28,8 +28,8 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Default config
-        if (!ATH.config(this).isConfigured(1)) {
-            ATH.config(this)
+        if (!ATH.editTheme(this).isConfigured(1)) {
+            ATH.editTheme(this)
                     .activityTheme(R.style.AppTheme)
                     .primaryColorRes(R.color.colorPrimaryLightDefault)
                     .accentColorRes(R.color.colorAccentLightDefault)
@@ -45,7 +45,7 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
         toolbar.setTitle(R.string.app_name);
         toolbar.setNavigationIcon(R.drawable.ic_menu);
 
-        toolbar.setBackgroundColor(Config.primaryColor(this));
+        toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawer.setDrawerListener(new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close));
@@ -53,8 +53,8 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
         final NavigationView navView = (NavigationView) findViewById(R.id.navigation_view);
         navView.setNavigationItemSelectedListener(this);
 
-        TintHelper.setTintAuto(findViewById(R.id.fab), Config.accentColor(this), true);
-        TintHelper.setTintAuto(findViewById(R.id.button), Config.accentColor(this), true);
+        TintHelper.setTintAuto(findViewById(R.id.fab), ThemeStore.accentColor(this), true);
+        TintHelper.setTintAuto(findViewById(R.id.button), ThemeStore.accentColor(this), true);
     }
 
     @Override

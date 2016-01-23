@@ -30,8 +30,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
-import com.kabouzeid.appthemehelper.Config;
 import com.kabouzeid.appthemehelper.R;
+import com.kabouzeid.appthemehelper.ThemeStore;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public final class ToolbarContentTintHelper {
     }
 
     public static void setToolbarContentColorBasedOnToolbarColor(@NonNull Context context, Toolbar toolbar, @Nullable Menu menu, int toolbarColor) {
-        setToolbarContentColorBasedOnToolbarColor(context, toolbar, menu, toolbarColor, Config.accentColor(context));
+        setToolbarContentColorBasedOnToolbarColor(context, toolbar, menu, toolbarColor, ThemeStore.accentColor(context));
     }
 
     public static void setToolbarContentColorBasedOnToolbarColor(@NonNull Context context, Toolbar toolbar, @Nullable Menu menu, int toolbarColor, final @ColorInt int menuWidgetColor) {
@@ -177,7 +177,7 @@ public final class ToolbarContentTintHelper {
     }
 
     public static void handleOnPrepareOptionsMenu(Activity activity, Toolbar toolbar) {
-        handleOnPrepareOptionsMenu(activity, toolbar, Config.accentColor(activity));
+        handleOnPrepareOptionsMenu(activity, toolbar, ThemeStore.accentColor(activity));
     }
 
     public static void handleOnPrepareOptionsMenu(Activity activity, Toolbar toolbar, int widgetColor) {

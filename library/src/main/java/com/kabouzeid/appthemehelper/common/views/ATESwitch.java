@@ -1,4 +1,4 @@
-package com.kabouzeid.appthemehelper.views;
+package com.kabouzeid.appthemehelper.common.views;
 
 import android.content.Context;
 import android.support.v7.widget.SwitchCompat;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.Config;
+import com.kabouzeid.appthemehelper.ThemeStore;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,7 +29,7 @@ public class ATESwitch extends SwitchCompat {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        ATH.setTint(this, Config.accentColor(context));
+        ATH.setTint(this, ThemeStore.accentColor(context));
     }
 
     @Override

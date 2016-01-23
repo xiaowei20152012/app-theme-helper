@@ -19,43 +19,29 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 /**
  * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
-public final class Config implements ConfigPrefKeys, ConfigInterface {
+public final class ThemeStore implements ThemeStorePrefKeys, ThemeStoreInterface {
 
     private final Context mContext;
     private final SharedPreferences.Editor mEditor;
 
+    public static ThemeStore editTheme(@NonNull Context context) {
+        return new ThemeStore(context);
+    }
+
     @SuppressLint("CommitPrefEdits")
-    protected Config(@NonNull Context context) {
+    private ThemeStore(@NonNull Context context) {
         mContext = context;
         mEditor = prefs(context).edit();
     }
 
-    @CheckResult
     @Override
-    public boolean isConfigured() {
-        return prefs(mContext).getBoolean(IS_CONFIGURED_KEY, false);
-    }
-
-    @SuppressLint("CommitPrefEdits")
-    @Override
-    public boolean isConfigured(@IntRange(from = 0, to = Integer.MAX_VALUE) int version) {
-        final SharedPreferences prefs = prefs(mContext);
-        final int lastVersion = prefs.getInt(IS_CONFIGURED_VERSION_KEY, -1);
-        if (version > lastVersion) {
-            prefs.edit().putInt(IS_CONFIGURED_VERSION_KEY, version).commit();
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public Config activityTheme(@StyleRes int theme) {
+    public ThemeStore activityTheme(@StyleRes int theme) {
         mEditor.putInt(KEY_ACTIVITY_THEME, theme);
         return this;
     }
 
     @Override
-    public Config primaryColor(@ColorInt int color) {
+    public ThemeStore primaryColor(@ColorInt int color) {
         mEditor.putInt(KEY_PRIMARY_COLOR, color);
         if (autoGeneratePrimaryDark(mContext))
             primaryColorDark(ColorUtil.darkenColor(color));
@@ -63,157 +49,157 @@ public final class Config implements ConfigPrefKeys, ConfigInterface {
     }
 
     @Override
-    public Config primaryColorRes(@ColorRes int colorRes) {
+    public ThemeStore primaryColorRes(@ColorRes int colorRes) {
         return primaryColor(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config primaryColorAttr(@AttrRes int colorAttr) {
+    public ThemeStore primaryColorAttr(@AttrRes int colorAttr) {
         return primaryColor(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config primaryColorDark(@ColorInt int color) {
+    public ThemeStore primaryColorDark(@ColorInt int color) {
         mEditor.putInt(KEY_PRIMARY_COLOR_DARK, color);
         return this;
     }
 
     @Override
-    public Config primaryColorDarkRes(@ColorRes int colorRes) {
+    public ThemeStore primaryColorDarkRes(@ColorRes int colorRes) {
         return primaryColorDark(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config primaryColorDarkAttr(@AttrRes int colorAttr) {
+    public ThemeStore primaryColorDarkAttr(@AttrRes int colorAttr) {
         return primaryColorDark(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config accentColor(@ColorInt int color) {
+    public ThemeStore accentColor(@ColorInt int color) {
         mEditor.putInt(KEY_ACCENT_COLOR, color);
         return this;
     }
 
     @Override
-    public Config accentColorRes(@ColorRes int colorRes) {
+    public ThemeStore accentColorRes(@ColorRes int colorRes) {
         return accentColor(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config accentColorAttr(@AttrRes int colorAttr) {
+    public ThemeStore accentColorAttr(@AttrRes int colorAttr) {
         return accentColor(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config statusBarColor(@ColorInt int color) {
+    public ThemeStore statusBarColor(@ColorInt int color) {
         mEditor.putInt(KEY_STATUS_BAR_COLOR, color);
         return this;
     }
 
     @Override
-    public Config statusBarColorRes(@ColorRes int colorRes) {
+    public ThemeStore statusBarColorRes(@ColorRes int colorRes) {
         return statusBarColor(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config statusBarColorAttr(@AttrRes int colorAttr) {
+    public ThemeStore statusBarColorAttr(@AttrRes int colorAttr) {
         return statusBarColor(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config navigationBarColor(@ColorInt int color) {
+    public ThemeStore navigationBarColor(@ColorInt int color) {
         mEditor.putInt(KEY_NAVIGATION_BAR_COLOR, color);
         return this;
     }
 
     @Override
-    public Config navigationBarColorRes(@ColorRes int colorRes) {
+    public ThemeStore navigationBarColorRes(@ColorRes int colorRes) {
         return navigationBarColor(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config navigationBarColorAttr(@AttrRes int colorAttr) {
+    public ThemeStore navigationBarColorAttr(@AttrRes int colorAttr) {
         return navigationBarColor(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config textColorPrimary(@ColorInt int color) {
+    public ThemeStore textColorPrimary(@ColorInt int color) {
         mEditor.putInt(KEY_TEXT_COLOR_PRIMARY, color);
         return this;
     }
 
     @Override
-    public Config textColorPrimaryRes(@ColorRes int colorRes) {
+    public ThemeStore textColorPrimaryRes(@ColorRes int colorRes) {
         return textColorPrimary(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config textColorPrimaryAttr(@AttrRes int colorAttr) {
+    public ThemeStore textColorPrimaryAttr(@AttrRes int colorAttr) {
         return textColorPrimary(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config textColorPrimaryInverse(@ColorInt int color) {
+    public ThemeStore textColorPrimaryInverse(@ColorInt int color) {
         mEditor.putInt(KEY_TEXT_COLOR_PRIMARY_INVERSE, color);
         return this;
     }
 
     @Override
-    public Config textColorPrimaryInverseRes(@ColorRes int colorRes) {
+    public ThemeStore textColorPrimaryInverseRes(@ColorRes int colorRes) {
         return textColorPrimaryInverse(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config textColorPrimaryInverseAttr(@AttrRes int colorAttr) {
+    public ThemeStore textColorPrimaryInverseAttr(@AttrRes int colorAttr) {
         return textColorPrimaryInverse(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config textColorSecondary(@ColorInt int color) {
+    public ThemeStore textColorSecondary(@ColorInt int color) {
         mEditor.putInt(KEY_TEXT_COLOR_SECONDARY, color);
         return this;
     }
 
     @Override
-    public Config textColorSecondaryRes(@ColorRes int colorRes) {
+    public ThemeStore textColorSecondaryRes(@ColorRes int colorRes) {
         return textColorSecondary(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config textColorSecondaryAttr(@AttrRes int colorAttr) {
+    public ThemeStore textColorSecondaryAttr(@AttrRes int colorAttr) {
         return textColorSecondary(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config textColorSecondaryInverse(@ColorInt int color) {
+    public ThemeStore textColorSecondaryInverse(@ColorInt int color) {
         mEditor.putInt(KEY_TEXT_COLOR_SECONDARY_INVERSE, color);
         return this;
     }
 
     @Override
-    public Config textColorSecondaryInverseRes(@ColorRes int colorRes) {
+    public ThemeStore textColorSecondaryInverseRes(@ColorRes int colorRes) {
         return textColorSecondaryInverse(ContextCompat.getColor(mContext, colorRes));
     }
 
     @Override
-    public Config textColorSecondaryInverseAttr(@AttrRes int colorAttr) {
+    public ThemeStore textColorSecondaryInverseAttr(@AttrRes int colorAttr) {
         return textColorSecondaryInverse(ATHUtil.resolveColor(mContext, colorAttr));
     }
 
     @Override
-    public Config coloredStatusBar(boolean colored) {
+    public ThemeStore coloredStatusBar(boolean colored) {
         mEditor.putBoolean(KEY_APPLY_PRIMARYDARK_STATUSBAR, colored);
         return this;
     }
 
     @Override
-    public Config coloredNavigationBar(boolean applyToNavBar) {
+    public ThemeStore coloredNavigationBar(boolean applyToNavBar) {
         mEditor.putBoolean(KEY_APPLY_PRIMARY_NAVBAR, applyToNavBar);
         return this;
     }
 
     @Override
-    public Config autoGeneratePrimaryDark(boolean autoGenerate) {
+    public ThemeStore autoGeneratePrimaryDark(boolean autoGenerate) {
         mEditor.putBoolean(KEY_AUTO_GENERATE_PRIMARYDARK, autoGenerate);
         return this;
     }
@@ -237,7 +223,7 @@ public final class Config implements ConfigPrefKeys, ConfigInterface {
     }
 
     public static void markChanged(@NonNull Context context) {
-        new Config(context).commit();
+        new ThemeStore(context).commit();
     }
 
     @CheckResult
@@ -319,5 +305,21 @@ public final class Config implements ConfigPrefKeys, ConfigInterface {
     @CheckResult
     public static boolean autoGeneratePrimaryDark(@NonNull Context context) {
         return prefs(context).getBoolean(KEY_AUTO_GENERATE_PRIMARYDARK, true);
+    }
+
+    @CheckResult
+    public static boolean isConfigured(Context context) {
+        return prefs(context).getBoolean(IS_CONFIGURED_KEY, false);
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public static boolean isConfigured(Context context, @IntRange(from = 0, to = Integer.MAX_VALUE) int version) {
+        final SharedPreferences prefs = prefs(context);
+        final int lastVersion = prefs.getInt(IS_CONFIGURED_VERSION_KEY, -1);
+        if (version > lastVersion) {
+            prefs.edit().putInt(IS_CONFIGURED_VERSION_KEY, version).commit();
+            return false;
+        }
+        return true;
     }
 }
