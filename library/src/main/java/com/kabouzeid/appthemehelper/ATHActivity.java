@@ -2,6 +2,7 @@ package com.kabouzeid.appthemehelper;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -13,6 +14,7 @@ public class ATHActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(getThemeRes());
         super.onCreate(savedInstanceState);
         updateTime = System.currentTimeMillis();
     }
@@ -29,5 +31,10 @@ public class ATHActivity extends AppCompatActivity {
                     recreate();
                 }
             });
+    }
+
+    @StyleRes
+    protected int getThemeRes() {
+        return ThemeStore.activityTheme(this);
     }
 }

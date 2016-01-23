@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelpersample.R;
-import com.kabouzeid.appthemehelpersample.Util;
 
 /**
  * @author Aidan Follestad (afollestad)

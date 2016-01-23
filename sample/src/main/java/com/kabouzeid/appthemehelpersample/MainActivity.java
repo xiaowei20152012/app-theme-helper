@@ -11,16 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TintHelper;
-import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 import com.kabouzeid.appthemehelpersample.collapsingtb.CollapsingToolbarActivity;
 import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
 import com.kabouzeid.appthemehelpersample.rv.RecyclerViewSampleActivity;
 import com.kabouzeid.appthemehelpersample.tabs.TabSampleActivity;
 
-public class MainActivity extends BaseThemedActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends ATHToolbarActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawer;
 
@@ -28,8 +27,8 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Default config
-        if (!ATH.editTheme(this).isConfigured(1)) {
-            ATH.editTheme(this)
+        if (!ThemeStore.isConfigured(this, 1)) {
+            ThemeStore.editTheme(this)
                     .activityTheme(R.style.AppTheme)
                     .primaryColorRes(R.color.colorPrimaryLightDefault)
                     .accentColorRes(R.color.colorAccentLightDefault)
@@ -64,8 +63,6 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
         final MenuItem searchItem = menu.findItem(R.id.search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search_view_example));
-//        searchView.setIconifiedByDefault(false);
-//        searchItem.expandActionView();
 
         return super.onCreateOptionsMenu(menu);
     }

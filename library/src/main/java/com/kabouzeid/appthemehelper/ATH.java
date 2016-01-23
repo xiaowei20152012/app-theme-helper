@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -61,11 +62,12 @@ public final class ATH {
         }
     }
 
-    public static void setActivityToolbarColorAuto(Activity activity, Toolbar toolbar) {
+    public static void setActivityToolbarColorAuto(Activity activity, @Nullable Toolbar toolbar) {
         setActivityToolbarColor(activity, toolbar, ThemeStore.primaryColor(activity));
     }
 
-    public static void setActivityToolbarColor(Activity activity, Toolbar toolbar, int color) {
+    public static void setActivityToolbarColor(Activity activity, @Nullable Toolbar toolbar, int color) {
+        if (toolbar == null) return;
         toolbar.setBackgroundColor(color);
         ToolbarContentTintHelper.setToolbarContentColorBasedOnToolbarColor(activity, toolbar, color);
     }

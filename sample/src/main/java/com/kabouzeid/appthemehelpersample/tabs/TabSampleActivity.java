@@ -7,13 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelpersample.R;
-import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class TabSampleActivity extends BaseThemedActivity {
+public class TabSampleActivity extends ATHToolbarActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

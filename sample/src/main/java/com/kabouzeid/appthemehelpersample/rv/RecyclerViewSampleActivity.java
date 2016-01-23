@@ -5,13 +5,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelpersample.R;
-import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class RecyclerViewSampleActivity extends BaseThemedActivity {
+public class RecyclerViewSampleActivity extends ATHToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

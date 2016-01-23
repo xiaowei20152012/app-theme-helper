@@ -15,21 +15,21 @@ import android.view.View;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.ATHActionBarActivity;
 import com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference;
-import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
 @SuppressLint("NewApi")
-public class SettingsActivity extends BaseThemedActivity
+public class SettingsActivity extends ATHActionBarActivity
         implements ColorChooserDialog.ColorCallback {
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
-        final ThemeStore themeStore = ATH.editTheme(this);
+        final ThemeStore themeStore = ThemeStore.editTheme(this);
         switch (dialog.getTitle()) {
             case R.string.primary_color:
                 themeStore.primaryColor(selectedColor);
@@ -114,6 +114,9 @@ public class SettingsActivity extends BaseThemedActivity
             findPreference("dark_theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    ThemeStore.editTheme(getActivity())
+                            .activityTheme(((Boolean) newValue) ? R.style.AppThemeDark : R.style.AppTheme)
+                            .commit();
                     getActivity().recreate();
                     return true;
                 }
@@ -127,7 +130,7 @@ public class SettingsActivity extends BaseThemedActivity
                 statusBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        ATH.editTheme(getActivity())
+                        ThemeStore.editTheme(getActivity())
                                 .coloredStatusBar((Boolean) newValue)
                                 .commit();
                         getActivity().recreate();
@@ -140,7 +143,7 @@ public class SettingsActivity extends BaseThemedActivity
                 navBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        ATH.editTheme(getActivity())
+                        ThemeStore.editTheme(getActivity())
                                 .coloredNavigationBar((Boolean) newValue)
                                 .commit();
                         getActivity().recreate();
@@ -161,7 +164,9 @@ public class SettingsActivity extends BaseThemedActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preference_activity_custom);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ATH.setActivityToolbarColorAuto(this, extractWrappedToolbar());
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
@@ -187,5 +192,17 @@ public class SettingsActivity extends BaseThemedActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected int getThemeRes() {
+        int defaultThemeRes = super.getThemeRes();
+        switch (defaultThemeRes) {
+            case R.style.AppTheme:
+                return R.style.AppTheme_ActionBar;
+            case R.style.AppThemeDark:
+                return R.style.AppThemeDark_ActionBar;
+        }
+        return defaultThemeRes;
     }
 }

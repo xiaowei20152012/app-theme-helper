@@ -10,13 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelpersample.R;
-import com.kabouzeid.appthemehelpersample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class CollapsingToolbarActivity extends BaseThemedActivity {
+public class CollapsingToolbarActivity extends ATHToolbarActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
