@@ -12,17 +12,18 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ATHToolbarActivity extends ATHActivity {
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        ToolbarContentTintHelper.handleOnCreateOptionsMenu(this, toolbar, menu, getToolbarBackgroundColor());
+        Toolbar toolbar = getATHToolbar();
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(this, toolbar, menu, getToolbarBackgroundColor(toolbar));
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(this, toolbar);
+        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(this, getATHToolbar());
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -32,7 +33,11 @@ public class ATHToolbarActivity extends ATHActivity {
         super.setSupportActionBar(toolbar);
     }
 
-    protected int getToolbarBackgroundColor() {
+    protected Toolbar getATHToolbar() {
+        return toolbar;
+    }
+
+    public static int getToolbarBackgroundColor(Toolbar toolbar) {
         if (toolbar != null) {
             if (toolbar.getBackground() instanceof ColorDrawable) {
                 return ((ColorDrawable) toolbar.getBackground()).getColor();

@@ -22,15 +22,24 @@ public class ATHActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (ATH.didThemeValuesChange(this, updateTime))
-            // hack to prevent java.lang.RuntimeException: Performing pause of activity that is not resumed
-            // makes sure recreate() is called right after and not in onResume()
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    recreate();
-                }
-            });
+        if (ATH.didThemeValuesChange(this, updateTime)) {
+            onThemeChanged();
+        }
+    }
+
+    public void onThemeChanged() {
+        postRecreate();
+    }
+
+    public void postRecreate() {
+        // hack to prevent java.lang.RuntimeException: Performing pause of activity that is not resumed
+        // makes sure recreate() is called right after and not in onResume()
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                recreate();
+            }
+        });
     }
 
     @StyleRes

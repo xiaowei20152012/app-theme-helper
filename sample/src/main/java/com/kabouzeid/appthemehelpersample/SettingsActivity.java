@@ -166,7 +166,7 @@ public class SettingsActivity extends ATHActionBarActivity
         setContentView(R.layout.preference_activity_custom);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ATH.setActivityToolbarColorAuto(this, extractWrappedToolbar());
+        ATH.setActivityToolbarColorAuto(this, getATHToolbar());
         ATH.setStatusbarColorAuto(this);
 
         if (savedInstanceState == null) {
