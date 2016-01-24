@@ -8,10 +8,7 @@ Download the [latest sample APK](https://github.com/afollestad/app-theme-engine/
 You can also get it through Google Play, with the badge below. The sample's icon was designed by 
 [Alex Mueller](https://plus.google.com/109174583408308276235).
 
-<a href="https://play.google.com/store/apps/details?id=com.afollestad.appthemeenginesample">
-  <img alt="Get it on Google Play"
-       src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
-</a>
+<a href="https://play.google.com/store/apps/details?id=com.afollestad.appthemeenginesample&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" style="width: 10%; height: auto;" /></a>
 
 ![Showcase](https://raw.githubusercontent.com/afollestad/app-theme-engine/master/art/showcase.png)
 
