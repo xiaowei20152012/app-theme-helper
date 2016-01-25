@@ -30,6 +30,12 @@
             android:icon="@drawable/ic_collapsingtoolbar"
             android:title="@string/drawer_collapsingtoolbar" />
 
+        <item
+            android:id="@+id/drawer_insets"
+            android:checkable="false"
+            android:icon="@drawable/ic_home"
+            android:title="@string/drawer_insets" />
+
     </group>
 
     <group

@@ -3,6 +3,7 @@ package com.kabouzeid.appthemehelpersample.collapsingtb;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -10,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelpersample.R;
@@ -28,6 +28,9 @@ public class CollapsingToolbarActivity extends ATHToolbarActivity {
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle(getTitle());
         collapsingToolbar.setContentScrimColor(ThemeStore.primaryColor(this));
+        collapsingToolbar.setStatusBarScrimColor(ThemeStore.primaryColorDark(this));
+
+        ((CoordinatorLayout) findViewById(R.id.coordinator_layout)).setStatusBarBackgroundColor(ThemeStore.primaryColorDark(this));
 
         findViewById(R.id.image).setBackgroundColor(ThemeStore.accentColor(this));
 
@@ -41,7 +44,7 @@ public class CollapsingToolbarActivity extends ATHToolbarActivity {
         });
         setSupportActionBar(toolbar);
 
-        ATH.setStatusbarColorAuto(this);
+//        ATH.setStatusbarColorAuto(this);
     }
 
     @Override

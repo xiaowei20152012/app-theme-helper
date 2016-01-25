@@ -104,6 +104,9 @@ public class MainActivity extends ATHToolbarActivity implements NavigationView.O
                     case R.id.drawer_collapsingtoolbar:
                         startActivity(new Intent(MainActivity.this, CollapsingToolbarActivity.class));
                         break;
+                    case R.id.drawer_insets:
+                        startActivity(new Intent(MainActivity.this, InsetActivity.class));
+                        break;
                     case R.id.drawer_settings:
                         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                         break;

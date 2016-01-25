@@ -7,9 +7,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="com.kabouzeid.appthemehelpersample.MainActivity"
+            android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,28 +16,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.kabouzeid.appthemehelpersample.collapsingtb.CollapsingToolbarActivity"
+            android:name=".collapsingtb.CollapsingToolbarActivity"
             android:label="@string/collapsing_toolbar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
-            android:name="com.kabouzeid.appthemehelpersample.rv.RecyclerViewSampleActivity"
+            android:name=".rv.RecyclerViewSampleActivity"
             android:label="@string/rv_sample"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
-            android:name="com.kabouzeid.appthemehelpersample.tabs.TabSampleActivity"
+            android:name=".tabs.TabSampleActivity"
             android:label="@string/tabs_sample"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
-            android:name="com.kabouzeid.appthemehelpersample.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/settings"
             android:theme="@style/AppTheme.ActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
+        <activity android:name=".InsetActivity"></activity>
     </application>
 
 </manifest>
