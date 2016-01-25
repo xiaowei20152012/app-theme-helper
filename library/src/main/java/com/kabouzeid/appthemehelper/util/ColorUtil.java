@@ -16,10 +16,11 @@ public final class ColorUtil {
     @ColorInt
     public static int shiftColor(@ColorInt int color, @FloatRange(from = 0.0f, to = 2.0f) float by) {
         if (by == 1f) return color;
+        int alpha = Color.alpha(color);
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] *= by; // value component
-        return Color.HSVToColor(hsv);
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
     @ColorInt
