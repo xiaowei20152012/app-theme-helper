@@ -80,6 +80,7 @@ class InflationInterceptor implements LayoutInflaterFactory {
             return new ATEViewPager(context, attrs);
         } else {
             View view = mDelegate.createView(parent, name, context, attrs);
+            // TODO need to get the default view here, but it always returns null
             return view;
         }
     }
