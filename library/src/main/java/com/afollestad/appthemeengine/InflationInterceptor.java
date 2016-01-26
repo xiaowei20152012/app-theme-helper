@@ -92,7 +92,7 @@ class InflationInterceptor implements LayoutInflaterFactory {
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         View view;
-        
+
         if (name.equals("EditText")) {
             view = new ATEEditText(context, attrs);
         } else if (name.equals("CheckBox")) {

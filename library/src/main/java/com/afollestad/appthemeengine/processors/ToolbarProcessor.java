@@ -64,6 +64,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             if (context instanceof AppCompatActivity) {
                 final ActionBar ab = ((AppCompatActivity) context).getSupportActionBar();
                 if (ab != null) ab.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                else ATEUtil.setBackgroundCompat(toolbar, new ColorDrawable(Color.TRANSPARENT));
             }
 
             collapsingToolbar = (CollapsingToolbarLayout) toolbar.getParent();
