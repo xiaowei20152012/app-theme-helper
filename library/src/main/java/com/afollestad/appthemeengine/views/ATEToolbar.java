@@ -1,11 +1,10 @@
 package com.afollestad.appthemeengine.views;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
@@ -14,36 +13,29 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATESecondaryTextView extends TextView {
+public class ATEToolbar extends Toolbar {
 
-    public ATESecondaryTextView(Context context) {
+    public ATEToolbar(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATESecondaryTextView(Context context, AttributeSet attrs) {
+    public ATEToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ATESecondaryTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ATEToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ATESecondaryTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context context, AttributeSet attrs) {
-        setTag("text_secondary");
         String key = null;
         if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATESecondaryTextView, 0, 0);
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEToolbar, 0, 0);
             try {
-                key = a.getString(R.styleable.ATESecondaryTextView_ateKey_secondaryTextView);
+                key = a.getString(R.styleable.ATEToolbar_ateKey_toolbar);
             } finally {
                 a.recycle();
             }

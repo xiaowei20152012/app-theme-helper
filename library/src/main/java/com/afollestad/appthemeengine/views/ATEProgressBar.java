@@ -8,12 +8,12 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
 import com.afollestad.appthemeengine.ATE;
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-@PreMadeView
 public class ATEProgressBar extends ProgressBar {
 
     public ATEProgressBar(Context context) {
@@ -48,6 +48,8 @@ public class ATEProgressBar extends ProgressBar {
                 a.recycle();
             }
         }
+        if (key == null && context instanceof ATEActivity)
+            key = ((ATEActivity) context).getATEKey();
         ATE.apply(context, this, key);
     }
 }

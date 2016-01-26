@@ -1,7 +1,6 @@
 package com.afollestad.appthemeengine.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
@@ -11,7 +10,6 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-@PreMadeView
 public class ATECheckBox extends AppCompatCheckBox {
 
     public ATECheckBox(Context context) {
@@ -31,16 +29,7 @@ public class ATECheckBox extends AppCompatCheckBox {
 
     private void init(Context context, AttributeSet attrs) {
         setTag("tint_accent_color,text_primary");
-        String key = null;
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATECheckBox, 0, 0);
-            try {
-                key = a.getString(R.styleable.ATECheckBox_ateKey_checkBox);
-            } finally {
-                a.recycle();
-            }
-        }
-        ATE.apply(context, this, key);
+        ATEViewUtil.init(this, context, attrs, R.styleable.ATECheckBox, R.styleable.ATECheckBox_ateKey_checkBox);
     }
 
     public void setKey(String key) {

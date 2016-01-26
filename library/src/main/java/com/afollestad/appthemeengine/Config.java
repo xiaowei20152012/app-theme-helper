@@ -377,17 +377,17 @@ public final class Config extends ConfigBase {
         ATE.apply(activity, mKey);
     }
 
-    @Override
-    public void apply(@NonNull android.support.v4.app.Fragment fragment) {
-        commit();
-        ATE.apply(fragment, mKey);
-    }
-
-    @Override
-    public void apply(@NonNull android.app.Fragment fragment) {
-        commit();
-        ATE.apply(fragment, mKey);
-    }
+//    @Override
+//    public void apply(@NonNull android.support.v4.app.Fragment fragment) {
+//        commit();
+//        ATE.apply(fragment, mKey);
+//    }
+//
+//    @Override
+//    public void apply(@NonNull android.app.Fragment fragment) {
+//        commit();
+//        ATE.apply(fragment, mKey);
+//    }
 
     @Override
     public void apply(@NonNull View view) {

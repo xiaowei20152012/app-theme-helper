@@ -12,19 +12,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.BaseMenuPresenter;
 import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.ActionMenuView;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -36,9 +31,9 @@ import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.views.PreMadeView;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -48,14 +43,13 @@ public final class ATE extends ATEBase {
     private static final String IGNORE_TAG = "ate_ignore";
     public static final int USE_DEFAULT = Integer.MAX_VALUE;
 
-    private static boolean isPreMadeView(@NonNull View view) {
-        return view.getClass().getAnnotation(PreMadeView.class) != null;
+    protected static void addPostInflationView(View view) {
+        if (mPostInflationApply == null)
+            mPostInflationApply = new ArrayList<>();
+        mPostInflationApply.add(view);
     }
 
-    private static boolean isChildrenBlacklistedViewGroup(@NonNull ViewGroup view) {
-        // We don't want to theme children in these views
-        return view instanceof ListView || view instanceof RecyclerView || view instanceof TabLayout;
-    }
+    protected static ArrayList<View> mPostInflationApply;
 
     @SuppressWarnings("unchecked")
     private static void performDefaultProcessing(@NonNull Context context, @NonNull View current, @Nullable String key) {
@@ -64,48 +58,6 @@ public final class ATE extends ATEBase {
             Processor processor = getProcessor(null); // gets default processor
             if (processor != null)
                 processor.process(context, key, current, null);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void apply(@NonNull Context context, @NonNull ViewGroup view, @Nullable String key) {
-        Processor processor = getProcessor(view.getClass());
-        if (processor != null) {
-            processor.process(context, key, view, null);
-        }
-        if (isChildrenBlacklistedViewGroup(view)) {
-            performDefaultProcessing(context, view, key);
-            return;
-        }
-
-        for (int i = 0; i < view.getChildCount(); i++) {
-            final View current = view.getChildAt(i);
-            if (current.getTag() != null && current.getTag().equals(IGNORE_TAG))
-                continue;
-            else if (current instanceof Toolbar && mToolbar == null)
-                mToolbar = (Toolbar) current;
-
-            // Pre-made views handle themselves, don't need to apply theming
-            if (isPreMadeView(current)) {
-                continue;
-            }
-
-            performDefaultProcessing(context, current, key);
-
-            if (current instanceof ViewGroup) {
-                // View group will apply theming to itself and then children inside
-                apply(context, (ViewGroup) current, key);
-            } else {
-                processor = getProcessor(current.getClass());
-                if (processor != null) {
-                    // Apply view theming using processors, if any match
-                    processor.process(context, key, current, null);
-                }
-            }
-
-            if (current instanceof CoordinatorLayout) {
-                ((CoordinatorLayout) current).setStatusBarBackgroundColor(Config.statusBarColor(context, key));
-            }
         }
     }
 
@@ -121,6 +73,10 @@ public final class ATE extends ATEBase {
     public static void preApply(@NonNull Activity activity, @Nullable String key) {
         didPreApply = activity.getClass();
         mToolbar = null;
+        if (mPostInflationApply != null) {
+            mPostInflationApply.clear();
+            mPostInflationApply = null;
+        }
 
         int activityTheme = activity instanceof ATEActivityThemeCustomizer ?
                 ((ATEActivityThemeCustomizer) activity).getActivityTheme() : Config.activityTheme(activity, key);
@@ -172,6 +128,46 @@ public final class ATE extends ATEBase {
         }
     }
 
+//    @SuppressWarnings("unchecked")
+//    private static void apply(@NonNull Context context, @NonNull ViewGroup view, @Nullable String key) {
+//        if (view.getTag() != null && view.getTag().equals(IGNORE_TAG))
+//            return;
+//
+//        Processor processor = getProcessor(view.getClass());
+//        if (processor != null) {
+//            processor.process(context, key, view, null);
+//        }
+//        if (isChildrenBlacklistedViewGroup(view)) {
+//            performDefaultProcessing(context, view, key);
+//            return;
+//        }
+//
+////        for (int i = 0; i < view.getChildCount(); i++) {
+////            final View current = view.getChildAt(i);
+////            if (current.getTag() != null && current.getTag().equals(IGNORE_TAG))
+////                continue;
+////            else if (current instanceof Toolbar && mToolbar == null)
+////                mToolbar = (Toolbar) current;
+////
+////            // Pre-made views handle themselves, don't need to apply theming
+////            if (isPreMadeView(current)) {
+////                continue;
+////            }
+////
+////            performDefaultProcessing(context, current, key);
+////
+////            if (current instanceof ViewGroup) {
+////                // View group will apply theming to itself and then children inside
+////                apply(context, (ViewGroup) current, key);
+////            } else {
+////            }
+////
+////            if (current instanceof CoordinatorLayout) {
+////                ((CoordinatorLayout) current).setStatusBarBackgroundColor(Config.statusBarColor(context, key));
+////            }
+////        }
+//    }
+
     public static void apply(@NonNull View view, @Nullable String key) {
         if (view.getContext() == null)
             throw new IllegalStateException("View has no Context, use apply(Context, View, String) instead.");
@@ -180,9 +176,14 @@ public final class ATE extends ATEBase {
 
     @SuppressWarnings("unchecked")
     public static void apply(@NonNull Context context, @NonNull View view, @Nullable String key) {
+        if (IGNORE_TAG.equals(view.getTag())) return;
         performDefaultProcessing(context, view, key);
-        if (view instanceof ViewGroup)
-            apply(context, (ViewGroup) view, key);
+
+        final Processor processor = getProcessor(view.getClass());
+        if (processor != null) {
+            // Apply view theming using processors, if any match
+            processor.process(context, key, view, null);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -206,43 +207,37 @@ public final class ATE extends ATEBase {
             }
         }
 
-        final ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
-        if (rootView instanceof DrawerLayout) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                final int color = Config.coloredStatusBar(activity, key) ?
-                        Color.TRANSPARENT : Color.BLACK;
-                activity.getWindow().setStatusBarColor(color);
+        if (mPostInflationApply != null) {
+            synchronized (IGNORE_TAG) {
+                for (View view : mPostInflationApply)
+                    ATE.apply(activity, view, key);
+                mPostInflationApply.clear();
             }
-            if (Config.coloredStatusBar(activity, key))
-                ((DrawerLayout) rootView).setStatusBarBackgroundColor(Config.statusBarColor(activity, key));
         }
-
-        apply(activity, rootView, key);
-        didPreApply = null;
     }
 
-    public static void apply(@NonNull android.support.v4.app.Fragment fragment, @Nullable String key) {
-        if (fragment.getActivity() == null)
-            throw new IllegalStateException("Fragment is not attached to an Activity yet.");
-        final View fragmentView = fragment.getView();
-        if (fragmentView == null)
-            throw new IllegalStateException("Fragment does not have a View yet.");
-        if (fragmentView instanceof ViewGroup)
-            apply(fragment.getActivity(), (ViewGroup) fragmentView, key);
-        else apply(fragment.getActivity(), fragmentView, key);
-        if (fragment.getActivity() instanceof AppCompatActivity)
-            apply(fragment.getActivity(), key);
-    }
+//    public static void apply(@NonNull android.support.v4.app.Fragment fragment, @Nullable String key) {
+//        if (fragment.getActivity() == null)
+//            throw new IllegalStateException("Fragment is not attached to an Activity yet.");
+//        final View fragmentView = fragment.getView();
+//        if (fragmentView == null)
+//            throw new IllegalStateException("Fragment does not have a View yet.");
+//        if (fragmentView instanceof ViewGroup)
+//            apply(fragment.getActivity(), (ViewGroup) fragmentView, key);
+//        else apply(fragment.getActivity(), fragmentView, key);
+//        if (fragment.getActivity() instanceof AppCompatActivity)
+//            apply(fragment.getActivity(), key);
+//    }
 
-    public static void apply(@NonNull android.app.Fragment fragment, @Nullable String key) {
-        if (fragment.getActivity() == null)
-            throw new IllegalStateException("Fragment is not attached to an Activity yet.");
-        else if (fragment.getView() == null)
-            throw new IllegalStateException("Fragment does not have a View yet.");
-        apply(fragment.getActivity(), (ViewGroup) fragment.getView(), key);
-        if (fragment.getActivity() instanceof AppCompatActivity)
-            apply(fragment.getActivity(), key);
-    }
+//    public static void apply(@NonNull android.app.Fragment fragment, @Nullable String key) {
+//        if (fragment.getActivity() == null)
+//            throw new IllegalStateException("Fragment is not attached to an Activity yet.");
+//        else if (fragment.getView() == null)
+//            throw new IllegalStateException("Fragment does not have a View yet.");
+//        apply(fragment.getActivity(), (ViewGroup) fragment.getView(), key);
+//        if (fragment.getActivity() instanceof AppCompatActivity)
+//            apply(fragment.getActivity(), key);
+//    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static void applyTaskDescription(@NonNull Activity activity, @Nullable String key) {

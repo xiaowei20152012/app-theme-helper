@@ -5,15 +5,14 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.accessibility.AccessibilityEvent;
 
 import com.afollestad.appthemeengine.ATE;
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-@PreMadeView
 public class ATESwitch extends SwitchCompat {
 
     public ATESwitch(Context context) {
@@ -42,6 +41,8 @@ public class ATESwitch extends SwitchCompat {
                 a.recycle();
             }
         }
+        if (key == null && context instanceof ATEActivity)
+            key = ((ATEActivity) context).getATEKey();
         ATE.apply(context, this, key);
     }
 

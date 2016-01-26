@@ -3,6 +3,7 @@ package com.afollestad.appthemeengine;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
@@ -14,13 +15,14 @@ public class ATEActivity extends AppCompatActivity {
     private long updateTime = -1;
 
     @Nullable
-    protected String getATEKey() {
+    public String getATEKey() {
         return null;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ATE.preApply(this, getATEKey());
+        LayoutInflaterCompat.setFactory(getLayoutInflater(), new InflationInterceptor(getDelegate()));
         super.onCreate(savedInstanceState);
         updateTime = System.currentTimeMillis();
     }

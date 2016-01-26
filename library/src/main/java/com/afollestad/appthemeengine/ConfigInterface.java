@@ -154,9 +154,9 @@ interface ConfigInterface {
 
     void apply(@NonNull Activity activity);
 
-    void apply(@NonNull android.support.v4.app.Fragment fragment);
-
-    void apply(@NonNull android.app.Fragment fragment);
-
+//    void apply(@NonNull android.support.v4.app.Fragment fragment);
+//
+//    void apply(@NonNull android.app.Fragment fragment);
+//
     void apply(@NonNull View view);
 }

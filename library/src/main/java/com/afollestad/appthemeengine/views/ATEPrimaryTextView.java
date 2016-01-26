@@ -2,18 +2,15 @@ package com.afollestad.appthemeengine.views;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-@PreMadeView
 public class ATEPrimaryTextView extends TextView {
 
     public ATEPrimaryTextView(Context context) {
@@ -39,15 +36,6 @@ public class ATEPrimaryTextView extends TextView {
 
     private void init(Context context, AttributeSet attrs) {
         setTag("text_primary");
-        String key = null;
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEPrimaryTextView, 0, 0);
-            try {
-                key = a.getString(R.styleable.ATEPrimaryTextView_ateKey_primaryTextView);
-            } finally {
-                a.recycle();
-            }
-        }
-        ATE.apply(context, this, key);
+        ATEViewUtil.init(this, context, attrs, R.styleable.ATEPrimaryTextView, R.styleable.ATEPrimaryTextView_ateKey_primaryTextView);
     }
 }

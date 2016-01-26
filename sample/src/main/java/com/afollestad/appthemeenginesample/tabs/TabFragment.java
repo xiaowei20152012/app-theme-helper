@@ -37,7 +37,7 @@ public class TabFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Apply theming to the Fragment view
-        ATE.apply(this, Util.resolveString(getActivity(), R.attr.ate_key));
+        // Apply theming to the Fragment  TODO
+//        ATE.apply(this, Util.resolveString(getActivity(), R.attr.ate_key));
     }
 }

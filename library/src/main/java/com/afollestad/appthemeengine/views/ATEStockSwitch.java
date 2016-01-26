@@ -1,11 +1,10 @@
 package com.afollestad.appthemeengine.views;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Switch;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
@@ -14,36 +13,30 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATESecondaryTextView extends TextView {
+public class ATEStockSwitch extends Switch {
 
-    public ATESecondaryTextView(Context context) {
+    public ATEStockSwitch(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATESecondaryTextView(Context context, AttributeSet attrs) {
+    public ATEStockSwitch(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public ATESecondaryTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ATEStockSwitch(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ATESecondaryTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context context, AttributeSet attrs) {
-        setTag("text_secondary");
+        setTag("tint_accent_color,text_primary");
         String key = null;
         if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATESecondaryTextView, 0, 0);
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEStockSwitch, 0, 0);
             try {
-                key = a.getString(R.styleable.ATESecondaryTextView_ateKey_secondaryTextView);
+                key = a.getString(R.styleable.ATEStockSwitch_ateKey_stockSwitch);
             } finally {
                 a.recycle();
             }
@@ -51,5 +44,14 @@ public class ATESecondaryTextView extends TextView {
         if (key == null && context instanceof ATEActivity)
             key = ((ATEActivity) context).getATEKey();
         ATE.apply(context, this, key);
+    }
+
+    public void setKey(String key) {
+        ATE.apply(getContext(), this, key);
+    }
+
+    @Override
+    public boolean isShown() {
+        return getParent() != null && getVisibility() == View.VISIBLE;
     }
 }

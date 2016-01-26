@@ -12,7 +12,7 @@ public class BaseThemedActivity extends ATEActivity {
 
     @Nullable
     @Override
-    protected final String getATEKey() {
+    public final String getATEKey() {
         return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
                 "dark_theme" : "light_theme";
     }

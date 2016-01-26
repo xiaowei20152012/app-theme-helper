@@ -57,7 +57,8 @@ public class NavigationViewProcessor implements Processor<NavigationView, Void> 
                 Config.navigationViewSelectedBg(context, key, darkTheme)));
         view.setItemBackground(bgDrawable);
 
-        final View headerView = view.getHeaderView(0);
-        if (headerView != null) ATE.apply(context, headerView, key);
+        // TODO not needed since the layout inflater will catch it?
+//        final View headerView = view.getHeaderView(0);
+//        if (headerView != null) ATE.apply(context, headerView, key);
     }
 }

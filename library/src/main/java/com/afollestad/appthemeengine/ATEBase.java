@@ -10,6 +10,7 @@ import android.widget.ScrollView;
 import android.widget.SearchView;
 
 import com.afollestad.appthemeengine.processors.DefaultProcessor;
+import com.afollestad.appthemeengine.processors.DrawerLayoutProcessor;
 import com.afollestad.appthemeengine.processors.ListViewProcessor;
 import com.afollestad.appthemeengine.processors.MaterialDialogsProcessor;
 import com.afollestad.appthemeengine.processors.NavigationViewProcessor;
@@ -56,6 +57,9 @@ class ATEBase {
         if (ATEUtil.isInClassPath(NavigationViewProcessor.MAIN_CLASS))
             mProcessors.put(NavigationViewProcessor.MAIN_CLASS, new NavigationViewProcessor());
         else Log.d("ATEBase", "NavigationView isn't in the class path. Ignoring.");
+        if (ATEUtil.isInClassPath(DrawerLayoutProcessor.MAIN_CLASS))
+            mProcessors.put(DrawerLayoutProcessor.MAIN_CLASS, new DrawerLayoutProcessor());
+        else Log.d("ATEBase", "DrawerLayout isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(TabLayoutProcessor.MAIN_CLASS))
             mProcessors.put(TabLayoutProcessor.MAIN_CLASS, new TabLayoutProcessor());
         else Log.d("ATEBase", "TabLayout isn't in the class path. Ignoring.");

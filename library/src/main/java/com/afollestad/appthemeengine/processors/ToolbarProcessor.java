@@ -36,6 +36,8 @@ import java.lang.reflect.Field;
  */
 public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
+    public static final String MAIN_CLASS = "android.support.v7.widget.Toolbar";
+
     @SuppressWarnings("unchecked")
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable Toolbar toolbar, @Nullable Menu menu) {
