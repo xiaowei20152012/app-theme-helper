@@ -20,7 +20,6 @@ import com.afollestad.appthemeengine.views.ATEEditText;
 import com.afollestad.appthemeengine.views.ATEListView;
 import com.afollestad.appthemeengine.views.ATENavigationView;
 import com.afollestad.appthemeengine.views.ATENestedScrollView;
-import com.afollestad.appthemeengine.views.ATEPrimaryTextView;
 import com.afollestad.appthemeengine.views.ATEProgressBar;
 import com.afollestad.appthemeengine.views.ATERadioButton;
 import com.afollestad.appthemeengine.views.ATERecyclerView;
