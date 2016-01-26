@@ -91,43 +91,45 @@ class InflationInterceptor implements LayoutInflaterFactory {
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        View view;
+        
         if (name.equals("EditText")) {
-            return new ATEEditText(context, attrs);
+            view = new ATEEditText(context, attrs);
         } else if (name.equals("CheckBox")) {
-            return new ATECheckBox(context, attrs);
+            view = new ATECheckBox(context, attrs);
         } else if (name.equals("RadioButton")) {
-            return new ATERadioButton(context, attrs);
+            view = new ATERadioButton(context, attrs);
         } else if (name.equals("Switch")) {
-            return new ATESwitch(context, attrs);
+            view = new ATESwitch(context, attrs);
         } else if (name.equals(SwitchCompat.class.getName())) {
-            return new ATEStockSwitch(context, attrs);
+            view = new ATEStockSwitch(context, attrs);
         } else if (name.equals("SeekBar")) {
-            return new ATESeekBar(context, attrs);
+            view = new ATESeekBar(context, attrs);
         } else if (name.equals("ProgressBar")) {
-            return new ATEProgressBar(context, attrs);
+            view = new ATEProgressBar(context, attrs);
         } else if (name.equals(ToolbarProcessor.MAIN_CLASS)) {
             ATEToolbar toolbar = new ATEToolbar(context, attrs);
             ATE.addPostInflationView(toolbar);
-            return toolbar;
+            view = toolbar;
         } else if (name.equals("ListView")) {
-            return new ATEListView(context, attrs);
+            view = new ATEListView(context, attrs);
         } else if (name.equals("ScrollView")) {
-            return new ATEScrollView(context, attrs);
+            view = new ATEScrollView(context, attrs);
         } else if (name.equals(RecyclerViewProcessor.MAIN_CLASS)) {
-            return new ATERecyclerView(context, attrs);
+            view = new ATERecyclerView(context, attrs);
         } else if (name.equals(NestedScrollViewProcessor.MAIN_CLASS)) {
-            return new ATENestedScrollView(context, attrs);
+            view = new ATENestedScrollView(context, attrs);
         } else if (name.equals(DrawerLayoutProcessor.MAIN_CLASS)) {
-            return new ATEDrawerLayout(context, attrs);
+            view = new ATEDrawerLayout(context, attrs);
         } else if (name.equals(NavigationViewProcessor.MAIN_CLASS)) {
-            return new ATENavigationView(context, attrs);
+            view = new ATENavigationView(context, attrs);
         } else if (name.equals(TabLayoutProcessor.MAIN_CLASS)) {
-            return new ATETabLayout(context, attrs);
+            view = new ATETabLayout(context, attrs);
         } else if (name.equals(ViewPagerProcessor.MAIN_CLASS)) {
-            return new ATEViewPager(context, attrs);
+            view = new ATEViewPager(context, attrs);
         } else {
             // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
-            View view = mDelegate.createView(parent, name, context, attrs);
+            view = mDelegate.createView(parent, name, context, attrs);
 
             // Mimic code of LayoutInflater using reflection tricks.
             if (view == null) {
@@ -178,9 +180,8 @@ class InflationInterceptor implements LayoutInflaterFactory {
                     key = ((ATEActivity) context).getATEKey();
                 ATE.apply(view, key);
             }
-
-            // Return the resulting view to go into the layout.
-            return view;
         }
+
+        return view;
     }
 }
