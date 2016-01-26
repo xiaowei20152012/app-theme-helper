@@ -31,6 +31,7 @@ import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.views.PostInflationApplier;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -43,13 +44,13 @@ public final class ATE extends ATEBase {
     private static final String IGNORE_TAG = "ate_ignore";
     public static final int USE_DEFAULT = Integer.MAX_VALUE;
 
-    protected static void addPostInflationView(View view) {
+    protected static <T extends View & PostInflationApplier> void addPostInflationView(T view) {
         if (mPostInflationApply == null)
             mPostInflationApply = new ArrayList<>();
         mPostInflationApply.add(view);
     }
 
-    protected static ArrayList<View> mPostInflationApply;
+    private static ArrayList<View> mPostInflationApply;
 
     @SuppressWarnings("unchecked")
     private static void performDefaultProcessing(@NonNull Context context, @NonNull View current, @Nullable String key) {
@@ -73,9 +74,11 @@ public final class ATE extends ATEBase {
     public static void preApply(@NonNull Activity activity, @Nullable String key) {
         didPreApply = activity.getClass();
         mToolbar = null;
-        if (mPostInflationApply != null) {
-            mPostInflationApply.clear();
-            mPostInflationApply = null;
+        synchronized (IGNORE_TAG) {
+            if (mPostInflationApply != null) {
+                mPostInflationApply.clear();
+                mPostInflationApply = null;
+            }
         }
 
         int activityTheme = activity instanceof ATEActivityThemeCustomizer ?
@@ -210,7 +213,7 @@ public final class ATE extends ATEBase {
         if (mPostInflationApply != null) {
             synchronized (IGNORE_TAG) {
                 for (View view : mPostInflationApply)
-                    ATE.apply(activity, view, key);
+                    ((PostInflationApplier) view).postApply();
                 mPostInflationApply.clear();
             }
         }

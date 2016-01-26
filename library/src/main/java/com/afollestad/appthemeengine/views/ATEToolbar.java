@@ -13,7 +13,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEToolbar extends Toolbar {
+public class ATEToolbar extends Toolbar implements PostInflationApplier {
 
     public ATEToolbar(Context context) {
         super(context);
@@ -30,18 +30,23 @@ public class ATEToolbar extends Toolbar {
         init(context, attrs);
     }
 
+    private String mKey;
+
     private void init(Context context, AttributeSet attrs) {
-        String key = null;
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEToolbar, 0, 0);
             try {
-                key = a.getString(R.styleable.ATEToolbar_ateKey_toolbar);
+                mKey = a.getString(R.styleable.ATEToolbar_ateKey_toolbar);
             } finally {
                 a.recycle();
             }
         }
-        if (key == null && context instanceof ATEActivity)
-            key = ((ATEActivity) context).getATEKey();
-        ATE.apply(context, this, key);
+        if (mKey == null && context instanceof ATEActivity)
+            mKey = ((ATEActivity) context).getATEKey();
+    }
+
+    @Override
+    public void postApply() {
+        ATE.apply(getContext(), this, mKey);
     }
 }
