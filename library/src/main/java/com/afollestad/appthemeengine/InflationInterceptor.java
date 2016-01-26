@@ -78,6 +78,7 @@ class InflationInterceptor implements LayoutInflaterFactory {
         if (ATTRS_THEME == null) {
             try {
                 final Field attrsThemeField = LayoutInflater.class.getDeclaredField("ATTRS_THEME");
+                attrsThemeField.setAccessible(true);
                 ATTRS_THEME = (int[]) attrsThemeField.get(null);
             } catch (Throwable t) {
                 throw new RuntimeException("Failed to get the value of static field ATTRS_THEME.", t);
