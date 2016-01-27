@@ -697,4 +697,10 @@ public final class Config extends ConfigBase {
         }
         return isLightMode ? Color.BLACK : Color.WHITE;
     }
+
+    @ColorInt
+    public static int getToolbarSubtitleColor(@NonNull Context context, @Nullable Toolbar toolbar, @Nullable String key, @ColorInt int toolbarColor) {
+        final int titleColor = getToolbarTitleColor(context, toolbar, key, toolbarColor);
+        return ATEUtil.adjustAlpha(titleColor, 0.6f);
+    }
 }

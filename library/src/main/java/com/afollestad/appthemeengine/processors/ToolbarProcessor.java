@@ -105,8 +105,8 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         // Tint the toolbar title
         if (collapsingToolbar != null)
             collapsingToolbar.setCollapsedTitleTextColor(tintColor);
-        else
-            toolbar.setTitleTextColor(tintColor);
+        else toolbar.setTitleTextColor(tintColor);
+        toolbar.setSubtitleTextColor(Config.getToolbarSubtitleColor(context, toolbar, key, toolbarColor));
 
         // Tint the toolbar navigation icon (e.g. back, drawer, etc.), otherwise handled by CollapsingToolbarLayout listener above
         if (collapsingToolbar == null && toolbar.getNavigationIcon() != null)
