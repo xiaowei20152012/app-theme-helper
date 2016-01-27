@@ -88,7 +88,9 @@ public final class ATE extends ATEBase {
         if (activityTheme != 0) activity.setTheme(activityTheme);
 
         final LayoutInflater li = activity.getLayoutInflater();
-        LayoutInflaterCompat.setFactory(li, new InflationInterceptor(li,
+        LayoutInflaterCompat.setFactory(li, new InflationInterceptor(
+                activity instanceof ATEActivity ? (ATEActivity) activity : null,
+                li,
                 activity instanceof AppCompatActivity ? ((AppCompatActivity) activity).getDelegate() : null));
     }
 

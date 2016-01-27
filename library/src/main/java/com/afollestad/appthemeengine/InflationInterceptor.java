@@ -1,5 +1,6 @@
 package com.afollestad.appthemeengine;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
@@ -45,6 +46,8 @@ import java.lang.reflect.Method;
  */
 class InflationInterceptor implements LayoutInflaterFactory {
 
+    @Nullable
+    private final ATEActivity mKeyContext;
     @NonNull
     private final LayoutInflater mLi;
     @Nullable
@@ -54,7 +57,11 @@ class InflationInterceptor implements LayoutInflaterFactory {
     private static Field mConstructorArgsField;
     private static int[] ATTRS_THEME;
 
-    public InflationInterceptor(@NonNull LayoutInflater li, @Nullable AppCompatDelegate delegate) {
+    public InflationInterceptor(@Nullable Activity keyContext, @NonNull LayoutInflater li, @Nullable AppCompatDelegate delegate) {
+        if (keyContext instanceof ATEActivity)
+            mKeyContext = (ATEActivity) keyContext;
+        else mKeyContext = null;
+
         mLi = li;
         mDelegate = delegate;
         if (mOnCreateViewMethod == null) {
@@ -99,41 +106,41 @@ class InflationInterceptor implements LayoutInflaterFactory {
         View view;
 
         if (name.equals("EditText")) {
-            view = new ATEEditText(context, attrs);
+            view = new ATEEditText(context, attrs, mKeyContext);
         } else if (name.equals("CheckBox")) {
-            view = new ATECheckBox(context, attrs);
+            view = new ATECheckBox(context, attrs, mKeyContext);
         } else if (name.equals("RadioButton")) {
-            view = new ATERadioButton(context, attrs);
+            view = new ATERadioButton(context, attrs, mKeyContext);
         } else if (name.equals("Switch")) {
-            view = new ATESwitch(context, attrs);
+            view = new ATESwitch(context, attrs, mKeyContext);
         } else if (name.equals(SwitchCompat.class.getName())) {
-            view = new ATEStockSwitch(context, attrs);
+            view = new ATEStockSwitch(context, attrs, mKeyContext);
         } else if (name.equals("SeekBar")) {
-            view = new ATESeekBar(context, attrs);
+            view = new ATESeekBar(context, attrs, mKeyContext);
         } else if (name.equals("ProgressBar")) {
-            view = new ATEProgressBar(context, attrs);
+            view = new ATEProgressBar(context, attrs, mKeyContext);
         } else if (name.equals(ToolbarProcessor.MAIN_CLASS)) {
-            ATEToolbar toolbar = new ATEToolbar(context, attrs);
+            ATEToolbar toolbar = new ATEToolbar(context, attrs, mKeyContext);
             ATE.addPostInflationView(toolbar);
             view = toolbar;
         } else if (name.equals("ListView")) {
-            view = new ATEListView(context, attrs);
+            view = new ATEListView(context, attrs, mKeyContext);
         } else if (name.equals("ScrollView")) {
-            view = new ATEScrollView(context, attrs);
+            view = new ATEScrollView(context, attrs, mKeyContext);
         } else if (name.equals(RecyclerViewProcessor.MAIN_CLASS)) {
-            view = new ATERecyclerView(context, attrs);
+            view = new ATERecyclerView(context, attrs, mKeyContext);
         } else if (name.equals(NestedScrollViewProcessor.MAIN_CLASS)) {
-            view = new ATENestedScrollView(context, attrs);
+            view = new ATENestedScrollView(context, attrs, mKeyContext);
         } else if (name.equals(DrawerLayoutProcessor.MAIN_CLASS)) {
-            view = new ATEDrawerLayout(context, attrs);
+            view = new ATEDrawerLayout(context, attrs, mKeyContext);
         } else if (name.equals(NavigationViewProcessor.MAIN_CLASS)) {
-            view = new ATENavigationView(context, attrs);
+            view = new ATENavigationView(context, attrs, mKeyContext);
         } else if (name.equals(TabLayoutProcessor.MAIN_CLASS)) {
-            view = new ATETabLayout(context, attrs);
+            view = new ATETabLayout(context, attrs, mKeyContext);
         } else if (name.equals(ViewPagerProcessor.MAIN_CLASS)) {
-            view = new ATEViewPager(context, attrs);
+            view = new ATEViewPager(context, attrs, mKeyContext);
         } else if (name.equals("android.support.design.widget.CoordinatorLayout")) {
-            view = new ATECoordinatorLayout(context, attrs);
+            view = new ATECoordinatorLayout(context, attrs, mKeyContext);
         } else {
             // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
             view = mDelegate != null ? mDelegate.createView(parent, name, context, attrs) : null;

@@ -101,7 +101,6 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             ATEUtil.setBackgroundCompat(toolbar, new ColorDrawable(toolbarColor));
         }
 
-
         // Tint the toolbar title
         if (collapsingToolbar != null)
             collapsingToolbar.setCollapsedTitleTextColor(tintColor);

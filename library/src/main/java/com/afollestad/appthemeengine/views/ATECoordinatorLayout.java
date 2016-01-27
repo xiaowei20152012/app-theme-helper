@@ -3,8 +3,8 @@ package com.afollestad.appthemeengine.views;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 
@@ -19,20 +19,15 @@ public class ATECoordinatorLayout extends CoordinatorLayout implements ViewInter
 
     public ATECoordinatorLayout(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, null);
     }
 
-    public ATECoordinatorLayout(Context context, AttributeSet attrs) {
+    public ATECoordinatorLayout(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs);
+        init(context, attrs, keyContext);
     }
 
-    public ATECoordinatorLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         String key = null;
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATECoordinatorLayout, 0, 0);
@@ -42,7 +37,9 @@ public class ATECoordinatorLayout extends CoordinatorLayout implements ViewInter
                 a.recycle();
             }
         }
-        if (key == null && context instanceof ATEActivity)
+        if (keyContext == null && context instanceof ATEActivity)
+            keyContext = (ATEActivity) context;
+        if (key == null && keyContext != null)
             key = ((ATEActivity) context).getATEKey();
         if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets Activity status bar to transparent, DrawerLayout overlays a color.

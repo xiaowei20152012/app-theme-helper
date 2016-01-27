@@ -1,9 +1,11 @@
 package com.afollestad.appthemeengine.views;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.R;
 
 /**
@@ -13,21 +15,16 @@ public class ATEScrollView extends ScrollView implements ViewInterface {
 
     public ATEScrollView(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, null);
     }
 
-    public ATEScrollView(Context context, AttributeSet attrs) {
+    public ATEScrollView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs);
+        init(context, attrs, keyContext);
     }
 
-    public ATEScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    private void init(Context context, AttributeSet attrs) {
-        ATEViewUtil.init(this, context, attrs, R.styleable.ATEScrollView, R.styleable.ATEScrollView_ateKey_scrollView);
+    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATEScrollView, R.styleable.ATEScrollView_ateKey_scrollView);
     }
 
     @Override

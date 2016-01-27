@@ -1,11 +1,11 @@
 package com.afollestad.appthemeengine.views;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.R;
 
 /**
@@ -15,28 +15,17 @@ public class ATEEditText extends EditText implements ViewInterface {
 
     public ATEEditText(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, null);
     }
 
-    public ATEEditText(Context context, AttributeSet attrs) {
+    public ATEEditText(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs);
+        init(context, attrs, keyContext);
     }
 
-    public ATEEditText(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ATEEditText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         setTag("tint_accent_color,text_primary");
-        ATEViewUtil.init(this, context, attrs, R.styleable.ATEEditText, R.styleable.ATEEditText_ateKey_editText);
+        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATEEditText, R.styleable.ATEEditText_ateKey_editText);
     }
 
     @Override

@@ -17,22 +17,17 @@ public class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInt
 
     public ATEToolbar(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, null);
     }
 
-    public ATEToolbar(Context context, @Nullable AttributeSet attrs) {
+    public ATEToolbar(Context context, @Nullable AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs);
-    }
-
-    public ATEToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context, attrs, keyContext);
     }
 
     private String mKey;
 
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEToolbar, 0, 0);
             try {
@@ -41,7 +36,9 @@ public class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInt
                 a.recycle();
             }
         }
-        if (mKey == null && context instanceof ATEActivity)
+        if (keyContext == null && context instanceof ATEActivity)
+            keyContext = (ATEActivity) context;
+        if (mKey == null && keyContext != null)
             mKey = ((ATEActivity) context).getATEKey();
     }
 

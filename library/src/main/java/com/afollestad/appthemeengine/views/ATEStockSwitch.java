@@ -1,7 +1,7 @@
 package com.afollestad.appthemeengine.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Switch;
@@ -17,33 +17,17 @@ public class ATEStockSwitch extends Switch implements ViewInterface {
 
     public ATEStockSwitch(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, null);
     }
 
-    public ATEStockSwitch(Context context, AttributeSet attrs) {
+    public ATEStockSwitch(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs);
+        init(context, attrs, keyContext);
     }
 
-    public ATEStockSwitch(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         setTag("tint_accent_color,text_primary");
-        String key = null;
-        if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ATEStockSwitch, 0, 0);
-            try {
-                key = a.getString(R.styleable.ATEStockSwitch_ateKey_stockSwitch);
-            } finally {
-                a.recycle();
-            }
-        }
-        if (key == null && context instanceof ATEActivity)
-            key = ((ATEActivity) context).getATEKey();
-        ATE.apply(context, this, key);
+        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATEStockSwitch, R.styleable.ATEStockSwitch_ateKey_stockSwitch);
     }
 
     public void setKey(String key) {

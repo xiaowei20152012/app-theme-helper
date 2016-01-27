@@ -1,10 +1,12 @@
 package com.afollestad.appthemeengine.views;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATE;
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.R;
 
 /**
@@ -14,22 +16,17 @@ public class ATECheckBox extends AppCompatCheckBox implements ViewInterface {
 
     public ATECheckBox(Context context) {
         super(context);
-        init(context, null);
+        init(context, null, null);
     }
 
-    public ATECheckBox(Context context, AttributeSet attrs) {
+    public ATECheckBox(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs);
+        init(context, attrs, keyContext);
     }
 
-    public ATECheckBox(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(context, attrs);
-    }
-
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         setTag("tint_accent_color,text_primary");
-        ATEViewUtil.init(this, context, attrs, R.styleable.ATECheckBox, R.styleable.ATECheckBox_ateKey_checkBox);
+        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATECheckBox, R.styleable.ATECheckBox_ateKey_checkBox);
     }
 
     public void setKey(String key) {
