@@ -100,9 +100,11 @@ public final class ATE extends ATEBase {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Window window = activity.getWindow();
-            if (!rootSetsStatusBarColor && Config.coloredStatusBar(activity, key))
-                window.setStatusBarColor(Config.statusBarColor(activity, key));
-            else window.setStatusBarColor(Color.BLACK);
+            if (!rootSetsStatusBarColor) {
+                if (Config.coloredStatusBar(activity, key))
+                    window.setStatusBarColor(Config.statusBarColor(activity, key));
+                else window.setStatusBarColor(Color.BLACK);
+            }
             if (Config.coloredNavigationBar(activity, key))
                 window.setNavigationBarColor(Config.navigationBarColor(activity, key));
             else window.setNavigationBarColor(Color.BLACK);
