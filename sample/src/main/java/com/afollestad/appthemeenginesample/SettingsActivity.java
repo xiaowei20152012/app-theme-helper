@@ -35,6 +35,7 @@ public class SettingsActivity extends BaseThemedActivity
     @StyleRes
     @Override
     public int getActivityTheme() {
+        // Overrides what's set in the current ATE Config
         return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
                 R.style.AppThemeDark_ActionBar : R.style.AppTheme_ActionBar;
     }

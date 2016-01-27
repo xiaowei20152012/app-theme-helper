@@ -2,7 +2,9 @@ package com.afollestad.appthemeenginesample.collapsingtb;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
@@ -11,13 +13,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeenginesample.R;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class CollapsingToolbarActivity extends BaseThemedActivity {
+public class CollapsingToolbarActivity extends BaseThemedActivity implements ATEActivityThemeCustomizer {
+
+    @StyleRes
+    @Override
+    public int getActivityTheme() {
+        // Overrides what's set in the current ATE Config
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
+                R.style.AppThemeDark : R.style.AppTheme;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,21 +46,15 @@ public class CollapsingToolbarActivity extends BaseThemedActivity {
                 finish();
             }
         });
-        setSupportActionBar(toolbar);
+        toolbar.inflateMenu(R.menu.main);
 
-        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-
+        final Menu menu = toolbar.getMenu();
         final MenuItem searchItem = menu.findItem(R.id.search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search_view_example));
         searchView.setIconifiedByDefault(true);
 
-        return super.onCreateOptionsMenu(menu);
+        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
     }
 
     @Override
