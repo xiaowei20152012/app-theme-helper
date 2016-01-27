@@ -1,3 +1,5 @@
+### This doc will soon be re-written for ATE 1.0!
+
 # App Theme Engine (BETA)
 
 App Theme Engine is a library that makes it easy for developers to implement a theme system in 

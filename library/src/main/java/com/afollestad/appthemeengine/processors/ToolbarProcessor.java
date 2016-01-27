@@ -92,7 +92,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                     else appbarLayout.removeOnOffsetChangedListener(mCollapsingToolbarListener);
                     appbarLayout.addOnOffsetChangedListener(mCollapsingToolbarListener);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    throw new RuntimeException("An error occurred while setting up the AppBarLayout offset listener.", e);
                 }
             }
         } else if (toolbar.getParent() instanceof AppBarLayout) {
@@ -203,6 +203,8 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         private int mCollapsedColor;
         private int mExpandedColor;
 
+        private int mLastVerticalOffset = -1;
+
         public ScrimsOffsetListener(@NonNull Context context, @Nullable String key, Toolbar toolbar,
                                     CollapsingToolbarLayout toolbarLayout, Menu menu) throws Exception {
             mContext = context;
@@ -239,6 +241,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         }
 
         private boolean scrimsAreShown() {
+            if (mScrimsAreShown == null) return false;
             try {
                 return mScrimsAreShown.getBoolean(mCollapsingToolbar);
             } catch (IllegalAccessException e) {
@@ -265,7 +268,10 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
         @Override
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-            invalidateMenu();
+            if (mLastVerticalOffset != verticalOffset) {
+                mLastVerticalOffset = verticalOffset;
+                invalidateMenu();
+            }
         }
     }
 }

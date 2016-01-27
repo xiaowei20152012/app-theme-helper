@@ -1,5 +1,6 @@
 package com.afollestad.appthemeenginesample.collapsingtb;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -35,6 +36,8 @@ public class CollapsingToolbarActivity extends BaseThemedActivity {
             }
         });
         setSupportActionBar(toolbar);
+
+        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
     }
 
     @Override
