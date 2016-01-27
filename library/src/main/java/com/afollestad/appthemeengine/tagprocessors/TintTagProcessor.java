@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -50,7 +51,8 @@ public class TintTagProcessor implements TagProcessor {
                 view instanceof EditText ||
                 view instanceof ImageView ||
                 view instanceof Switch ||
-                view instanceof SwitchCompat;
+                view instanceof SwitchCompat ||
+                view instanceof CheckedTextView;
     }
 
     @Override

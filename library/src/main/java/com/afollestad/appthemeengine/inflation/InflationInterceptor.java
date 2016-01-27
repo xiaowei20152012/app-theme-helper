@@ -104,7 +104,8 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
         return name.equals("android.support.design.internal.NavigationMenuItemView") ||
                 name.equals("ViewStub") ||
                 name.equals("fragment") ||
-                name.equals("include");
+                name.equals("include") ||
+                name.equals("android.support.design.internal.NavigationMenuItemView");
     }
 
     @Override
@@ -209,42 +210,46 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                 // Mimic code of LayoutInflater using reflection tricks (this would normally be run when this factory returns null).
                 // We need to intercept the default behavior rather than allowing the LayoutInflater to handle it after this method returns.
                 if (view == null) {
-                    Context viewContext;
-                    final boolean inheritContext = false; // TODO will this ever need to be true?
-                    //noinspection PointlessBooleanExpression,ConstantConditions
-                    if (parent != null && inheritContext) {
-                        viewContext = parent.getContext();
-                    } else {
-                        viewContext = mLi.getContext();
-                    }
-                    // Apply a theme wrapper, if requested.
-                    final TypedArray ta = viewContext.obtainStyledAttributes(attrs, ATTRS_THEME);
-                    final int themeResId = ta.getResourceId(0, 0);
-                    if (themeResId != 0) {
-                        viewContext = new ContextThemeWrapper(viewContext, themeResId);
-                    }
-                    ta.recycle();
-
-                    Object[] mConstructorArgs;
                     try {
-                        mConstructorArgs = (Object[]) mConstructorArgsField.get(mLi);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException("Failed to retrieve the mConstructorArgsField field.", e);
-                    }
-
-                    final Object lastContext = mConstructorArgs[0];
-                    mConstructorArgs[0] = viewContext;
-                    try {
-                        if (-1 == name.indexOf('.')) {
-                            view = (View) mOnCreateViewMethod.invoke(mLi, parent, name, attrs);
+                        Context viewContext;
+                        final boolean inheritContext = false; // TODO will this ever need to be true?
+                        //noinspection PointlessBooleanExpression,ConstantConditions
+                        if (parent != null && inheritContext) {
+                            viewContext = parent.getContext();
                         } else {
-                            view = (View) mCreateViewMethod.invoke(mLi, name, null, attrs);
+                            viewContext = mLi.getContext();
                         }
-                    } catch (Exception e) {
-                        LOG("Failed to inflate %s: %s", name, e.getMessage());
-                        e.printStackTrace();
-                    } finally {
-                        mConstructorArgs[0] = lastContext;
+                        // Apply a theme wrapper, if requested.
+                        final TypedArray ta = viewContext.obtainStyledAttributes(attrs, ATTRS_THEME);
+                        final int themeResId = ta.getResourceId(0, 0);
+                        if (themeResId != 0) {
+                            viewContext = new ContextThemeWrapper(viewContext, themeResId);
+                        }
+                        ta.recycle();
+
+                        Object[] mConstructorArgs;
+                        try {
+                            mConstructorArgs = (Object[]) mConstructorArgsField.get(mLi);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException("Failed to retrieve the mConstructorArgsField field.", e);
+                        }
+
+                        final Object lastContext = mConstructorArgs[0];
+                        mConstructorArgs[0] = viewContext;
+                        try {
+                            if (-1 == name.indexOf('.')) {
+                                view = (View) mOnCreateViewMethod.invoke(mLi, parent, name, attrs);
+                            } else {
+                                view = (View) mCreateViewMethod.invoke(mLi, name, null, attrs);
+                            }
+                        } catch (Exception e) {
+                            LOG("Failed to inflate %s: %s", name, e.getMessage());
+                            e.printStackTrace();
+                        } finally {
+                            mConstructorArgs[0] = lastContext;
+                        }
+                    } catch(Throwable t) {
+                        throw new RuntimeException("An error occurred while inflating View " + name, t);
                     }
                 }
 
