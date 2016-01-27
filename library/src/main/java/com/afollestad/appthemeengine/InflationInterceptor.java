@@ -185,10 +185,9 @@ class InflationInterceptor implements LayoutInflaterFactory {
                 }
             }
 
-            // Don't allow ATE views to be applied here.
             if (view != null) {
                 if (view.getClass().getSimpleName().startsWith("ATE"))
-                    throw new IllegalStateException("Reached default processing for an ATE prefixed view. Must've missed registering it in the interceptor.");
+                    return view;
                 String key = null;
                 if (context instanceof ATEActivity)
                     key = ((ATEActivity) context).getATEKey();
