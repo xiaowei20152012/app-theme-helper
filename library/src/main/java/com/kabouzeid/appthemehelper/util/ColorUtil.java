@@ -10,7 +10,7 @@ import android.support.annotation.FloatRange;
 public final class ColorUtil {
 
     public static int stripAlpha(@ColorInt int color) {
-        return Color.rgb(Color.red(color), Color.green(color), Color.blue(color));
+        return 0xff000000 | color;
     }
 
     @ColorInt

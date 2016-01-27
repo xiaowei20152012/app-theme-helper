@@ -62,6 +62,9 @@ public final class TintHelper {
         final int activated = ColorUtil.shiftColor(color, darker ? 1.1f : 0.9f);
         final int rippleColor = getDefaultRippleColor(view.getContext(), ColorUtil.isColorLight(color));
 
+        final int defaultTextColor = MaterialValueHelper.getPrimaryTextColor(view.getContext(), ColorUtil.isColorLight(color));
+        final int disabledTextColor = MaterialValueHelper.getPrimaryDisabledTextColor(view.getContext(), ColorUtil.isColorLight(color));
+
         final ColorStateList sl;
         if (view instanceof Button) {
             sl = getDisabledColorStateList(color, disabled);
@@ -71,11 +74,8 @@ public final class TintHelper {
                 rd.setColor(ColorStateList.valueOf(rippleColor));
             }
 
-            // Disabled text color state for buttons, may get overridden later by ATH tags
             final Button button = (Button) view;
-            final int defaultTextColor = ColorUtil.isColorLight(color) ?
-                    Color.BLACK : Color.WHITE;
-            button.setTextColor(getDisabledColorStateList(defaultTextColor, Color.BLACK));
+            button.setTextColor(getDisabledColorStateList(defaultTextColor, disabledTextColor));
         } else if (view instanceof FloatingActionButton) {
             // FloatingActionButton doesn't support disabled state?
             sl = new ColorStateList(new int[][]{
@@ -104,15 +104,12 @@ public final class TintHelper {
             );
         }
 
-        // TODO use other theme values in place of these?
-        final int tintColor = ColorUtil.isColorLight(color) ? Color.BLACK : Color.WHITE;
-
         if (view instanceof FloatingActionButton) {
             final FloatingActionButton fab = (FloatingActionButton) view;
             fab.setRippleColor(rippleColor);
             fab.setBackgroundTintList(sl);
             if (fab.getDrawable() != null)
-                fab.setImageDrawable(tintDrawable(fab.getDrawable(), tintColor));
+                fab.setImageDrawable(tintDrawable(fab.getDrawable(), defaultTextColor));
             return;
         }
 
@@ -125,7 +122,7 @@ public final class TintHelper {
 
         if (view instanceof TextView && !(view instanceof Button)) {
             final TextView tv = (TextView) view;
-            tv.setTextColor(getDisabledColorStateList(tintColor, ColorUtil.adjustAlpha(tintColor, 0.4f)));
+            tv.setTextColor(getDisabledColorStateList(defaultTextColor, disabledTextColor));
         }
     }
 
