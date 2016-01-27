@@ -28,6 +28,7 @@ import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.views.ViewInterface;
 
 import java.lang.reflect.Field;
 
@@ -47,9 +48,20 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         final int toolbarColor = Config.toolbarColor(context, key, toolbar);
         if (toolbar == null) {
             // No toolbar view, Activity might have another variation of Support ActionBar (e.g. window decor vs toolbar)
-            if (context instanceof AppCompatActivity) {
-                final ActionBar ab = ((AppCompatActivity) context).getSupportActionBar();
-                if (ab != null) ab.setBackgroundDrawable(new ColorDrawable(toolbarColor));
+            if (context instanceof Activity) {
+                final Activity activity = (Activity) context;
+                final View rootView = ATE.getRootView(activity);
+                final boolean rootSetsToolbarColor = rootView != null && rootView instanceof ViewInterface &&
+                        ((ViewInterface) rootView).setsToolbarColor();
+
+                if (!rootSetsToolbarColor) {
+                    if (activity instanceof AppCompatActivity) {
+                        final ActionBar ab = ((AppCompatActivity) activity).getSupportActionBar();
+                        if (ab != null) ab.setBackgroundDrawable(new ColorDrawable(toolbarColor));
+                    } else if (activity.getActionBar() != null) {
+                        activity.getActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
+                    }
+                }
             }
             return;
         }
@@ -64,7 +76,8 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             ATEUtil.setBackgroundCompat(toolbar, new ColorDrawable(Color.TRANSPARENT));
             if (context instanceof AppCompatActivity) {
                 final ActionBar ab = ((AppCompatActivity) context).getSupportActionBar();
-                if (ab != null) ab.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                if (ab != null)
+                    ab.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             }
 
             collapsingToolbar = (CollapsingToolbarLayout) toolbar.getParent();

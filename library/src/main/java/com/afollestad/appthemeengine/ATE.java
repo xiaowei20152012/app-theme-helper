@@ -77,7 +77,6 @@ public final class ATE extends ATEBase {
 
     public static void preApply(@NonNull Activity activity, @Nullable String key) {
         didPreApply = activity.getClass();
-        mToolbar = null;
         synchronized (IGNORE_TAG) {
             if (mPostInflationApply != null) {
                 mPostInflationApply.clear();
@@ -93,7 +92,7 @@ public final class ATE extends ATEBase {
                 activity instanceof AppCompatActivity ? ((AppCompatActivity) activity).getDelegate() : null));
     }
 
-    private static View getRootView(Activity activity) {
+    public static View getRootView(Activity activity) {
         return ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
     }
 
@@ -203,7 +202,6 @@ public final class ATE extends ATEBase {
             synchronized (IGNORE_TAG) {
                 for (View view : mPostInflationApply)
                     ((PostInflationApplier) view).postApply();
-                mPostInflationApply.clear();
             }
         }
     }
@@ -255,15 +253,30 @@ public final class ATE extends ATEBase {
         activity.setTaskDescription(td);
     }
 
+    @Nullable
+    private static Toolbar getPostInflationToolbar() {
+        synchronized (IGNORE_TAG) {
+            for (View view : mPostInflationApply) {
+                if (view instanceof Toolbar)
+                    return (Toolbar) view;
+            }
+            return null;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static void applyMenu(@NonNull Activity activity, @Nullable String key, @Nullable Menu menu) {
         Processor toolbarProcessor = getProcessor(Toolbar.class);
-        if (toolbarProcessor != null)
-            toolbarProcessor.process(activity, key, mToolbar, menu);
+        if (toolbarProcessor != null) {
+            final Toolbar postInflationToolbar = getPostInflationToolbar();
+            toolbarProcessor.process(activity, key, postInflationToolbar, menu);
+        }
     }
 
     public static void applyOverflow(@NonNull AppCompatActivity activity, @Nullable String key) {
-        final Toolbar toolbar = mToolbar != null ? mToolbar : ATEUtil.getSupportActionBarView(activity.getSupportActionBar());
+        final Toolbar postInflationToolbar = getPostInflationToolbar();
+        final Toolbar toolbar = postInflationToolbar != null ?
+                postInflationToolbar : ATEUtil.getSupportActionBarView(activity.getSupportActionBar());
         applyOverflow(activity, key, toolbar);
     }
 

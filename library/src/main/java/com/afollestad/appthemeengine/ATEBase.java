@@ -104,5 +104,4 @@ class ATEBase {
     }
 
     protected static Class<?> didPreApply = null;
-    protected static Toolbar mToolbar = null;
 }
