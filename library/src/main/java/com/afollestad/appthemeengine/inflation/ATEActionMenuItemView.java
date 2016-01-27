@@ -32,36 +32,35 @@ class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface 
     }
 
     private String mKey;
-
-//    private static Field mIconField;
+    private int mTintColor;
+    private Drawable mIcon;
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        setTag("text_primary");
-
-//        if (mIconField == null) {
-//            try {
-//                mIconField = ActionMenuItemView.class.getDeclaredField("mIcon");
-//                mIconField.setAccessible(true);
-//            } catch (Throwable t) {
-//                throw new RuntimeException("Failed to get the mIcon field for ActionMenuItemView.", t);
-//            }
-//        }
-
         if (keyContext == null && context instanceof ATEActivity)
             keyContext = (ATEActivity) context;
         mKey = null;
         if (keyContext != null)
             mKey = keyContext.getATEKey();
+
+        if (mIcon != null)
+            setIcon(mIcon); // invalidates initial icon tint
+        else invalidateTintColor();
+
         ATE.themeView(context, this, mKey);
+        setTextColor(mTintColor); // sets menu item text color
+    }
+
+    private void invalidateTintColor() {
+        // TODO get a reference to toolbar instead of null here?
+        final int mToolbarColor = Config.toolbarColor(getContext(), mKey, null);
+        mTintColor = Config.getToolbarTitleColor(getContext(), null, mKey, mToolbarColor);
     }
 
     @Override
     public void setIcon(Drawable icon) {
-        // TODO get a reference to toolbar instead of null here?
-        final int toolbarColor = Config.toolbarColor(getContext(), mKey, null);
-        final int tintColor = Config.getToolbarTitleColor(getContext(), null, mKey, toolbarColor);
-        icon = TintHelper.tintDrawable(icon, tintColor);
-        super.setIcon(icon);
+        invalidateTintColor();
+        mIcon = TintHelper.tintDrawable(icon, mTintColor);
+        super.setIcon(mIcon);
     }
 
     @Override
