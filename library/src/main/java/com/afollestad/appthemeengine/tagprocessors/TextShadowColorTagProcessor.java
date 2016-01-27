@@ -33,7 +33,7 @@ public class TextShadowColorTagProcessor implements TagProcessor {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
             return;
         final TextView tv = (TextView) view;
-        int newShadowColor = Color.TRANSPARENT;
+        final int newShadowColor;
 
         switch (suffix) {
             case PRIMARY_COLOR:
@@ -59,7 +59,7 @@ public class TextShadowColorTagProcessor implements TagProcessor {
                 break;
 
             case PARENT_DEPENDENT: {
-                final String viewName = view.getId() != 0 ? context.getResources().getResourceName(view.getId()) : "(no id)";
+                final String viewName = ATEUtil.getIdName(context, view.getId());
                 if (view.getParent() == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
                             "View %s uses text_color|parent_dependent tag but has no parent.", viewName));

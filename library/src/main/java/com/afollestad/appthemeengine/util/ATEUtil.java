@@ -9,6 +9,7 @@ import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -34,6 +35,18 @@ import java.util.ArrayList;
  * @author Aidan Follestad (afollestad)
  */
 public final class ATEUtil {
+
+    @NonNull
+    public static String getIdName(@NonNull Context context, @IdRes int id) {
+        try {
+            String name = context.getResources().getResourceName(id);
+            if (name == null || name.trim().isEmpty())
+                return "(no id)";
+            return name;
+        } catch (Throwable t) {
+            return "(no id)";
+        }
+    }
 
     public static int adjustAlpha(@ColorInt int color, @FloatRange(from = 0.0, to = 1.0) float factor) {
         int alpha = Math.round(Color.alpha(color) * factor);

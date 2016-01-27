@@ -57,7 +57,7 @@ public class TintTagProcessor implements TagProcessor {
 
     @Override
     public void process(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
-        int newTintColor = Color.TRANSPARENT;
+        final int newTintColor;
         final boolean isDark = !ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground));
 
         switch (suffix) {
@@ -84,7 +84,7 @@ public class TintTagProcessor implements TagProcessor {
                 break;
 
             case PARENT_DEPENDENT: {
-                final String viewName = view.getId() != 0 ? context.getResources().getResourceName(view.getId()) : "(no id)";
+                final String viewName = ATEUtil.getIdName(context, view.getId());
                 if (view.getParent() == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
                             "View %s uses background|parent_dependent tag but has no parent.", viewName));

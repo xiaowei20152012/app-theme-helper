@@ -76,7 +76,7 @@ public class TextColorTagProcessor implements TagProcessor {
                 break;
 
             case PARENT_DEPENDENT: {
-                final String viewName = view.getId() != 0 ? context.getResources().getResourceName(view.getId()) : "(no id)";
+                final String viewName = ATEUtil.getIdName(context, view.getId());
                 if (view.getParent() == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
                             "View %s uses text_color|parent_dependent tag but has no parent.", viewName));
@@ -104,7 +104,7 @@ public class TextColorTagProcessor implements TagProcessor {
                 throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
 
-        final ColorStateList sl = getTextSelector(newTextColor, view, !mLinkMode);
+        final ColorStateList sl = getTextSelector(newTextColor, view, false);
         if (mLinkMode) {
             tv.setLinkTextColor(sl);
         } else {
