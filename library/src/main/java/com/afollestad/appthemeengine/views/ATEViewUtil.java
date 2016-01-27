@@ -14,7 +14,7 @@ import com.afollestad.appthemeengine.ATEActivity;
  */
 class ATEViewUtil {
 
-    public static void init(View view, Context context, AttributeSet attrs, @StyleableRes int[] viewAttr, @StyleableRes int ateKeyAttr) {
+    public static String init(View view, Context context, AttributeSet attrs, @StyleableRes int[] viewAttr, @StyleableRes int ateKeyAttr) {
         String key = null;
         if (attrs != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, viewAttr, 0, 0);
@@ -27,6 +27,7 @@ class ATEViewUtil {
         if (key == null && context instanceof ATEActivity)
             key = ((ATEActivity) context).getATEKey();
         ATE.apply(context, view, key);
+        return key;
     }
 
     private ATEViewUtil() {
