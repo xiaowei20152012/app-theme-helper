@@ -15,14 +15,14 @@ import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.processors.DrawerLayoutProcessor;
-import com.afollestad.appthemeengine.processors.NavigationViewProcessor;
-import com.afollestad.appthemeengine.processors.NestedScrollViewProcessor;
-import com.afollestad.appthemeengine.processors.RecyclerViewProcessor;
-import com.afollestad.appthemeengine.processors.SearchViewProcessor;
-import com.afollestad.appthemeengine.processors.TabLayoutProcessor;
-import com.afollestad.appthemeengine.processors.ToolbarProcessor;
-import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
+import com.afollestad.appthemeengine.viewprocessors.DrawerLayoutProcessor;
+import com.afollestad.appthemeengine.viewprocessors.NavigationViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.NestedScrollViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.RecyclerViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.SearchViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.TabLayoutProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ToolbarProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ViewPagerProcessor;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
  */
 public final class InflationInterceptor implements LayoutInflaterFactory {
 
-    private static final boolean LOGGING_ENABLED = true;
+    private static final boolean LOGGING_ENABLED = false;
 
     private static void LOG(String msg, Object... args) {
         //noinspection PointlessBooleanExpression
@@ -157,6 +157,9 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                 break;
             case "android.support.v7.widget.AppCompatSpinner":
                 view = new ATESpinner(context, attrs, mKeyContext);
+                break;
+            case "android.support.design.widget.FloatingActionButton":
+                view = new ATEFloatingActionButton(context, attrs, mKeyContext);
                 break;
             case RecyclerViewProcessor.MAIN_CLASS:
                 view = new ATERecyclerView(context, attrs, mKeyContext);

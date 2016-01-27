@@ -2,14 +2,12 @@ package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.util.ATEUtil;
-import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -52,12 +50,9 @@ public class ATESpinner extends AppCompatSpinner implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        // TODO Need a parent background dependent tint tag? Primary dependent tag?
-//        ATEViewUtil.init(keyContext, this, context);
-        if (getBackground() != null) {
-            ATEUtil.setBackgroundCompat(this,
-                    TintHelper.tintDrawable(getBackground(), Color.BLACK));
-        }
+        if (getTag() == null)
+            setTag(String.format("%s|window_bg_dependent", TintTagProcessor.BACKGROUND_PREFIX));
+        ATEViewUtil.init(keyContext, this, context);
     }
 
     @Override

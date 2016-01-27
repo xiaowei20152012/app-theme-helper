@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +30,7 @@ import java.lang.reflect.Field;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ToolbarProcessor implements Processor<Toolbar, Menu> {
+public class ToolbarProcessor implements ViewProcessor<Toolbar, Menu> {
 
     public static final String MAIN_CLASS = "android.support.v7.widget.Toolbar";
 

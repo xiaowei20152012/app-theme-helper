@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:tag="window_background_dependent,textsize_headline,font_RobotoSlab-Bold.ttf"
+                        android:tag="text_color|window_bg_dependent,text_size|headline,font|RobotoSlab-Bold.ttf"
                         android:text="@string/header" />
 
                     <TextView
@@ -59,7 +59,7 @@
                         android:layout_marginTop="@dimen/content_inset"
                         android:fontFamily="sans-serif-light"
                         android:lineSpacingMultiplier="1.5"
-                        android:tag="text_secondary,textsize_body"
+                        android:tag="text_color|secondary_text,text_size|body"
                         android:text="@string/lorem_ipsum" />
 
                     <CheckBox
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
                         android:checked="true"
-                        android:tag="tint_accent_color,text_primary,textsize_body"
+                        android:tag="tint|accent_color,text_color|primary_color,text_size|body"
                         android:text="@string/checkbox" />
 
                     <android.support.v7.widget.SwitchCompat
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
                         android:checked="true"
-                        android:tag="tint_accent_color,text_primary,textsize_body"
+                        android:tag="tint|accent_color,text_color|primary_text,text_size|body"
                         android:text="@string/switchView" />
 
                     <RadioButton
@@ -84,7 +84,7 @@
                         android:layout_marginTop="@dimen/content_inset"
                         android:checked="true"
                         android:enabled="true"
-                        android:tag="tint_accent_color,text_primary,textsize_body"
+                        android:tag="tint|accent_color,text_color|primary_text,text_size|body"
                         android:text="@string/radiobutton" />
 
                     <EditText
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
                         android:hint="@string/edit_text"
-                        android:tag="tint_accent_color,text_primary,textsize_body" />
+                        android:tag="tint|accent_color,text_color|primary_text,text_size|body" />
 
                     <ProgressBar
                         android:id="@+id/progress"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/content_inset"
-                        android:tag="tint_accent_color" />
+                        android:tag="tint|accent_color" />
 
                     <SeekBar
                         android:id="@+id/seek"
@@ -109,7 +109,7 @@
                         android:layout_marginTop="@dimen/content_inset"
                         android:max="100"
                         android:progress="60"
-                        android:tag="tint_accent_color" />
+                        android:tag="tint|accent_color" />
 
                     <Button
                         android:id="@+id/button"
@@ -117,7 +117,7 @@
                         android:layout_height="48dp"
                         android:layout_marginTop="@dimen/content_inset"
                         android:clickable="true"
-                        android:tag="bg_tint_accent_color_selector_lighter,textsize_body"
+                        android:tag="tint_selector_lighter|accent_color,text_size|body"
                         android:text="@string/button" />
 
                 </LinearLayout>
@@ -132,7 +132,6 @@
                 android:layout_margin="@dimen/content_inset"
                 android:clickable="true"
                 android:src="@drawable/ic_add"
-                android:tag="bg_tint_accent_color_selector_lighter"
                 app:elevation="6dp"
                 app:pressedTranslationZ="12dp" />
 

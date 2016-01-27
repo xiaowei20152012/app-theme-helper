@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:tag="text_accent_color,font_RobotoSlab-Bold.ttf,textsize_subheading"
+        android:tag="text_color|accent_color,font|RobotoSlab-Bold.ttf,text_size|subheading"
         tools:text="Primary Text" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
-        android:tag="text_secondary,textsize_body"
+        android:tag="text_color|secondary_text,text_size|body"
         tools:text="Secondary Text" />
 
 </LinearLayout>

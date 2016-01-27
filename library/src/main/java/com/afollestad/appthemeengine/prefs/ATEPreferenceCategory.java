@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
+import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TextSizeTagProcessor;
 
 public class ATEPreferenceCategory extends PreferenceCategory {
 
@@ -40,7 +42,8 @@ public class ATEPreferenceCategory extends PreferenceCategory {
     protected void onBindView(View view) {
         super.onBindView(view);
         TextView mTitle = (TextView) view.findViewById(android.R.id.title);
-        mTitle.setTag("textsize_body,text_accent_color");
+        mTitle.setTag(String.format("%s|body,%s|accent_color",
+                TextSizeTagProcessor.PREFIX, TextColorTagProcessor.PREFIX));
         ATE.themeView(mTitle, mAteKey);
     }
 }

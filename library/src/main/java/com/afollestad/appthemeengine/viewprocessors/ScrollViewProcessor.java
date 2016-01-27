@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.content.Context;
 import android.support.annotation.ColorInt;
@@ -13,7 +13,7 @@ import com.afollestad.appthemeengine.util.EdgeGlowUtil;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ScrollViewProcessor implements Processor<ScrollView, Void> {
+public class ScrollViewProcessor implements ViewProcessor<ScrollView, Void> {
 
     @ColorInt
     public static int processTag(@NonNull Context context, @Nullable String key, @NonNull View forView) {

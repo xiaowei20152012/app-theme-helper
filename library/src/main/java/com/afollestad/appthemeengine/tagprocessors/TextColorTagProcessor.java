@@ -1,0 +1,125 @@
+package com.afollestad.appthemeengine.tagprocessors;
+
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.afollestad.appthemeengine.Config;
+import com.afollestad.appthemeengine.util.ATEUtil;
+
+import java.util.Locale;
+
+/**
+ * @author Aidan Follestad (afollestad)
+ */
+public class TextColorTagProcessor implements TagProcessor {
+
+    public static final String PREFIX = "text_color";
+    public static final String LINK_PREFIX = "text_color_link";
+
+    private final boolean mLinkMode;
+
+    public TextColorTagProcessor(boolean links) {
+        mLinkMode = links;
+    }
+
+    @Override
+    public boolean isTypeSupported(@NonNull View view) {
+        return view instanceof TextView;
+    }
+
+    private static ColorStateList getTextSelector(@ColorInt int color, View view, boolean dependent) {
+        if (dependent)
+            color = ATEUtil.isColorLight(color) ? Color.BLACK : Color.WHITE;
+        return new ColorStateList(new int[][]{
+                new int[]{-android.R.attr.state_enabled},
+                new int[]{android.R.attr.state_enabled}
+        }, new int[]{
+                view instanceof Button ? Color.BLACK : ATEUtil.adjustAlpha(color, 0.3f),
+                color
+        });
+    }
+
+    @Override
+    public void process(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
+        final TextView tv = (TextView) view;
+        int newTextColor = Color.BLACK;
+
+        switch (suffix) {
+            case PRIMARY_COLOR:
+                newTextColor = Config.primaryColor(context, key);
+                break;
+            case PRIMARY_COLOR_DARK:
+                newTextColor = Config.primaryColorDark(context, key);
+                break;
+            case ACCENT_COLOR:
+                newTextColor = Config.accentColor(context, key);
+                break;
+            case PRIMARY_TEXT_COLOR:
+                newTextColor = Config.textColorPrimary(context, key);
+                break;
+            case PRIMARY_TEXT_COLOR_INVERSE:
+                newTextColor = Config.textColorPrimaryInverse(context, key);
+                break;
+            case SECONDARY_TEXT_COLOR:
+                newTextColor = Config.textColorSecondary(context, key);
+                break;
+            case SECONDARY_TEXT_COLOR_INVERSE:
+                newTextColor = Config.textColorSecondaryInverse(context, key);
+                break;
+
+            case PARENT_DEPENDENT: {
+                final String viewName = view.getId() != 0 ? context.getResources().getResourceName(view.getId()) : "(no id)";
+                if (view.getParent() == null)
+                    throw new IllegalStateException(String.format(Locale.getDefault(),
+                            "View %s uses text_color|parent_dependent tag but has no parent.", viewName));
+                final View parent = (View) view.getParent();
+                if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
+                    throw new IllegalStateException(String.format(Locale.getDefault(),
+                            "View %s uses text_color|parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
+                final ColorDrawable bg = (ColorDrawable) parent.getBackground();
+                newTextColor = ATEUtil.isColorLight(bg.getColor()) ? Color.BLACK : Color.WHITE;
+                break;
+            }
+            case PRIMARY_COLOR_DEPENDENT:
+                newTextColor = ATEUtil.isColorLight(Config.primaryColor(context, key)) ?
+                        Color.BLACK : Color.WHITE;
+                break;
+            case ACCENT_COLOR_DEPENDENT:
+                newTextColor = ATEUtil.isColorLight(Config.accentColor(context, key)) ?
+                        Color.BLACK : Color.WHITE;
+                break;
+            case WINDOW_BG_DEPENDENT:
+                newTextColor = ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground)) ?
+                        Color.BLACK : Color.WHITE;
+                break;
+        }
+
+        final ColorStateList sl = getTextSelector(newTextColor, view, !mLinkMode);
+        if (mLinkMode) {
+            tv.setLinkTextColor(sl);
+        } else {
+            tv.setTextColor(sl);
+        }
+    }
+
+    private static final String PRIMARY_COLOR = "primary_color";
+    private static final String PRIMARY_COLOR_DARK = "primary_color_dark";
+    private static final String ACCENT_COLOR = "accent_color";
+    private static final String PRIMARY_TEXT_COLOR = "primary_text";
+    private static final String PRIMARY_TEXT_COLOR_INVERSE = "primary_text_inverse";
+    private static final String SECONDARY_TEXT_COLOR = "secondary_text";
+    private static final String SECONDARY_TEXT_COLOR_INVERSE = "secondary_text_inverse";
+
+    private static final String PARENT_DEPENDENT = "parent_dependent";
+    private static final String PRIMARY_COLOR_DEPENDENT = "primary_color_dependent";
+    private static final String ACCENT_COLOR_DEPENDENT = "accent_color_dependent";
+    private static final String WINDOW_BG_DEPENDENT = "window_bg_dependent";
+}

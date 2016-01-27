@@ -2,8 +2,8 @@ package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
-import android.widget.SeekBar;
 
 import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
@@ -11,26 +11,26 @@ import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 /**
  * @author Aidan Follestad (afollestad)
  */
-class ATESeekBar extends SeekBar implements ViewInterface {
+public class ATEFloatingActionButton extends FloatingActionButton implements ViewInterface {
 
-    public ATESeekBar(Context context) {
+    public ATEFloatingActionButton(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATESeekBar(Context context, AttributeSet attrs) {
+    public ATEFloatingActionButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, null);
     }
 
-    public ATESeekBar(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+    public ATEFloatingActionButton(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, keyContext);
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
-            setTag(String.format("%s|accent_color", TintTagProcessor.PREFIX));
+            setTag(TintTagProcessor.SELECTOR_PREFIX_LIGHT + "|accent_color");
         ATEViewUtil.init(keyContext, this, context);
     }
 

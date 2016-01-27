@@ -6,6 +6,6 @@
     android:fontFamily="sans-serif-light"
     android:gravity="center_vertical"
     android:minHeight="48dp"
-    android:tag="text_primary_color_dependent,textsize_subheading"
+    android:tag="text_color|parent_dependent,text_size|subheading"
     tools:ignore="UnusedAttribute"
     tools:text="Hello, world!" />

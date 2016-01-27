@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -28,7 +29,8 @@ class ATEProgressBar extends ProgressBar implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        setTag("tint_accent_color");
+        if (getTag() == null)
+            setTag(String.format("%s|accent_color", TintTagProcessor.PREFIX));
         ATEViewUtil.init(keyContext, this, context);
     }
 

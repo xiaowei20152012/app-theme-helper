@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:tag="bg_accent_color"
+                android:tag="background|accent_color"
                 app:layout_collapseMode="parallax"
                 tools:background="@color/colorAccentLightDefault"
                 tools:ignore="ContentDescription" />
@@ -50,7 +50,7 @@
             android:fontFamily="sans-serif-light"
             android:lineSpacingMultiplier="2.0"
             android:padding="@dimen/content_inset"
-            android:tag="textsize_body"
+            android:tag="text_size|body"
             android:text="@string/lorem_ipsum_long"
             tools:ignore="UnusedAttribute" />
 

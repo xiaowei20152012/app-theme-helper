@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:elevation="0dp"
-        android:tag="bg_primary_color"
+        android:tag="background|primary_color"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="UnusedAttribute">
 

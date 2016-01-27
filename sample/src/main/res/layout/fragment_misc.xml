@@ -13,7 +13,7 @@
         android:elevation="@dimen/toolbar_elevation"
         android:paddingLeft="@dimen/content_inset"
         android:paddingRight="@dimen/content_inset"
-        android:tag="bg_primary_color"
+        android:tag="background|primary_color"
         tools:ignore="UnusedAttribute">
 
         <EditText
@@ -37,7 +37,7 @@
             android:layout_gravity="center"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:tag="text_accent_color,textsize_display1"
+            android:tag="text_color|accent_color,text_size|display1"
             android:text="@string/fragment_theming"
             tools:ignore="UnusedAttribute" />
 

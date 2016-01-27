@@ -25,7 +25,7 @@ import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.inflation.PostInflationApplier;
 import com.afollestad.appthemeengine.inflation.ViewInterface;
-import com.afollestad.appthemeengine.processors.Processor;
+import com.afollestad.appthemeengine.viewprocessors.ViewProcessor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.MDUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
@@ -56,9 +56,9 @@ public final class ATE extends ATEBase {
     private static void performDefaultProcessing(@NonNull Context context, @NonNull View current, @Nullable String key) {
         if (current.getTag() != null && current.getTag() instanceof String) {
             // Apply default processor to view if view's tag is a String
-            Processor processor = getProcessor(null); // gets default processor
-            if (processor != null)
-                processor.process(context, key, current, null);
+            ViewProcessor viewProcessor = getViewProcessor(null); // gets default viewProcessor
+            if (viewProcessor != null)
+                viewProcessor.process(context, key, current, null);
         }
     }
 
@@ -147,10 +147,10 @@ public final class ATE extends ATEBase {
         if (IGNORE_TAG.equals(view.getTag())) return;
         performDefaultProcessing(context, view, key);
 
-        final Processor processor = getProcessor(view.getClass());
-        if (processor != null) {
+        final ViewProcessor viewProcessor = getViewProcessor(view.getClass());
+        if (viewProcessor != null) {
             // Apply view theming using processors, if any match
-            processor.process(context, key, view, null);
+            viewProcessor.process(context, key, view, null);
         }
     }
 
@@ -176,10 +176,10 @@ public final class ATE extends ATEBase {
             if (activity instanceof AppCompatActivity) {
                 final AppCompatActivity aca = (AppCompatActivity) activity;
                 if (aca.getSupportActionBar() != null) {
-                    Processor toolbarProcessor = getProcessor(Toolbar.class);
-                    if (toolbarProcessor != null) {
+                    ViewProcessor toolbarViewProcessor = getViewProcessor(Toolbar.class);
+                    if (toolbarViewProcessor != null) {
                         // The processor handles retrieving the toolbar from the support action bar
-                        toolbarProcessor.process(activity, key, null, null);
+                        toolbarViewProcessor.process(activity, key, null, null);
                     }
                 }
             } else if (activity.getActionBar() != null) {

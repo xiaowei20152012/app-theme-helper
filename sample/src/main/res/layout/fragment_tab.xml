@@ -7,6 +7,6 @@
     android:layout_gravity="center"
     android:fontFamily="sans-serif-medium"
     android:gravity="center"
-    android:tag="text_primary,textsize_display1"
+    android:tag="text_color|primary_text,text_size|display1"
     tools:ignore="UnusedAttribute"
     tools:text="Tab 1" />

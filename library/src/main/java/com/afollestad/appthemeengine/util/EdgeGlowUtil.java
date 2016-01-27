@@ -16,9 +16,9 @@ import android.widget.EdgeEffect;
 import android.widget.ScrollView;
 
 import com.afollestad.appthemeengine.BuildConfig;
-import com.afollestad.appthemeengine.processors.NestedScrollViewProcessor;
-import com.afollestad.appthemeengine.processors.RecyclerViewProcessor;
-import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
+import com.afollestad.appthemeengine.viewprocessors.NestedScrollViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.RecyclerViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ViewPagerProcessor;
 
 import java.lang.reflect.Field;
 

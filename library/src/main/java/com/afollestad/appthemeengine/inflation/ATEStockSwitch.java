@@ -8,6 +8,8 @@ import android.widget.Switch;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -30,7 +32,8 @@ class ATEStockSwitch extends Switch implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        setTag("tint_accent_color,text_primary");
+        if (getTag() == null)
+            setTag(String.format("%s|accent_color,%s|primary_text", TintTagProcessor.PREFIX, TextColorTagProcessor.PREFIX));
         ATEViewUtil.init(keyContext, this, context);
     }
 

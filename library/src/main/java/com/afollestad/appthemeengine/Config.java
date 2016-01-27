@@ -638,15 +638,15 @@ public final class Config extends ConfigBase {
     public static final int LIGHT_TOOLBAR_ON = 2;
     public static final int LIGHT_TOOLBAR_OFF = 3;
 
-    public final static String TEXTSIZE_DISPLAY4 = "textsize_display4";
-    public final static String TEXTSIZE_DISPLAY3 = "textsize_display3";
-    public final static String TEXTSIZE_DISPLAY2 = "textsize_display2";
-    public final static String TEXTSIZE_DISPLAY1 = "textsize_display1";
-    public final static String TEXTSIZE_HEADLINE = "textsize_headline";
-    public final static String TEXTSIZE_TITLE = "textsize_title";
-    public final static String TEXTSIZE_SUBHEADING = "textsize_subheading";
-    public final static String TEXTSIZE_BODY = "textsize_body";
-    public final static String TEXTSIZE_CAPTION = "textsize_caption";
+    public final static String TEXTSIZE_DISPLAY4 = "display4";
+    public final static String TEXTSIZE_DISPLAY3 = "display3";
+    public final static String TEXTSIZE_DISPLAY2 = "display2";
+    public final static String TEXTSIZE_DISPLAY1 = "display1";
+    public final static String TEXTSIZE_HEADLINE = "headline";
+    public final static String TEXTSIZE_TITLE = "title";
+    public final static String TEXTSIZE_SUBHEADING = "subheading";
+    public final static String TEXTSIZE_BODY = "body";
+    public final static String TEXTSIZE_CAPTION = "caption";
 
     @ColorInt
     public static int getToolbarTitleColor(@NonNull Context context, @Nullable Toolbar toolbar, @Nullable String key) {

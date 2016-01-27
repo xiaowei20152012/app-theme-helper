@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,7 +15,7 @@ import java.lang.reflect.Field;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class SearchViewProcessor implements Processor<View, Integer> {
+public class SearchViewProcessor implements ViewProcessor<View, Integer> {
 
     public static final String MAIN_CLASS = "android.support.v7.widget.SearchView";
 

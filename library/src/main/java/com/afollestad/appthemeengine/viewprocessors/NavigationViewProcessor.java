@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -7,16 +7,14 @@ import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.view.View;
 
-import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.ATEUtil;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class NavigationViewProcessor implements Processor<NavigationView, Void> {
+public class NavigationViewProcessor implements ViewProcessor<NavigationView, Void> {
 
     public static final String MAIN_CLASS = "android.support.design.widget.NavigationView";
 

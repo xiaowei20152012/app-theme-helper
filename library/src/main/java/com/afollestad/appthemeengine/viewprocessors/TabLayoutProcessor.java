@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -17,7 +17,7 @@ import com.afollestad.appthemeengine.util.TintHelper;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class TabLayoutProcessor implements Processor<TabLayout, Void> {
+public class TabLayoutProcessor implements ViewProcessor<TabLayout, Void> {
 
     public static final String MAIN_CLASS = "android.support.design.widget.TabLayout";
 

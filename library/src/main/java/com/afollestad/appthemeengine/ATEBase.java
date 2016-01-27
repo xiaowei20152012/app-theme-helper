@@ -9,19 +9,26 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SearchView;
 
-import com.afollestad.appthemeengine.processors.DefaultProcessor;
-import com.afollestad.appthemeengine.processors.DrawerLayoutProcessor;
-import com.afollestad.appthemeengine.processors.ListViewProcessor;
-import com.afollestad.appthemeengine.processors.NavigationViewProcessor;
-import com.afollestad.appthemeengine.processors.NestedScrollViewProcessor;
-import com.afollestad.appthemeengine.processors.Processor;
-import com.afollestad.appthemeengine.processors.RecyclerViewProcessor;
-import com.afollestad.appthemeengine.processors.ScrollViewProcessor;
-import com.afollestad.appthemeengine.processors.SearchViewProcessor;
-import com.afollestad.appthemeengine.processors.TabLayoutProcessor;
-import com.afollestad.appthemeengine.processors.ToolbarProcessor;
-import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
+import com.afollestad.appthemeengine.tagprocessors.BackgroundTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.FontTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TextShadowColorTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TextSizeTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 import com.afollestad.appthemeengine.util.ATEUtil;
+import com.afollestad.appthemeengine.viewprocessors.DefaultProcessor;
+import com.afollestad.appthemeengine.viewprocessors.DrawerLayoutProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ListViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.NavigationViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.NestedScrollViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.RecyclerViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ScrollViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.SearchViewProcessor;
+import com.afollestad.appthemeengine.viewprocessors.TabLayoutProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ToolbarProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ViewPagerProcessor;
+import com.afollestad.appthemeengine.viewprocessors.ViewProcessor;
 
 import java.util.HashMap;
 
@@ -31,72 +38,93 @@ import java.util.HashMap;
 class ATEBase {
 
     protected final static String DEFAULT_PROCESSOR = "[default]";
-    protected final static String MATERIALDIALOGS_PROCESSOR = "[material-dialogs]";
 
-    private static HashMap<String, Processor> mProcessors;
+    private static HashMap<String, ViewProcessor> mViewProcessors;
+    private static HashMap<String, TagProcessor> mTagProcessors;
 
-    private static void initProcessors() {
-        mProcessors = new HashMap<>();
-        mProcessors.put(DEFAULT_PROCESSOR, new DefaultProcessor());
+    private static void initViewProcessors() {
+        mViewProcessors = new HashMap<>();
+        mViewProcessors.put(DEFAULT_PROCESSOR, new DefaultProcessor());
 
-        mProcessors.put(ScrollView.class.getName(), new ScrollViewProcessor());
-        mProcessors.put(ListView.class.getName(), new ListViewProcessor());
-        mProcessors.put(SearchView.class.getName(), new SearchViewProcessor());
-        mProcessors.put(Toolbar.class.getName(), new ToolbarProcessor());
+        mViewProcessors.put(ScrollView.class.getName(), new ScrollViewProcessor());
+        mViewProcessors.put(ListView.class.getName(), new ListViewProcessor());
+        mViewProcessors.put(SearchView.class.getName(), new SearchViewProcessor());
+        mViewProcessors.put(Toolbar.class.getName(), new ToolbarProcessor());
 
         if (ATEUtil.isInClassPath(NestedScrollViewProcessor.MAIN_CLASS))
-            mProcessors.put(NestedScrollViewProcessor.MAIN_CLASS, new NestedScrollViewProcessor());
+            mViewProcessors.put(NestedScrollViewProcessor.MAIN_CLASS, new NestedScrollViewProcessor());
         else Log.d("ATEBase", "NestedScrollView isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(RecyclerViewProcessor.MAIN_CLASS))
-            mProcessors.put(RecyclerViewProcessor.MAIN_CLASS, new RecyclerViewProcessor());
+            mViewProcessors.put(RecyclerViewProcessor.MAIN_CLASS, new RecyclerViewProcessor());
         else Log.d("ATEBase", "RecyclerView isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(NavigationViewProcessor.MAIN_CLASS))
-            mProcessors.put(NavigationViewProcessor.MAIN_CLASS, new NavigationViewProcessor());
+            mViewProcessors.put(NavigationViewProcessor.MAIN_CLASS, new NavigationViewProcessor());
         else Log.d("ATEBase", "NavigationView isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(DrawerLayoutProcessor.MAIN_CLASS))
-            mProcessors.put(DrawerLayoutProcessor.MAIN_CLASS, new DrawerLayoutProcessor());
+            mViewProcessors.put(DrawerLayoutProcessor.MAIN_CLASS, new DrawerLayoutProcessor());
         else Log.d("ATEBase", "DrawerLayout isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(TabLayoutProcessor.MAIN_CLASS))
-            mProcessors.put(TabLayoutProcessor.MAIN_CLASS, new TabLayoutProcessor());
+            mViewProcessors.put(TabLayoutProcessor.MAIN_CLASS, new TabLayoutProcessor());
         else Log.d("ATEBase", "TabLayout isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(SearchViewProcessor.MAIN_CLASS))
-            mProcessors.put(SearchViewProcessor.MAIN_CLASS, new SearchViewProcessor());
+            mViewProcessors.put(SearchViewProcessor.MAIN_CLASS, new SearchViewProcessor());
         else Log.d("ATEBase", "SearchView isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(ViewPagerProcessor.MAIN_CLASS))
-            mProcessors.put(ViewPagerProcessor.MAIN_CLASS, new ViewPagerProcessor());
+            mViewProcessors.put(ViewPagerProcessor.MAIN_CLASS, new ViewPagerProcessor());
         else Log.d("ATEBase", "ViewPager isn't in the class path. Ignoring.");
     }
 
     @SuppressWarnings("unchecked")
     @Nullable
-    public static <T extends View> Processor<T, ?> getProcessor(@Nullable Class<T> viewClass) {
-        if (mProcessors == null)
-            initProcessors();
+    public static <T extends View> ViewProcessor<T, ?> getViewProcessor(@Nullable Class<T> viewClass) {
+        if (mViewProcessors == null)
+            initViewProcessors();
         if (viewClass == null)
-            return mProcessors.get(DEFAULT_PROCESSOR);
-        Processor processor = mProcessors.get(viewClass.getName());
-        if (processor != null)
-            return processor;
+            return mViewProcessors.get(DEFAULT_PROCESSOR);
+        ViewProcessor viewProcessor = mViewProcessors.get(viewClass.getName());
+        if (viewProcessor != null)
+            return viewProcessor;
         Class<?> current = viewClass;
         while (true) {
             current = current.getSuperclass();
             if (current == null) break;
-            processor = mProcessors.get(current.getName());
-            if (processor != null) break;
+            viewProcessor = mViewProcessors.get(current.getName());
+            if (viewProcessor != null) break;
         }
-        return processor;
+        return viewProcessor;
     }
 
-    public static HashMap<String, Processor> getProcessors() {
-        if (mProcessors == null)
-            initProcessors();
-        return mProcessors;
+    public static <T extends View> void registerViewProcessor(@NonNull Class<T> viewCls, @NonNull ViewProcessor<T, ?> viewProcessor) {
+        if (mViewProcessors == null)
+            initViewProcessors();
+        mViewProcessors.put(viewCls.getName(), viewProcessor);
     }
 
-    public static <T extends View> void registerProcessor(@NonNull Class<T> viewCls, @NonNull Processor<T, ?> processor) {
-        if (mProcessors == null)
-            initProcessors();
-        mProcessors.put(viewCls.getName(), processor);
+    private static void initTagProcessors() {
+        mTagProcessors = new HashMap<>();
+        mTagProcessors.put(BackgroundTagProcessor.PREFIX, new BackgroundTagProcessor());
+        mTagProcessors.put(FontTagProcessor.PREFIX, new FontTagProcessor());
+        mTagProcessors.put(TextColorTagProcessor.PREFIX, new TextColorTagProcessor(false));
+        mTagProcessors.put(TextColorTagProcessor.LINK_PREFIX, new TextColorTagProcessor(true));
+        mTagProcessors.put(TextShadowColorTagProcessor.PREFIX, new TextShadowColorTagProcessor());
+        mTagProcessors.put(TextSizeTagProcessor.PREFIX, new TextSizeTagProcessor());
+        mTagProcessors.put(TintTagProcessor.PREFIX, new TintTagProcessor(false, false, false));
+        mTagProcessors.put(TintTagProcessor.BACKGROUND_PREFIX, new TintTagProcessor(true, false, false));
+        mTagProcessors.put(TintTagProcessor.SELECTOR_PREFIX, new TintTagProcessor(false, true, false));
+        mTagProcessors.put(TintTagProcessor.SELECTOR_PREFIX_LIGHT, new TintTagProcessor(false, true, true));
+    }
+
+    @Nullable
+    public static TagProcessor getTagProcessor(@NonNull String prefix) {
+        if (mTagProcessors == null)
+            initTagProcessors();
+        return mTagProcessors.get(prefix);
+    }
+
+    public static void registerTagProcessor(@NonNull String prefix, @NonNull TagProcessor tagProcessor) {
+        if (mTagProcessors == null)
+            initTagProcessors();
+        mTagProcessors.put(prefix, tagProcessor);
     }
 
     protected static Class<?> didPreApply = null;

@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.afollestad.appthemeengine.Config;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class DrawerLayoutProcessor implements Processor<DrawerLayout, Void> {
+public class DrawerLayoutProcessor implements ViewProcessor<DrawerLayout, Void> {
 
     public static final String MAIN_CLASS = "android.support.v4.widget.DrawerLayout";
 

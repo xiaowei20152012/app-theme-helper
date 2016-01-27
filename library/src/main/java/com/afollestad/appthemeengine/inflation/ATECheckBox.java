@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,7 +30,8 @@ public class ATECheckBox extends AppCompatCheckBox implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        setTag("tint_accent_color,text_primary");
+        if (getTag() == null)
+            setTag(TintTagProcessor.PREFIX + "|accent_color");
         ATEViewUtil.init(keyContext, this, context);
     }
 

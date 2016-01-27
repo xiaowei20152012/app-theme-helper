@@ -1,17 +1,16 @@
-package com.afollestad.appthemeengine.processors;
+package com.afollestad.appthemeengine.viewprocessors;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 
-import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.EdgeGlowUtil;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class NestedScrollViewProcessor implements Processor<NestedScrollView, Void> {
+public class NestedScrollViewProcessor implements ViewProcessor<NestedScrollView, Void> {
 
     public static final String MAIN_CLASS = "android.support.v4.widget.NestedScrollView";
 

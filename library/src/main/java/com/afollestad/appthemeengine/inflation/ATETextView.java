@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,7 +30,8 @@ class ATETextView extends TextView implements ViewInterface {
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
-            setTag("text_link_accent_color"); // default implementation sets link colors to accent
+            setTag(String.format("%s|accent_color,%s|primary_text",
+                    TextColorTagProcessor.LINK_PREFIX, TextColorTagProcessor.PREFIX));
         ATEViewUtil.init(keyContext, this, context);
     }
 

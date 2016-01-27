@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/drawer_header_height"
     android:orientation="vertical"
-    android:tag="bg_accent_color" />
+    android:tag="background|accent_color" />

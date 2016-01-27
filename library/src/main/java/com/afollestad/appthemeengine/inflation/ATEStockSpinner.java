@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.Spinner;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -43,8 +44,9 @@ public class ATEStockSpinner extends Spinner implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        // TODO Need a parent background dependent tint tag? Primary dependent tag?
-//        ATEViewUtil.init(keyContext, this, context);
+        if (getTag() == null)
+            setTag(String.format("%s|window_bg_dependent", TintTagProcessor.BACKGROUND_PREFIX));
+        ATEViewUtil.init(keyContext, this, context);
     }
 
     @Override
