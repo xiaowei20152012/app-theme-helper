@@ -32,7 +32,6 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
                     .primaryColorRes(R.color.colorPrimaryLightDefault)
                     .accentColorRes(R.color.colorAccentLightDefault)
                     .coloredNavigationBar(false)
-                    .usingMaterialDialogs(true)
                     .navigationViewSelectedIconRes(R.color.colorAccentLightDefault)
                     .navigationViewSelectedTextRes(R.color.colorAccentLightDefault)
                     .commit();
@@ -43,7 +42,6 @@ public class MainActivity extends BaseThemedActivity implements NavigationView.O
                     .primaryColorRes(R.color.colorPrimaryDarkDefault)
                     .accentColorRes(R.color.colorAccentDarkDefault)
                     .coloredNavigationBar(true)
-                    .usingMaterialDialogs(true)
                     .navigationViewSelectedIconRes(R.color.colorAccentDarkDefault)
                     .navigationViewSelectedTextRes(R.color.colorAccentDarkDefault)
                     .commit();
