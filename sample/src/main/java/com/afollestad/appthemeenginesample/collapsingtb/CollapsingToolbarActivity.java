@@ -1,6 +1,5 @@
 package com.afollestad.appthemeenginesample.collapsingtb;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
-import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
 import com.afollestad.appthemeenginesample.R;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
 
@@ -22,7 +20,7 @@ import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
  * @author Aidan Follestad (afollestad)
  */
 public class CollapsingToolbarActivity extends BaseThemedActivity
-        implements ATEActivityThemeCustomizer, ATECollapsingTbCustomizer {
+        implements ATEActivityThemeCustomizer {
 
     @StyleRes
     @Override
@@ -64,15 +62,5 @@ public class CollapsingToolbarActivity extends BaseThemedActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public int getCollapsedTintColor() {
-        return Color.RED;
-    }
-
-    @Override
-    public int getExpandedTintColor() {
-        return Color.BLUE;
     }
 }

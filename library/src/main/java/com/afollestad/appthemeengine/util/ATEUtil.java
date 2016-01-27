@@ -150,6 +150,18 @@ public final class ATEUtil {
         }
     }
 
+    /**
+     * Taken from CollapsingToolbarLayout's CollapsingTextHelper class.
+     */
+    public static int blendColors(int color1, int color2, float ratio) {
+        final float inverseRatio = 1f - ratio;
+        float a = (Color.alpha(color1) * inverseRatio) + (Color.alpha(color2) * ratio);
+        float r = (Color.red(color1) * inverseRatio) + (Color.red(color2) * ratio);
+        float g = (Color.green(color1) * inverseRatio) + (Color.green(color2) * ratio);
+        float b = (Color.blue(color1) * inverseRatio) + (Color.blue(color2) * ratio);
+        return Color.argb((int) a, (int) r, (int) g, (int) b);
+    }
+
     private ATEUtil() {
     }
 }

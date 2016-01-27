@@ -3,7 +3,6 @@ package com.afollestad.appthemeengine.processors;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
@@ -11,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuBuilder;
@@ -189,8 +190,11 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
     public static class ScrimsOffsetListener implements AppBarLayout.OnOffsetChangedListener {
 
-        private final Paint mTextPaint;
-        private final Field mScrimsAreShown;
+        private Object mCollapsingTextHelper;
+
+        private final Field mExpandedTextColorField;
+        private final Field mCollapsedTextColorField;
+        private final Field mLastInsetsField;
 
         @NonNull
         private final Context mContext;
@@ -202,8 +206,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
 
         private int mCollapsedColor;
         private int mExpandedColor;
-
-        private int mLastVerticalOffset = -1;
+        private int mLastVerticalOffset = 0;
 
         public ScrimsOffsetListener(@NonNull Context context, @Nullable String key, Toolbar toolbar,
                                     CollapsingToolbarLayout toolbarLayout, Menu menu) throws Exception {
@@ -213,17 +216,24 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             mCollapsingToolbar = toolbarLayout;
             mMenu = menu;
 
-            Field mCollapsingTextHelperField = CollapsingToolbarLayout.class.getDeclaredField("mCollapsingTextHelper");
-            mCollapsingTextHelperField.setAccessible(true);
-            Object textHelper = mCollapsingTextHelperField.get(mCollapsingToolbar);
-            Field mTextPaintField = textHelper.getClass().getDeclaredField("mTextPaint");
-            mTextPaintField.setAccessible(true);
-            mTextPaint = (Paint) mTextPaintField.get(textHelper);
+            try {
+                final Field textHelperField = CollapsingToolbarLayout.class.getDeclaredField("mCollapsingTextHelper");
+                textHelperField.setAccessible(true);
+                mCollapsingTextHelper = textHelperField.get(mCollapsingToolbar);
+                final Class<?> textHelperCls = mCollapsingTextHelper.getClass();
+                mExpandedTextColorField = textHelperCls.getDeclaredField("mExpandedTextColor");
+                mExpandedTextColorField.setAccessible(true);
+                mCollapsedTextColorField = textHelperCls.getDeclaredField("mCollapsedTextColor");
+                mCollapsedTextColorField.setAccessible(true);
+
+                mLastInsetsField = CollapsingToolbarLayout.class.getDeclaredField("mLastInsets");
+                mLastInsetsField.setAccessible(true);
+
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to get expanded text color or collapsed text color fields.", e);
+            }
 
             if (context instanceof ATECollapsingTbCustomizer) {
-                mScrimsAreShown = CollapsingToolbarLayout.class.getDeclaredField("mScrimsAreShown");
-                mScrimsAreShown.setAccessible(true);
-
                 final ATECollapsingTbCustomizer customizer = (ATECollapsingTbCustomizer) mContext;
                 mCollapsedColor = customizer.getCollapsedTintColor();
                 mExpandedColor = customizer.getExpandedTintColor();
@@ -234,32 +244,56 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                     if (mExpandedColor == ATE.USE_DEFAULT) mExpandedColor = tintColor;
                 }
 
+                mToolbar.setTitleTextColor(mCollapsedColor);
                 mCollapsingToolbar.setCollapsedTitleTextColor(mCollapsedColor);
                 mCollapsingToolbar.setExpandedTitleColor(mExpandedColor);
-            } else {
-                mScrimsAreShown = null;
             }
 
             invalidateMenu();
         }
 
-        private boolean scrimsAreShown() {
-            if (mScrimsAreShown == null) return false;
+        private int getExpandedTextColor() {
+            if (mContext instanceof ATECollapsingTbCustomizer)
+                return mExpandedColor;
             try {
-                return mScrimsAreShown.getBoolean(mCollapsingToolbar);
+                return mExpandedTextColorField.getInt(mCollapsingTextHelper);
             } catch (IllegalAccessException e) {
-                return true;
+                e.printStackTrace();
+                return Color.WHITE;
+            }
+        }
+
+        private int getCollapsedTextColor() {
+            if (mContext instanceof ATECollapsingTbCustomizer)
+                return mCollapsedColor;
+            try {
+                return mCollapsedTextColorField.getInt(mCollapsingTextHelper);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return Color.WHITE;
+            }
+        }
+
+        private WindowInsetsCompat getLastInsets() {
+            try {
+                return (WindowInsetsCompat) mLastInsetsField.get(mCollapsingToolbar);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return null;
             }
         }
 
         private void invalidateMenu() {
             final int tintColor;
-            if (mScrimsAreShown != null) {
-                tintColor = scrimsAreShown() ? mCollapsedColor : mExpandedColor;
-            } else {
-                tintColor = mTextPaint.getColor();
-            }
+            // Mimic CollapsingToolbarLayout's CollapsingTextHelper
+            final WindowInsetsCompat mLastInsets = getLastInsets();
+            final int insetTop = mLastInsets != null ? mLastInsets.getSystemWindowInsetTop() : 0;
+            final int expandRange = mCollapsingToolbar.getHeight() - ViewCompat.getMinimumHeight(
+                    mCollapsingToolbar) - insetTop;
+            final float expansionFraction = Math.abs(mLastVerticalOffset) / (float) expandRange;
+            tintColor = ATEUtil.blendColors(getExpandedTextColor(), getCollapsedTextColor(), expansionFraction);
 
+            mToolbar.setTitleTextColor(tintColor);
             if (mToolbar.getNavigationIcon() != null)
                 mToolbar.setNavigationIcon(TintHelper.tintDrawable(mToolbar.getNavigationIcon(), tintColor));
             tintMenu(mContext, mToolbar, mKey, mMenu, tintColor);
