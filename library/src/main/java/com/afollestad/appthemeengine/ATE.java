@@ -32,8 +32,8 @@ import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.views.ViewInterface;
 import com.afollestad.appthemeengine.views.PostInflationApplier;
+import com.afollestad.appthemeengine.views.ViewInterface;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -82,17 +82,19 @@ public final class ATE extends ATEBase {
                 mPostInflationApply = null;
             }
         }
-
         int activityTheme = activity instanceof ATEActivityThemeCustomizer ?
                 ((ATEActivityThemeCustomizer) activity).getActivityTheme() : Config.activityTheme(activity, key);
         if (activityTheme != 0) activity.setTheme(activityTheme);
     }
 
+    private static View getRootView(Activity activity) {
+        return ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+    }
+
     @SuppressWarnings("unchecked")
     private static void performMainTheming(@NonNull Activity activity, @Nullable String key) {
-        final ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
-        final boolean rootSetsStatusBarColor;
-        rootSetsStatusBarColor = rootView != null && rootView instanceof ViewInterface &&
+        final View rootView = getRootView(activity);
+        final boolean rootSetsStatusBarColor = rootView != null && rootView instanceof ViewInterface &&
                 ((ViewInterface) rootView).setsStatusBarColor();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -164,7 +166,11 @@ public final class ATE extends ATEBase {
             preApply(activity, key);
         performMainTheming(activity, key);
 
-        if (Config.coloredActionBar(activity, key)) {
+        final View rootView = getRootView(activity);
+        final boolean rootSetsToolbarColor = rootView != null && rootView instanceof ViewInterface &&
+                ((ViewInterface) rootView).setsToolbarColor();
+
+        if (!rootSetsToolbarColor && Config.coloredActionBar(activity, key)) {
             if (activity instanceof AppCompatActivity) {
                 final AppCompatActivity aca = (AppCompatActivity) activity;
                 if (aca.getSupportActionBar() != null) {
