@@ -112,15 +112,19 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
         View view;
 
         switch (name) {
+            case "android.support.v7.widget.AppCompatTextView":
             case "TextView":
                 view = new ATETextView(context, attrs, mKeyContext);
                 break;
+            case "android.support.v7.widget.AppCompatEdiText":
             case "EditText":
                 view = new ATEEditText(context, attrs, mKeyContext);
                 break;
+            case "android.support.v7.widget.AppCompatCheckBox":
             case "CheckBox":
                 view = new ATECheckBox(context, attrs, mKeyContext);
                 break;
+            case "android.support.v7.widget.AppCompatRadioButton":
             case "RadioButton":
                 view = new ATERadioButton(context, attrs, mKeyContext);
                 break;
@@ -130,6 +134,7 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
             case "android.support.v7.widget.SwitchCompat":
                 view = new ATESwitch(context, attrs, mKeyContext);
                 break;
+            case "android.support.v7.widget.AppCompatSeekBar":
             case "SeekBar":
                 view = new ATESeekBar(context, attrs, mKeyContext);
                 break;
@@ -146,6 +151,10 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                 break;
             case "ScrollView":
                 view = new ATEScrollView(context, attrs, mKeyContext);
+                break;
+            case "android.support.v7.widget.AppCompatSpinner":
+            case "Spinner":
+                view = new ATESpinner(context, attrs, mKeyContext);
                 break;
             case RecyclerViewProcessor.MAIN_CLASS:
                 view = new ATERecyclerView(context, attrs, mKeyContext);
@@ -172,6 +181,7 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                 view = new ATEActionMenuItemView(context, attrs, mKeyContext);
                 break;
             case SearchViewProcessor.MAIN_CLASS:
+            case "SearchView":
                 view = new ATESearchView(context, attrs, mKeyContext);
                 break;
             case "CheckedTextView":

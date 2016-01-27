@@ -11,16 +11,21 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.WindowDecorActionBar;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.ToolbarWidgetWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.R;
+import com.afollestad.appthemeengine.inflation.InflationInterceptor;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -160,6 +165,13 @@ public final class ATEUtil {
         float g = (Color.green(color1) * inverseRatio) + (Color.green(color2) * ratio);
         float b = (Color.blue(color1) * inverseRatio) + (Color.blue(color2) * ratio);
         return Color.argb((int) a, (int) r, (int) g, (int) b);
+    }
+
+    public static void setInflaterFactory(LayoutInflater li, Activity activity) {
+        LayoutInflaterCompat.setFactory(li, new InflationInterceptor(
+                activity instanceof ATEActivity ? (ATEActivity) activity : null,
+                li,
+                activity instanceof AppCompatActivity ? ((AppCompatActivity) activity).getDelegate() : null));
     }
 
     private ATEUtil() {
