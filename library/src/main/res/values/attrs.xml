@@ -73,6 +73,10 @@
         <attr name="ateKey_tabLayout" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="ATECoordinatorLayout">
+        <attr name="ateKey_coordinatorLayout" format="string" />
+    </declare-styleable>
+
     <!-- Preferences -->
 
     <declare-styleable name="ATEPreference">

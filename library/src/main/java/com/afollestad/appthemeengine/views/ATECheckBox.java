@@ -10,7 +10,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATECheckBox extends AppCompatCheckBox {
+public class ATECheckBox extends AppCompatCheckBox implements ATEViewInterface {
 
     public ATECheckBox(Context context) {
         super(context);
@@ -34,5 +34,10 @@ public class ATECheckBox extends AppCompatCheckBox {
 
     public void setKey(String key) {
         ATE.apply(getContext(), this, key);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
     }
 }

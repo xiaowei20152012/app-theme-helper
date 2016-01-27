@@ -18,6 +18,7 @@ import com.afollestad.appthemeengine.processors.TabLayoutProcessor;
 import com.afollestad.appthemeengine.processors.ToolbarProcessor;
 import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
 import com.afollestad.appthemeengine.views.ATECheckBox;
+import com.afollestad.appthemeengine.views.ATECoordinatorLayout;
 import com.afollestad.appthemeengine.views.ATEDrawerLayout;
 import com.afollestad.appthemeengine.views.ATEEditText;
 import com.afollestad.appthemeengine.views.ATEListView;
@@ -127,6 +128,8 @@ class InflationInterceptor implements LayoutInflaterFactory {
             view = new ATETabLayout(context, attrs);
         } else if (name.equals(ViewPagerProcessor.MAIN_CLASS)) {
             view = new ATEViewPager(context, attrs);
+        } else if (name.equals("android.support.design.widget.CoordinatorLayout")) {
+            view = new ATECoordinatorLayout(context, attrs);
         } else {
             // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
             view = mDelegate.createView(parent, name, context, attrs);

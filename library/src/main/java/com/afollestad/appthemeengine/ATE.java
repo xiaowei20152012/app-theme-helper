@@ -20,6 +20,7 @@ import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -31,6 +32,7 @@ import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.views.ATEViewInterface;
 import com.afollestad.appthemeengine.views.PostInflationApplier;
 
 import java.lang.reflect.Field;
@@ -88,9 +90,17 @@ public final class ATE extends ATEBase {
 
     @SuppressWarnings("unchecked")
     private static void performMainTheming(@NonNull Activity activity, @Nullable String key) {
+        final ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+        final boolean rootSetsStatusBarColor;
+        if (rootView != null && rootView instanceof ATEViewInterface) {
+            rootSetsStatusBarColor = ((ATEViewInterface) rootView).setsStatusBarColor();
+        } else {
+            rootSetsStatusBarColor = false;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Window window = activity.getWindow();
-            if (Config.coloredStatusBar(activity, key))
+            if (!rootSetsStatusBarColor && Config.coloredStatusBar(activity, key))
                 window.setStatusBarColor(Config.statusBarColor(activity, key));
             else window.setStatusBarColor(Color.BLACK);
             if (Config.coloredNavigationBar(activity, key))
@@ -130,46 +140,6 @@ public final class ATE extends ATEBase {
             if (processor != null) processor.process(activity, key, null, null);
         }
     }
-
-//    @SuppressWarnings("unchecked")
-//    private static void apply(@NonNull Context context, @NonNull ViewGroup view, @Nullable String key) {
-//        if (view.getTag() != null && view.getTag().equals(IGNORE_TAG))
-//            return;
-//
-//        Processor processor = getProcessor(view.getClass());
-//        if (processor != null) {
-//            processor.process(context, key, view, null);
-//        }
-//        if (isChildrenBlacklistedViewGroup(view)) {
-//            performDefaultProcessing(context, view, key);
-//            return;
-//        }
-//
-////        for (int i = 0; i < view.getChildCount(); i++) {
-////            final View current = view.getChildAt(i);
-////            if (current.getTag() != null && current.getTag().equals(IGNORE_TAG))
-////                continue;
-////            else if (current instanceof Toolbar && mToolbar == null)
-////                mToolbar = (Toolbar) current;
-////
-////            // Pre-made views handle themselves, don't need to apply theming
-////            if (isPreMadeView(current)) {
-////                continue;
-////            }
-////
-////            performDefaultProcessing(context, current, key);
-////
-////            if (current instanceof ViewGroup) {
-////                // View group will apply theming to itself and then children inside
-////                apply(context, (ViewGroup) current, key);
-////            } else {
-////            }
-////
-////            if (current instanceof CoordinatorLayout) {
-////                ((CoordinatorLayout) current).setStatusBarBackgroundColor(Config.statusBarColor(context, key));
-////            }
-////        }
-//    }
 
     public static void apply(@NonNull View view, @Nullable String key) {
         if (view.getContext() == null)
