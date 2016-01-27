@@ -14,13 +14,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
+import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
 import com.afollestad.appthemeenginesample.R;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class CollapsingToolbarActivity extends BaseThemedActivity implements ATEActivityThemeCustomizer {
+public class CollapsingToolbarActivity extends BaseThemedActivity
+        implements ATEActivityThemeCustomizer, ATECollapsingTbCustomizer {
 
     @StyleRes
     @Override
@@ -53,8 +55,6 @@ public class CollapsingToolbarActivity extends BaseThemedActivity implements ATE
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search_view_example));
         searchView.setIconifiedByDefault(true);
-
-        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
     }
 
     @Override
@@ -64,5 +64,15 @@ public class CollapsingToolbarActivity extends BaseThemedActivity implements ATE
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public int getCollapsedTintColor() {
+        return Color.RED;
+    }
+
+    @Override
+    public int getExpandedTintColor() {
+        return Color.BLUE;
     }
 }
