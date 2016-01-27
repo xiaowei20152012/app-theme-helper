@@ -3,6 +3,7 @@ package com.afollestad.appthemeenginesample.misc;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.StyleRes;
+import android.view.MenuItem;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeenginesample.R;
@@ -28,5 +29,15 @@ public class MiscActivity extends BaseThemedActivity implements ATEActivityTheme
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setSubtitle("Test subtitle");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -102,7 +102,9 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
 
     private boolean isBlackListedForApply(String name) {
         return name.equals("android.support.design.internal.NavigationMenuItemView") ||
-                name.equals("ViewStub");
+                name.equals("ViewStub") ||
+                name.equals("fragment") ||
+                name.equals("include");
     }
 
     @Override
