@@ -18,6 +18,11 @@ public class ATEScrollView extends ScrollView implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATEScrollView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATEScrollView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

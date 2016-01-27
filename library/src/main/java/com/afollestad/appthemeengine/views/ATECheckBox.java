@@ -19,6 +19,11 @@ public class ATECheckBox extends AppCompatCheckBox implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATECheckBox(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATECheckBox(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

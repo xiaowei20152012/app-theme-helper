@@ -208,6 +208,7 @@ class InflationInterceptor implements LayoutInflaterFactory {
                             view = (View) mCreateViewMethod.invoke(mLi, name, null, attrs);
                         }
                     } catch (Exception e) {
+                        LOG("Failed to inflate %s: %s", name, e.getMessage());
                         e.printStackTrace();
                     } finally {
                         mConstructorArgs[0] = lastContext;

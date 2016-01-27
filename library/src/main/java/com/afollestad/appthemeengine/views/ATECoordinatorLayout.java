@@ -22,6 +22,11 @@ public class ATECoordinatorLayout extends CoordinatorLayout implements ViewInter
         init(context, null, null);
     }
 
+    public ATECoordinatorLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATECoordinatorLayout(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

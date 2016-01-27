@@ -18,6 +18,11 @@ public class ATENavigationView extends NavigationView implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATENavigationView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATENavigationView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

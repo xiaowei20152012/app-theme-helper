@@ -20,6 +20,11 @@ public class ATESwitch extends SwitchCompat implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATESwitch(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATESwitch(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

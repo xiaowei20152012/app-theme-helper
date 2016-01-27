@@ -22,6 +22,11 @@ public class ATEDrawerLayout extends DrawerLayout implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATEDrawerLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATEDrawerLayout(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

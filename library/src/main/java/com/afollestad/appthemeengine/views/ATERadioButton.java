@@ -18,6 +18,11 @@ public class ATERadioButton extends RadioButton implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATERadioButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATERadioButton(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

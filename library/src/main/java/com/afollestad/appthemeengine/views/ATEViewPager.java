@@ -18,6 +18,11 @@ public class ATEViewPager extends ViewPager implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATEViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATEViewPager(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

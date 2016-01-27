@@ -18,6 +18,11 @@ public class ATEListView extends ListView implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATEListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATEListView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

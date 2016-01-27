@@ -18,6 +18,11 @@ public class ATENestedScrollView extends NestedScrollView implements ViewInterfa
         init(context, null, null);
     }
 
+    public ATENestedScrollView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATENestedScrollView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

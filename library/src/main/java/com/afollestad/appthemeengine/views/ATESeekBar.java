@@ -18,6 +18,11 @@ public class ATESeekBar extends SeekBar implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATESeekBar(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATESeekBar(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

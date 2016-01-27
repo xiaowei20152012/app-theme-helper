@@ -20,6 +20,11 @@ public class ATEStockSwitch extends Switch implements ViewInterface {
         init(context, null, null);
     }
 
+    public ATEStockSwitch(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATEStockSwitch(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);

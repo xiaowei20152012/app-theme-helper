@@ -20,6 +20,11 @@ public class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInt
         init(context, null, null);
     }
 
+    public ATEToolbar(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init(context, null, null);
+    }
+
     public ATEToolbar(Context context, @Nullable AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, attrs, keyContext);
