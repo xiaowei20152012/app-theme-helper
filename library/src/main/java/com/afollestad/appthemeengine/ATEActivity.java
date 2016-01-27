@@ -30,7 +30,7 @@ public class ATEActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        ATE.apply(this, getATEKey());
+        ATE.postApply(this, getATEKey());
     }
 
     @Override

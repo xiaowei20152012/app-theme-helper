@@ -160,8 +160,16 @@ public final class ATE extends ATEBase {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * @deprecated use postApply() instead.
+     */
+    @Deprecated
     public static void apply(@NonNull Activity activity, @Nullable String key) {
+        postApply(activity, key);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void postApply(@NonNull Activity activity, @Nullable String key) {
         if (didPreApply == null)
             preApply(activity, key);
         performMainTheming(activity, key);
