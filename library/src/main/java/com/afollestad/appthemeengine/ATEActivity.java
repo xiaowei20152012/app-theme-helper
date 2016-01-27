@@ -22,7 +22,6 @@ public class ATEActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ATE.preApply(this, getATEKey());
-        LayoutInflaterCompat.setFactory(getLayoutInflater(), new InflationInterceptor(getLayoutInflater(), getDelegate()));
         super.onCreate(savedInstanceState);
         updateTime = System.currentTimeMillis();
     }

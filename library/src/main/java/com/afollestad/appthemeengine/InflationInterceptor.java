@@ -2,6 +2,8 @@ package com.afollestad.appthemeengine;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ContextThemeWrapper;
@@ -43,14 +45,16 @@ import java.lang.reflect.Method;
  */
 class InflationInterceptor implements LayoutInflaterFactory {
 
-    private LayoutInflater mLi;
+    @NonNull
+    private final LayoutInflater mLi;
+    @Nullable
     private AppCompatDelegate mDelegate;
     private static Method mOnCreateViewMethod;
     private static Method mCreateViewMethod;
     private static Field mConstructorArgsField;
     private static int[] ATTRS_THEME;
 
-    public InflationInterceptor(LayoutInflater li, AppCompatDelegate delegate) {
+    public InflationInterceptor(@NonNull LayoutInflater li, @Nullable AppCompatDelegate delegate) {
         mLi = li;
         mDelegate = delegate;
         if (mOnCreateViewMethod == null) {
@@ -132,7 +136,7 @@ class InflationInterceptor implements LayoutInflaterFactory {
             view = new ATECoordinatorLayout(context, attrs);
         } else {
             // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
-            view = mDelegate.createView(parent, name, context, attrs);
+            view = mDelegate != null ? mDelegate.createView(parent, name, context, attrs) : null;
 
             // Mimic code of LayoutInflater using reflection tricks.
             if (view == null) {
