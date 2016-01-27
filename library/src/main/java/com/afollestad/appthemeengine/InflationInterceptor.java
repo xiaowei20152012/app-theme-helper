@@ -5,11 +5,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.BuildConfig;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ContextThemeWrapper;
-import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -45,6 +46,16 @@ import java.lang.reflect.Method;
  * @author Aidan Follestad (afollestad)
  */
 class InflationInterceptor implements LayoutInflaterFactory {
+
+    private static final boolean LOGGING_ENABLED = BuildConfig.DEBUG;
+
+    private static void LOG(String msg, Object... args) {
+        if (args != null) {
+            Log.d("InflationInterceptor", String.format(msg, args));
+        } else {
+            Log.d("InflationInterceptor", msg);
+        }
+    }
 
     @Nullable
     private final ATEActivity mKeyContext;
@@ -102,99 +113,121 @@ class InflationInterceptor implements LayoutInflaterFactory {
     }
 
     @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+    public View onCreateView(View parent, final String name, Context context, AttributeSet attrs) {
         View view;
 
-        if (name.equals("EditText")) {
-            view = new ATEEditText(context, attrs, mKeyContext);
-        } else if (name.equals("CheckBox")) {
-            view = new ATECheckBox(context, attrs, mKeyContext);
-        } else if (name.equals("RadioButton")) {
-            view = new ATERadioButton(context, attrs, mKeyContext);
-        } else if (name.equals("Switch")) {
-            view = new ATESwitch(context, attrs, mKeyContext);
-        } else if (name.equals(SwitchCompat.class.getName())) {
-            view = new ATEStockSwitch(context, attrs, mKeyContext);
-        } else if (name.equals("SeekBar")) {
-            view = new ATESeekBar(context, attrs, mKeyContext);
-        } else if (name.equals("ProgressBar")) {
-            view = new ATEProgressBar(context, attrs, mKeyContext);
-        } else if (name.equals(ToolbarProcessor.MAIN_CLASS)) {
-            ATEToolbar toolbar = new ATEToolbar(context, attrs, mKeyContext);
-            ATE.addPostInflationView(toolbar);
-            view = toolbar;
-        } else if (name.equals("ListView")) {
-            view = new ATEListView(context, attrs, mKeyContext);
-        } else if (name.equals("ScrollView")) {
-            view = new ATEScrollView(context, attrs, mKeyContext);
-        } else if (name.equals(RecyclerViewProcessor.MAIN_CLASS)) {
-            view = new ATERecyclerView(context, attrs, mKeyContext);
-        } else if (name.equals(NestedScrollViewProcessor.MAIN_CLASS)) {
-            view = new ATENestedScrollView(context, attrs, mKeyContext);
-        } else if (name.equals(DrawerLayoutProcessor.MAIN_CLASS)) {
-            view = new ATEDrawerLayout(context, attrs, mKeyContext);
-        } else if (name.equals(NavigationViewProcessor.MAIN_CLASS)) {
-            view = new ATENavigationView(context, attrs, mKeyContext);
-        } else if (name.equals(TabLayoutProcessor.MAIN_CLASS)) {
-            view = new ATETabLayout(context, attrs, mKeyContext);
-        } else if (name.equals(ViewPagerProcessor.MAIN_CLASS)) {
-            view = new ATEViewPager(context, attrs, mKeyContext);
-        } else if (name.equals("android.support.design.widget.CoordinatorLayout")) {
-            view = new ATECoordinatorLayout(context, attrs, mKeyContext);
-        } else {
-            // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
-            view = mDelegate != null ? mDelegate.createView(parent, name, context, attrs) : null;
+        switch (name) {
+            case "EditText":
+                view = new ATEEditText(context, attrs, mKeyContext);
+                break;
+            case "CheckBox":
+                view = new ATECheckBox(context, attrs, mKeyContext);
+                break;
+            case "RadioButton":
+                view = new ATERadioButton(context, attrs, mKeyContext);
+                break;
+            case "Switch":
+                view = new ATESwitch(context, attrs, mKeyContext);
+                break;
+            case "android.support.v7.widget.SwitchCompat":
+                view = new ATEStockSwitch(context, attrs, mKeyContext);
+                break;
+            case "SeekBar":
+                view = new ATESeekBar(context, attrs, mKeyContext);
+                break;
+            case "ProgressBar":
+                view = new ATEProgressBar(context, attrs, mKeyContext);
+                break;
+            case ToolbarProcessor.MAIN_CLASS:
+                ATEToolbar toolbar = new ATEToolbar(context, attrs, mKeyContext);
+                ATE.addPostInflationView(toolbar);
+                view = toolbar;
+                break;
+            case "ListView":
+                view = new ATEListView(context, attrs, mKeyContext);
+                break;
+            case "ScrollView":
+                view = new ATEScrollView(context, attrs, mKeyContext);
+                break;
+            case RecyclerViewProcessor.MAIN_CLASS:
+                view = new ATERecyclerView(context, attrs, mKeyContext);
+                break;
+            case NestedScrollViewProcessor.MAIN_CLASS:
+                view = new ATENestedScrollView(context, attrs, mKeyContext);
+                break;
+            case DrawerLayoutProcessor.MAIN_CLASS:
+                view = new ATEDrawerLayout(context, attrs, mKeyContext);
+                break;
+            case NavigationViewProcessor.MAIN_CLASS:
+                view = new ATENavigationView(context, attrs, mKeyContext);
+                break;
+            case TabLayoutProcessor.MAIN_CLASS:
+                view = new ATETabLayout(context, attrs, mKeyContext);
+                break;
+            case ViewPagerProcessor.MAIN_CLASS:
+                view = new ATEViewPager(context, attrs, mKeyContext);
+                break;
+            case "android.support.design.widget.CoordinatorLayout":
+                view = new ATECoordinatorLayout(context, attrs, mKeyContext);
+                break;
+            default: {
+                // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
+                view = mDelegate != null ? mDelegate.createView(parent, name, context, attrs) : null;
 
-            // Mimic code of LayoutInflater using reflection tricks.
-            if (view == null) {
-                Context viewContext;
-                final boolean inheritContext = false; // TODO will this ever need to be true?
-                //noinspection PointlessBooleanExpression,ConstantConditions
-                if (parent != null && inheritContext) {
-                    viewContext = parent.getContext();
-                } else {
-                    viewContext = mLi.getContext();
-                }
-                // Apply a theme wrapper, if requested.
-                final TypedArray ta = viewContext.obtainStyledAttributes(attrs, ATTRS_THEME);
-                final int themeResId = ta.getResourceId(0, 0);
-                if (themeResId != 0) {
-                    viewContext = new ContextThemeWrapper(viewContext, themeResId);
-                }
-                ta.recycle();
-
-                Object[] mConstructorArgs;
-                try {
-                    mConstructorArgs = (Object[]) mConstructorArgsField.get(mLi);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException("Failed to retrieve the mConstructorArgsField field.", e);
-                }
-
-                final Object lastContext = mConstructorArgs[0];
-                mConstructorArgs[0] = viewContext;
-                try {
-                    if (-1 == name.indexOf('.')) {
-                        view = (View) mOnCreateViewMethod.invoke(mLi, parent, name, attrs);
+                // Mimic code of LayoutInflater using reflection tricks.
+                if (view == null) {
+                    Context viewContext;
+                    final boolean inheritContext = false; // TODO will this ever need to be true?
+                    //noinspection PointlessBooleanExpression,ConstantConditions
+                    if (parent != null && inheritContext) {
+                        viewContext = parent.getContext();
                     } else {
-                        view = (View) mCreateViewMethod.invoke(mLi, name, null, attrs);
+                        viewContext = mLi.getContext();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    mConstructorArgs[0] = lastContext;
-                }
-            }
+                    // Apply a theme wrapper, if requested.
+                    final TypedArray ta = viewContext.obtainStyledAttributes(attrs, ATTRS_THEME);
+                    final int themeResId = ta.getResourceId(0, 0);
+                    if (themeResId != 0) {
+                        viewContext = new ContextThemeWrapper(viewContext, themeResId);
+                    }
+                    ta.recycle();
 
-            if (view != null) {
-                if (view.getClass().getSimpleName().startsWith("ATE"))
-                    return view;
-                String key = null;
-                if (context instanceof ATEActivity)
-                    key = ((ATEActivity) context).getATEKey();
-                ATE.apply(view, key);
+                    Object[] mConstructorArgs;
+                    try {
+                        mConstructorArgs = (Object[]) mConstructorArgsField.get(mLi);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException("Failed to retrieve the mConstructorArgsField field.", e);
+                    }
+
+                    final Object lastContext = mConstructorArgs[0];
+                    mConstructorArgs[0] = viewContext;
+                    try {
+                        if (-1 == name.indexOf('.')) {
+                            view = (View) mOnCreateViewMethod.invoke(mLi, parent, name, attrs);
+                        } else {
+                            view = (View) mCreateViewMethod.invoke(mLi, name, null, attrs);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        mConstructorArgs[0] = lastContext;
+                    }
+                }
+
+                if (view != null) {
+                    if (view.getClass().getSimpleName().startsWith("ATE"))
+                        return view;
+                    String key = null;
+                    if (context instanceof ATEActivity)
+                        key = ((ATEActivity) context).getATEKey();
+                    ATE.apply(view, key);
+                }
+
+                break;
             }
         }
 
+        LOG("%s inflated to -> %s", name, view != null ? view.getClass().getName() : "(null)");
         return view;
     }
 }
