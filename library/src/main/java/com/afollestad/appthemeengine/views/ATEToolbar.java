@@ -13,7 +13,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEToolbar extends Toolbar implements PostInflationApplier {
+public class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInterface {
 
     public ATEToolbar(Context context) {
         super(context);
@@ -48,5 +48,15 @@ public class ATEToolbar extends Toolbar implements PostInflationApplier {
     @Override
     public void postApply() {
         ATE.apply(getContext(), this, mKey);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

@@ -9,7 +9,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEListView extends ListView {
+public class ATEListView extends ListView implements ViewInterface {
 
     public ATEListView(Context context) {
         super(context);
@@ -28,5 +28,15 @@ public class ATEListView extends ListView {
 
     private void init(Context context, AttributeSet attrs) {
         ATEViewUtil.init(this, context, attrs, R.styleable.ATEListView, R.styleable.ATEListView_ateKey_listView);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

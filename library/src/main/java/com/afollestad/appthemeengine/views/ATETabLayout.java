@@ -9,7 +9,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATETabLayout extends TabLayout {
+public class ATETabLayout extends TabLayout implements ViewInterface {
 
     public ATETabLayout(Context context) {
         super(context);
@@ -28,5 +28,16 @@ public class ATETabLayout extends TabLayout {
 
     private void init(Context context, AttributeSet attrs) {
         ATEViewUtil.init(this, context, attrs, R.styleable.ATETabLayout, R.styleable.ATETabLayout_ateKey_tabLayout);
+    }
+
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

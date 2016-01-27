@@ -9,7 +9,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATENavigationView extends NavigationView {
+public class ATENavigationView extends NavigationView implements ViewInterface {
 
     public ATENavigationView(Context context) {
         super(context);
@@ -28,5 +28,15 @@ public class ATENavigationView extends NavigationView {
 
     private void init(Context context, AttributeSet attrs) {
         ATEViewUtil.init(this, context, attrs, R.styleable.ATENavigationView, R.styleable.ATENavigationView_ateKey_navigationView);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

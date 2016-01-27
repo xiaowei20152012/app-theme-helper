@@ -13,7 +13,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEDrawerLayout extends DrawerLayout implements ATEViewInterface {
+public class ATEDrawerLayout extends DrawerLayout implements ViewInterface {
 
     public ATEDrawerLayout(Context context) {
         super(context);
@@ -43,5 +43,10 @@ public class ATEDrawerLayout extends DrawerLayout implements ATEViewInterface {
     @Override
     public boolean setsStatusBarColor() {
         return true;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

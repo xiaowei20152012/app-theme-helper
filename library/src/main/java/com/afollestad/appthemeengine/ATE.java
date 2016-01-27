@@ -32,7 +32,7 @@ import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.views.ATEViewInterface;
+import com.afollestad.appthemeengine.views.ViewInterface;
 import com.afollestad.appthemeengine.views.PostInflationApplier;
 
 import java.lang.reflect.Field;
@@ -92,11 +92,8 @@ public final class ATE extends ATEBase {
     private static void performMainTheming(@NonNull Activity activity, @Nullable String key) {
         final ViewGroup rootView = (ViewGroup) ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
         final boolean rootSetsStatusBarColor;
-        if (rootView != null && rootView instanceof ATEViewInterface) {
-            rootSetsStatusBarColor = ((ATEViewInterface) rootView).setsStatusBarColor();
-        } else {
-            rootSetsStatusBarColor = false;
-        }
+        rootSetsStatusBarColor = rootView != null && rootView instanceof ViewInterface &&
+                ((ViewInterface) rootView).setsStatusBarColor();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             final Window window = activity.getWindow();

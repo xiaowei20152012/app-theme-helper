@@ -13,7 +13,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEStockSwitch extends Switch {
+public class ATEStockSwitch extends Switch implements ViewInterface {
 
     public ATEStockSwitch(Context context) {
         super(context);
@@ -53,5 +53,15 @@ public class ATEStockSwitch extends Switch {
     @Override
     public boolean isShown() {
         return getParent() != null && getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

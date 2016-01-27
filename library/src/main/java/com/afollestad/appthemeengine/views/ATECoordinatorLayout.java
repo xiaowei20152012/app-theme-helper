@@ -1,7 +1,10 @@
 package com.afollestad.appthemeengine.views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 
@@ -12,7 +15,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATECoordinatorLayout extends CoordinatorLayout implements ATEViewInterface {
+public class ATECoordinatorLayout extends CoordinatorLayout implements ViewInterface {
 
     public ATECoordinatorLayout(Context context) {
         super(context);
@@ -41,11 +44,20 @@ public class ATECoordinatorLayout extends CoordinatorLayout implements ATEViewIn
         }
         if (key == null && context instanceof ATEActivity)
             key = ((ATEActivity) context).getATEKey();
+        if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Sets Activity status bar to transparent, DrawerLayout overlays a color.
+            ((Activity) context).getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         setStatusBarBackgroundColor(Config.statusBarColor(context, key));
     }
 
     @Override
     public boolean setsStatusBarColor() {
+        return true;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
         return true;
     }
 }

@@ -10,7 +10,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATECheckBox extends AppCompatCheckBox implements ATEViewInterface {
+public class ATECheckBox extends AppCompatCheckBox implements ViewInterface {
 
     public ATECheckBox(Context context) {
         super(context);
@@ -38,6 +38,11 @@ public class ATECheckBox extends AppCompatCheckBox implements ATEViewInterface {
 
     @Override
     public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
         return false;
     }
 }

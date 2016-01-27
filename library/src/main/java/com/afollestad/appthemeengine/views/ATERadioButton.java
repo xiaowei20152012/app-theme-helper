@@ -14,7 +14,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATERadioButton extends RadioButton {
+public class ATERadioButton extends RadioButton implements ViewInterface {
 
     public ATERadioButton(Context context) {
         super(context);
@@ -51,5 +51,15 @@ public class ATERadioButton extends RadioButton {
         if (key == null && context instanceof ATEActivity)
             key = ((ATEActivity) context).getATEKey();
         ATE.apply(context, this, key);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

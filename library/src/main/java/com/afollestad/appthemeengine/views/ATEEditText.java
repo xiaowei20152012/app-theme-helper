@@ -11,7 +11,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEEditText extends EditText {
+public class ATEEditText extends EditText implements ViewInterface {
 
     public ATEEditText(Context context) {
         super(context);
@@ -37,5 +37,15 @@ public class ATEEditText extends EditText {
     private void init(Context context, AttributeSet attrs) {
         setTag("tint_accent_color,text_primary");
         ATEViewUtil.init(this, context, attrs, R.styleable.ATEEditText, R.styleable.ATEEditText_ateKey_editText);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

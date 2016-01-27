@@ -9,7 +9,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATENestedScrollView extends NestedScrollView {
+public class ATENestedScrollView extends NestedScrollView implements ViewInterface {
 
     public ATENestedScrollView(Context context) {
         super(context);
@@ -28,5 +28,15 @@ public class ATENestedScrollView extends NestedScrollView {
 
     private void init(Context context, AttributeSet attrs) {
         ATEViewUtil.init(this, context, attrs, R.styleable.ATENestedScrollView, R.styleable.ATENestedScrollView_ateKey_nestedScrollView);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }

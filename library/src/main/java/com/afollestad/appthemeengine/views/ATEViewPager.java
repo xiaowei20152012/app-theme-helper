@@ -9,7 +9,7 @@ import com.afollestad.appthemeengine.R;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEViewPager extends ViewPager {
+public class ATEViewPager extends ViewPager implements ViewInterface {
 
     public ATEViewPager(Context context) {
         super(context);
@@ -23,5 +23,15 @@ public class ATEViewPager extends ViewPager {
 
     private void init(Context context, AttributeSet attrs) {
         ATEViewUtil.init(this, context, attrs, R.styleable.ATEViewPager, R.styleable.ATEViewPager_ateKey_viewPager);
+    }
+
+    @Override
+    public boolean setsStatusBarColor() {
+        return false;
+    }
+
+    @Override
+    public boolean setsToolbarColor() {
+        return false;
     }
 }
