@@ -48,12 +48,6 @@ public class ATEEditTextPreference extends MaterialEditTextPreference {
                 a.recycle();
             }
         }
-
-        if (!Config.usingMaterialDialogs(context, mKey)) {
-            ATE.config(context, mKey)
-                    .usingMaterialDialogs(true)
-                    .commit();
-        }
     }
 
     @Override

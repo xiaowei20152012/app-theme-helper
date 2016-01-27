@@ -131,12 +131,6 @@ public final class ATE extends ATEBase {
                 decorView.setSystemUiVisibility(systemUiVisibility & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
-
-        // MD integration
-        if (Config.usingMaterialDialogs(activity, key)) {
-            final Processor processor = getProcessors().get(MATERIALDIALOGS_PROCESSOR);
-            if (processor != null) processor.process(activity, key, null, null);
-        }
     }
 
     public static void apply(@NonNull View view, @Nullable String key) {

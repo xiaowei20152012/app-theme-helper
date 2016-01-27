@@ -24,8 +24,6 @@ import android.view.View;
 import com.afollestad.appthemeengine.customizers.ATENavigationBarCustomizer;
 import com.afollestad.appthemeengine.customizers.ATEStatusBarCustomizer;
 import com.afollestad.appthemeengine.customizers.ATEToolbarCustomizer;
-import com.afollestad.appthemeengine.processors.MaterialDialogsProcessor;
-import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 
 import java.lang.annotation.Retention;
@@ -326,16 +324,6 @@ public final class Config extends ConfigBase {
         return navigationViewSelectedBg(ATEUtil.resolveColor(mContext, colorAttr));
     }
 
-    // Misc
-
-    @Override
-    public Config usingMaterialDialogs(boolean enabled) {
-        // Triggers exception if Material Dialogs is not in the class path
-        ATEUtil.inClassPath(MaterialDialogsProcessor.MAIN_CLASS);
-        mEditor.putBoolean(KEY_USING_MATERIAL_DIALOGS, enabled);
-        return this;
-    }
-
     // Text size
 
     @Override
@@ -363,12 +351,6 @@ public final class Config extends ConfigBase {
         mEditor.putLong(VALUES_CHANGED, System.currentTimeMillis())
                 .putBoolean(IS_CONFIGURED_KEY, true)
                 .commit();
-
-        // MD integration
-        if (Config.usingMaterialDialogs(mContext, mKey)) {
-            final Processor processor = ATE.getProcessors().get(ATE.MATERIALDIALOGS_PROCESSOR);
-            if (processor != null) processor.process(mContext, mKey, null, null);
-        }
     }
 
     @Override
@@ -590,12 +572,6 @@ public final class Config extends ConfigBase {
         final int defaultColor = ContextCompat.getColor(context, darkTheme ?
                 R.color.ate_navigationview_selectedbg_dark : R.color.ate_navigationview_selectedbg_light);
         return prefs(context, key).getInt(KEY_NAVIGATIONVIEW_SELECTED_BG, defaultColor);
-    }
-
-    @CheckResult
-    public static boolean usingMaterialDialogs(@NonNull Context context, @Nullable String key) {
-        return ATEUtil.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS) &&
-                prefs(context, key).getBoolean(KEY_USING_MATERIAL_DIALOGS, false);
     }
 
     @CheckResult

@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
-import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.R;
 import com.afollestad.materialdialogs.prefs.MaterialListPreference;
 
@@ -47,12 +46,6 @@ public class ATEMultiSelectPreference extends MaterialListPreference {
             } finally {
                 a.recycle();
             }
-        }
-
-        if (!Config.usingMaterialDialogs(context, mKey)) {
-            ATE.config(context, mKey)
-                    .usingMaterialDialogs(true)
-                    .commit();
         }
     }
 

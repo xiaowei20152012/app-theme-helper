@@ -144,17 +144,13 @@ interface ConfigInterface {
 
     Config textSizeResForMode(@DimenRes int resId, @Config.TextSizeMode String mode);
 
-    // Misc
-
-    Config usingMaterialDialogs(boolean enabled);
-
     // Commit/apply
 
     void commit();
 
     void apply(@NonNull Activity activity);
 
-//    void apply(@NonNull android.support.v4.app.Fragment fragment);
+    //    void apply(@NonNull android.support.v4.app.Fragment fragment);
 //
 //    void apply(@NonNull android.app.Fragment fragment);
 //

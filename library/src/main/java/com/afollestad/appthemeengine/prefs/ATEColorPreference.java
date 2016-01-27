@@ -50,12 +50,6 @@ public class ATEColorPreference extends Preference {
                 a.recycle();
             }
         }
-
-        if (!Config.usingMaterialDialogs(context, mKey)) {
-            ATE.config(context, mKey)
-                    .usingMaterialDialogs(true)
-                    .commit();
-        }
     }
 
     @Override

@@ -12,7 +12,6 @@ import android.widget.SearchView;
 import com.afollestad.appthemeengine.processors.DefaultProcessor;
 import com.afollestad.appthemeengine.processors.DrawerLayoutProcessor;
 import com.afollestad.appthemeengine.processors.ListViewProcessor;
-import com.afollestad.appthemeengine.processors.MaterialDialogsProcessor;
 import com.afollestad.appthemeengine.processors.NavigationViewProcessor;
 import com.afollestad.appthemeengine.processors.NestedScrollViewProcessor;
 import com.afollestad.appthemeengine.processors.Processor;
@@ -39,9 +38,6 @@ class ATEBase {
     private static void initProcessors() {
         mProcessors = new HashMap<>();
         mProcessors.put(DEFAULT_PROCESSOR, new DefaultProcessor());
-        if (ATEUtil.isInClassPath(MaterialDialogsProcessor.MAIN_CLASS))
-            mProcessors.put(MATERIALDIALOGS_PROCESSOR, new MaterialDialogsProcessor());
-        else Log.d("ATEBase", "MaterialDialogs isn't in the class path. Ignoring.");
 
         mProcessors.put(ScrollView.class.getName(), new ScrollViewProcessor());
         mProcessors.put(ListView.class.getName(), new ListViewProcessor());
