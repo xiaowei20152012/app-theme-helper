@@ -144,15 +144,15 @@ interface ConfigInterface {
 
     Config textSizeResForMode(@DimenRes int resId, @Config.TextSizeMode String mode);
 
-    // Commit/apply
+    // Commit/themeView
 
     void commit();
 
     void apply(@NonNull Activity activity);
 
-    //    void apply(@NonNull android.support.v4.app.Fragment fragment);
+    //    void themeView(@NonNull android.support.v4.app.Fragment fragment);
 //
-//    void apply(@NonNull android.app.Fragment fragment);
+//    void themeView(@NonNull android.app.Fragment fragment);
 //
     void apply(@NonNull View view);
 }

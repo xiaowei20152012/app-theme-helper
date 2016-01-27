@@ -35,7 +35,7 @@ public class ATESwitch extends SwitchCompat implements ViewInterface {
     }
 
     public void setKey(String key) {
-        ATE.apply(getContext(), this, key);
+        ATE.themeView(getContext(), this, key);
     }
 
     @Override

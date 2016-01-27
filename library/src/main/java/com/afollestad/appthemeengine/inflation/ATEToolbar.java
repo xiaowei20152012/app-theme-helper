@@ -39,7 +39,7 @@ class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInterface 
 
     @Override
     public void postApply() {
-        ATE.apply(getContext(), this, mKey);
+        ATE.themeView(getContext(), this, mKey);
     }
 
     @Override

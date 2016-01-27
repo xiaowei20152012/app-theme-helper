@@ -28,7 +28,7 @@ import android.support.v4.util.SimpleArrayMap;
         zip:/data/app/com.your.packagenage-1.apk:/assets/Roboto-Medium.ttf: 125K
 
 */
-public class TypefaceHelper {
+public final class TypefaceHelper {
 
     private static final SimpleArrayMap<String, Typeface> cache = new SimpleArrayMap<>();
 

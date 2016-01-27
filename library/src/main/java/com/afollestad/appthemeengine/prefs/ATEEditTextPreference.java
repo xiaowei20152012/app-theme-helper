@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
-import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.R;
 import com.afollestad.materialdialogs.prefs.MaterialEditTextPreference;
 
@@ -53,6 +52,6 @@ public class ATEEditTextPreference extends MaterialEditTextPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
     }
 }

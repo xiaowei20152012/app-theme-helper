@@ -237,7 +237,7 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                     String key = null;
                     if (context instanceof ATEActivity)
                         key = ((ATEActivity) context).getATEKey();
-                    ATE.apply(view, key);
+                    ATE.themeView(view, key);
                 }
 
                 break;

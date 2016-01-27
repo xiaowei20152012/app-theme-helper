@@ -52,6 +52,6 @@ public class ATEMultiSelectPreference extends MaterialListPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
     }
 }

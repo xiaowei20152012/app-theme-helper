@@ -52,6 +52,6 @@ public class ATEDialogPreference extends MaterialDialogPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
     }
 }

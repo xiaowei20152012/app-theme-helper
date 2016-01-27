@@ -80,6 +80,6 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
             checkbox.setBackground(null);
         }
 
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
     }
 }

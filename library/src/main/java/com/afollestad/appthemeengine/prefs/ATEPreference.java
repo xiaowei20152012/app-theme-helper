@@ -55,6 +55,6 @@ public class ATEPreference extends Preference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
     }
 }

@@ -356,25 +356,25 @@ public final class Config extends ConfigBase {
     @Override
     public void apply(@NonNull Activity activity) {
         commit();
-        ATE.apply(activity, mKey);
+        ATE.postApply(activity, mKey);
     }
 
 //    @Override
-//    public void apply(@NonNull android.support.v4.app.Fragment fragment) {
+//    public void themeView(@NonNull android.support.v4.app.Fragment fragment) {
 //        commit();
-//        ATE.apply(fragment, mKey);
+//        ATE.themeView(fragment, mKey);
 //    }
 //
 //    @Override
-//    public void apply(@NonNull android.app.Fragment fragment) {
+//    public void themeView(@NonNull android.app.Fragment fragment) {
 //        commit();
-//        ATE.apply(fragment, mKey);
+//        ATE.themeView(fragment, mKey);
 //    }
 
     @Override
     public void apply(@NonNull View view) {
         commit();
-        ATE.apply(view.getContext(), view, mKey);
+        ATE.themeView(view.getContext(), view, mKey);
     }
 
     // Static getters

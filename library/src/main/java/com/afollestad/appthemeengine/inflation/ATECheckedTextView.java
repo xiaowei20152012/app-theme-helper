@@ -34,7 +34,7 @@ class ATECheckedTextView extends CheckedTextView implements ViewInterface {
     }
 
     public void setKey(String key) {
-        ATE.apply(getContext(), this, key);
+        ATE.themeView(getContext(), this, key);
     }
 
     @Override

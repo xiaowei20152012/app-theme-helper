@@ -52,7 +52,7 @@ class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface 
         mKey = null;
         if (keyContext != null)
             mKey = keyContext.getATEKey();
-        ATE.apply(context, this, mKey);
+        ATE.themeView(context, this, mKey);
     }
 
     @Override

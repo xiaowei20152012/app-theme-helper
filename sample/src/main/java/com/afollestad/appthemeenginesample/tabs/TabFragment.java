@@ -38,6 +38,6 @@ public class TabFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Apply theming to the Fragment  TODO
-//        ATE.apply(this, Util.resolveString(getActivity(), R.attr.ate_key));
+//        ATE.themeView(this, Util.resolveString(getActivity(), R.attr.ate_key));
     }
 }

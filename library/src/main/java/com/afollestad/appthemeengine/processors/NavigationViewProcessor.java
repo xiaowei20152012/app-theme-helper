@@ -59,6 +59,6 @@ public class NavigationViewProcessor implements Processor<NavigationView, Void> 
 
         // TODO not needed since the layout inflater will catch it?
 //        final View headerView = view.getHeaderView(0);
-//        if (headerView != null) ATE.apply(context, headerView, key);
+//        if (headerView != null) ATE.themeView(context, headerView, key);
     }
 }

@@ -29,6 +29,7 @@ import com.afollestad.appthemeengine.inflation.PostInflationApplier;
 import com.afollestad.appthemeengine.inflation.ViewInterface;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
+import com.afollestad.appthemeengine.util.MDUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
 
 import java.lang.reflect.Field;
@@ -43,8 +44,6 @@ public final class ATE extends ATEBase {
     public static final int USE_DEFAULT = Integer.MAX_VALUE;
 
     /**
-     * hem
-     *
      * @hide
      */
     public static <T extends View & PostInflationApplier> void addPostInflationView(T view) {
@@ -142,14 +141,14 @@ public final class ATE extends ATEBase {
         }
     }
 
-    public static void apply(@NonNull View view, @Nullable String key) {
+    public static void themeView(@NonNull View view, @Nullable String key) {
         if (view.getContext() == null)
             throw new IllegalStateException("View has no Context, use apply(Context, View, String) instead.");
-        apply(view.getContext(), view, key);
+        themeView(view.getContext(), view, key);
     }
 
     @SuppressWarnings("unchecked")
-    public static void apply(@NonNull Context context, @NonNull View view, @Nullable String key) {
+    public static void themeView(@NonNull Context context, @NonNull View view, @Nullable String key) {
         if (IGNORE_TAG.equals(view.getTag())) return;
         performDefaultProcessing(context, view, key);
 
@@ -161,11 +160,11 @@ public final class ATE extends ATEBase {
     }
 
     /**
-     * @deprecated use postApply() instead.
+     * @deprecated use postApply() instead. This method will throw an Exception.
      */
     @Deprecated
-    public static void apply(@NonNull Activity activity, @Nullable String key) {
-        postApply(activity, key);
+    public static void apply(@NonNull Activity activity, @Nullable String key) throws IllegalStateException {
+        throw new IllegalStateException("ATE.apply() is no longer used, ATE intercepts views at inflation time. Use postApply() here instead.");
     }
 
     @SuppressWarnings("unchecked")
@@ -199,29 +198,33 @@ public final class ATE extends ATEBase {
                     ((PostInflationApplier) view).postApply();
             }
         }
+
+        if (ATEUtil.isInClassPath(MDUtil.MAIN_CLASS))
+            MDUtil.initMdSupport(activity, key);
     }
 
-//    public static void apply(@NonNull android.support.v4.app.Fragment fragment, @Nullable String key) {
+    // TODO re-implement Fragment support
+//    public static void themeView(@NonNull android.support.v4.app.Fragment fragment, @Nullable String key) {
 //        if (fragment.getActivity() == null)
 //            throw new IllegalStateException("Fragment is not attached to an Activity yet.");
 //        final View fragmentView = fragment.getView();
 //        if (fragmentView == null)
 //            throw new IllegalStateException("Fragment does not have a View yet.");
 //        if (fragmentView instanceof ViewGroup)
-//            apply(fragment.getActivity(), (ViewGroup) fragmentView, key);
-//        else apply(fragment.getActivity(), fragmentView, key);
+//            themeView(fragment.getActivity(), (ViewGroup) fragmentView, key);
+//        else themeView(fragment.getActivity(), fragmentView, key);
 //        if (fragment.getActivity() instanceof AppCompatActivity)
-//            apply(fragment.getActivity(), key);
+//            themeView(fragment.getActivity(), key);
 //    }
 
-//    public static void apply(@NonNull android.app.Fragment fragment, @Nullable String key) {
+//    public static void themeView(@NonNull android.app.Fragment fragment, @Nullable String key) {
 //        if (fragment.getActivity() == null)
 //            throw new IllegalStateException("Fragment is not attached to an Activity yet.");
 //        else if (fragment.getView() == null)
 //            throw new IllegalStateException("Fragment does not have a View yet.");
-//        apply(fragment.getActivity(), (ViewGroup) fragment.getView(), key);
+//        themeView(fragment.getActivity(), (ViewGroup) fragment.getView(), key);
 //        if (fragment.getActivity() instanceof AppCompatActivity)
-//            apply(fragment.getActivity(), key);
+//            themeView(fragment.getActivity(), key);
 //    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

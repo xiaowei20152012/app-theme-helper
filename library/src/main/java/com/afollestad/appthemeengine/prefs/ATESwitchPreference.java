@@ -81,7 +81,7 @@ public class ATESwitchPreference extends SwitchPreference {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             mSwitch.setBackground(null);
 
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
     }
 
     @Override

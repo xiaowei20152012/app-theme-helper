@@ -22,9 +22,9 @@ import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
 
 import java.lang.reflect.Field;
 
-public class EdgeGlowUtil {
+public final class EdgeGlowUtil {
 
-    protected EdgeGlowUtil() {
+    private EdgeGlowUtil() {
     }
 
     // Invalidation methods

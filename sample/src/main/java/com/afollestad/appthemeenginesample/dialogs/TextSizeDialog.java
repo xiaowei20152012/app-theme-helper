@@ -19,6 +19,8 @@ import com.afollestad.appthemeenginesample.R;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.Locale;
+
 /**
  * @author Aidan Follestad (afollestad)
  */
@@ -82,7 +84,7 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
         mSeeker.setMax(111);
         final int dpValue = pxToSp(this, defaultValue);
         mSeeker.setProgress(dpValue - 1);
-        mValue.setText(String.format("%dsp", dpValue));
+        mValue.setText(String.format(Locale.getDefault(), "%dsp", dpValue));
 
         mSeeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -91,7 +93,7 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
                 if (fromUser) {
                     final int pxValue = spToPx(progress);
                     mPreview.setTextSize(TypedValue.COMPLEX_UNIT_PX, pxValue);
-                    mValue.setText(String.format("%dsp", progress));
+                    mValue.setText(String.format(Locale.getDefault(), "%dsp", progress));
                 }
             }
 
@@ -104,7 +106,6 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
             }
         });
 
-        ATE.apply(view, getArguments().getString(KEY_ATEKEY));
         return dialog;
     }
 

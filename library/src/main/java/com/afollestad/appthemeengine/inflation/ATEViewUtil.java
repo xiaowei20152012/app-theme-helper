@@ -18,7 +18,7 @@ class ATEViewUtil {
         String key = null;
         if (keyContext != null)
             key = keyContext.getATEKey();
-        ATE.apply(context, view, key);
+        ATE.themeView(context, view, key);
         return key;
     }
 

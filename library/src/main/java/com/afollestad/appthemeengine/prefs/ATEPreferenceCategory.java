@@ -41,6 +41,6 @@ public class ATEPreferenceCategory extends PreferenceCategory {
         super.onBindView(view);
         TextView mTitle = (TextView) view.findViewById(android.R.id.title);
         mTitle.setTag("textsize_body,text_accent_color");
-        ATE.apply(mTitle, mAteKey);
+        ATE.themeView(mTitle, mAteKey);
     }
 }

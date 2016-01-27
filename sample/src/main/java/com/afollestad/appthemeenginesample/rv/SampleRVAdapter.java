@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeenginesample.R;
-import com.afollestad.appthemeenginesample.Util;
+
+import java.util.Locale;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,7 +29,7 @@ public class SampleRVAdapter extends RecyclerView.Adapter<SampleRVAdapter.Sample
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(SampleVH holder, int position) {
-        holder.title.setText(String.format("Item %d", position + 1));
+        holder.title.setText(String.format(Locale.getDefault(), "Item %d", position + 1));
         holder.subtitle.setText("Sample coloring");
     }
 
@@ -47,9 +47,6 @@ public class SampleRVAdapter extends RecyclerView.Adapter<SampleRVAdapter.Sample
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title);
             subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-
-            // Pull current config key from Activity theme attr
-            ATE.apply(itemView, Util.resolveString(itemView.getContext(), R.attr.ate_key));
         }
     }
 }

@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
-import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.R;
 
 /**
@@ -56,7 +55,7 @@ public class ATEColorPreference extends Preference {
     protected void onBindView(View view) {
         super.onBindView(view);
         mView = view;
-        ATE.apply(view, mKey);
+        ATE.themeView(view, mKey);
         invalidateColor();
     }
 
