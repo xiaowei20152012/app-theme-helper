@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.views;
+package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -14,7 +14,7 @@ import com.afollestad.appthemeengine.util.TintHelper;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface {
+class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface {
 
     public ATEActionMenuItemView(Context context) {
         super(context);

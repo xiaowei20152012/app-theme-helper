@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.views;
+package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,30 +6,29 @@ import android.support.design.widget.NavigationView;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATENavigationView extends NavigationView implements ViewInterface {
+class ATENavigationView extends NavigationView implements ViewInterface {
 
     public ATENavigationView(Context context) {
         super(context);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATENavigationView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATENavigationView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs, keyContext);
+        init(context, keyContext);
     }
 
-    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
-        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATENavigationView, R.styleable.ATENavigationView_ateKey_navigationView);
+    private void init(Context context, @Nullable ATEActivity keyContext) {
+        ATEViewUtil.init(keyContext, this, context);
     }
 
     @Override

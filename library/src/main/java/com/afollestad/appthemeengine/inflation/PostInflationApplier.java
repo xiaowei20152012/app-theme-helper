@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.views;
+package com.afollestad.appthemeengine.inflation;
 
 /**
  * @author Aidan Follestad (afollestad)

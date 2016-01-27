@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.R;
-import com.afollestad.appthemeengine.views.ATESwitch;
+import com.afollestad.appthemeengine.inflation.ATESwitch;
 
 import java.lang.reflect.Field;
 

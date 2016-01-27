@@ -23,10 +23,11 @@ import android.view.Window;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
+import com.afollestad.appthemeengine.inflation.InflationInterceptor;
+import com.afollestad.appthemeengine.inflation.PostInflationApplier;
+import com.afollestad.appthemeengine.inflation.ViewInterface;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
-import com.afollestad.appthemeengine.views.PostInflationApplier;
-import com.afollestad.appthemeengine.views.ViewInterface;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,10 @@ public final class ATE extends ATEBase {
     private static final String IGNORE_TAG = "ate_ignore";
     public static final int USE_DEFAULT = Integer.MAX_VALUE;
 
-    protected static <T extends View & PostInflationApplier> void addPostInflationView(T view) {
+    /**
+     * @hide
+     */
+    public static <T extends View & PostInflationApplier> void addPostInflationView(T view) {
         if (mPostInflationApply == null)
             mPostInflationApply = new ArrayList<>();
         mPostInflationApply.add(view);

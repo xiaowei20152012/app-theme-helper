@@ -23,7 +23,7 @@ import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.views.ViewInterface;
+import com.afollestad.appthemeengine.inflation.ViewInterface;
 
 import java.lang.reflect.Field;
 

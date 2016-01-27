@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.views;
+package com.afollestad.appthemeengine.inflation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,34 +10,33 @@ import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.Config;
-import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEDrawerLayout extends DrawerLayout implements ViewInterface {
+class ATEDrawerLayout extends DrawerLayout implements ViewInterface {
 
     public ATEDrawerLayout(Context context) {
         super(context);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATEDrawerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATEDrawerLayout(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs, keyContext);
+        init(context, keyContext);
     }
 
-    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+    private void init(Context context, @Nullable ATEActivity keyContext) {
         if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets Activity status bar to transparent, DrawerLayout overlays a color.
             ((Activity) context).getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        final String key = ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATEDrawerLayout, R.styleable.ATEDrawerLayout_ateKey_drawerLayout);
+        final String key = ATEViewUtil.init(keyContext, this, context);
         // Sets the status bar overlayed by the DrawerLayout
         setStatusBarBackgroundColor(Config.statusBarColor(context, key));
     }

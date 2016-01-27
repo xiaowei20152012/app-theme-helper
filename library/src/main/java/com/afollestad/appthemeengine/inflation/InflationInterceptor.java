@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine;
+package com.afollestad.appthemeengine.inflation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.afollestad.appthemeengine.ATE;
+import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.processors.DrawerLayoutProcessor;
 import com.afollestad.appthemeengine.processors.NavigationViewProcessor;
 import com.afollestad.appthemeengine.processors.NestedScrollViewProcessor;
@@ -21,26 +23,6 @@ import com.afollestad.appthemeengine.processors.SearchViewProcessor;
 import com.afollestad.appthemeengine.processors.TabLayoutProcessor;
 import com.afollestad.appthemeengine.processors.ToolbarProcessor;
 import com.afollestad.appthemeengine.processors.ViewPagerProcessor;
-import com.afollestad.appthemeengine.views.ATEActionMenuItemView;
-import com.afollestad.appthemeengine.views.ATECheckBox;
-import com.afollestad.appthemeengine.views.ATECheckedTextView;
-import com.afollestad.appthemeengine.views.ATECoordinatorLayout;
-import com.afollestad.appthemeengine.views.ATEDrawerLayout;
-import com.afollestad.appthemeengine.views.ATEEditText;
-import com.afollestad.appthemeengine.views.ATEListView;
-import com.afollestad.appthemeengine.views.ATENavigationView;
-import com.afollestad.appthemeengine.views.ATENestedScrollView;
-import com.afollestad.appthemeengine.views.ATEProgressBar;
-import com.afollestad.appthemeengine.views.ATERadioButton;
-import com.afollestad.appthemeengine.views.ATERecyclerView;
-import com.afollestad.appthemeengine.views.ATEScrollView;
-import com.afollestad.appthemeengine.views.ATESearchView;
-import com.afollestad.appthemeengine.views.ATESeekBar;
-import com.afollestad.appthemeengine.views.ATEStockSwitch;
-import com.afollestad.appthemeengine.views.ATESwitch;
-import com.afollestad.appthemeengine.views.ATETabLayout;
-import com.afollestad.appthemeengine.views.ATEToolbar;
-import com.afollestad.appthemeengine.views.ATEViewPager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -48,7 +30,7 @@ import java.lang.reflect.Method;
 /**
  * @author Aidan Follestad (afollestad)
  */
-class InflationInterceptor implements LayoutInflaterFactory {
+public final class InflationInterceptor implements LayoutInflaterFactory {
 
     private static final boolean LOGGING_ENABLED = true;
 
@@ -128,6 +110,9 @@ class InflationInterceptor implements LayoutInflaterFactory {
         View view;
 
         switch (name) {
+            case "TextView":
+                view = new ATETextView(context, attrs, mKeyContext);
+                break;
             case "EditText":
                 view = new ATEEditText(context, attrs, mKeyContext);
                 break;

@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.views;
+package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,31 +6,30 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEProgressBar extends ProgressBar implements ViewInterface {
+class ATEProgressBar extends ProgressBar implements ViewInterface {
 
     public ATEProgressBar(Context context) {
         super(context);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATEProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATEProgressBar(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs, keyContext);
+        init(context, keyContext);
     }
 
-    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+    private void init(Context context, @Nullable ATEActivity keyContext) {
         setTag("tint_accent_color");
-        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATEProgressBar, R.styleable.ATEProgressBar_ateKey_progressBar);
+        ATEViewUtil.init(keyContext, this, context);
     }
 
     @Override

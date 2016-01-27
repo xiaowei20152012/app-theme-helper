@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.views;
+package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -6,31 +6,30 @@ import android.util.AttributeSet;
 import android.widget.EditText;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEEditText extends EditText implements ViewInterface {
+class ATEEditText extends EditText implements ViewInterface {
 
     public ATEEditText(Context context) {
         super(context);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATEEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, null, null);
+        init(context, null);
     }
 
     public ATEEditText(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
-        init(context, attrs, keyContext);
+        init(context, keyContext);
     }
 
-    private void init(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+    private void init(Context context, @Nullable ATEActivity keyContext) {
         setTag("tint_accent_color,text_primary");
-        ATEViewUtil.init(keyContext, this, context, attrs, R.styleable.ATEEditText, R.styleable.ATEEditText_ateKey_editText);
+        ATEViewUtil.init(keyContext, this, context);
     }
 
     @Override
