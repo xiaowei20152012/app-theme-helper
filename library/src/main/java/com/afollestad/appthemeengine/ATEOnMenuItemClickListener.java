@@ -24,6 +24,6 @@ public class ATEOnMenuItemClickListener implements Toolbar.OnMenuItemClickListen
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         ATE.applyOverflow(mContext, mKey, mToolbar);
-        return mParentListener.onMenuItemClick(item);
+        return mParentListener == null || mParentListener.onMenuItemClick(item);
     }
 }
