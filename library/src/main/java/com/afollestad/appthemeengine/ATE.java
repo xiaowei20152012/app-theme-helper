@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,7 +29,9 @@ import com.afollestad.appthemeengine.inflation.PostInflationApplier;
 import com.afollestad.appthemeengine.inflation.ViewInterface;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
+import com.afollestad.appthemeengine.util.TintHelper;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -40,6 +43,8 @@ public final class ATE extends ATEBase {
     public static final int USE_DEFAULT = Integer.MAX_VALUE;
 
     /**
+     * hem
+     *
      * @hide
      */
     public static <T extends View & PostInflationApplier> void addPostInflationView(T view) {
@@ -257,10 +262,22 @@ public final class ATE extends ATEBase {
     @SuppressWarnings("unchecked")
     public static void themeOverflow(@NonNull Activity activity, @Nullable String key) {
         final Toolbar toolbar = getPostInflationToolbar();
-        if (toolbar != null && toolbar.getParent() instanceof CollapsingToolbarLayout)
-            return;
         final int toolbarColor = Config.toolbarColor(activity, key, toolbar);
         final int tintColor = Config.getToolbarTitleColor(activity, toolbar, key, toolbarColor);
+
+        // The collapse icon displays when action views are expanded (e.g. SearchView)
+        try {
+            final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
+            field.setAccessible(true);
+            Drawable collapseIcon = (Drawable) field.get(toolbar);
+            if (collapseIcon != null)
+                field.set(toolbar, TintHelper.tintDrawable(collapseIcon, tintColor));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (toolbar != null && toolbar.getParent() instanceof CollapsingToolbarLayout)
+            return; // collapsing toolbar handles the overflow color
         ATEUtil.setOverflowButtonColor(activity, tintColor);
     }
 

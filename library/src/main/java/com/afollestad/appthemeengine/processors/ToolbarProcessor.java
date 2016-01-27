@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,14 +15,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
+import com.afollestad.appthemeengine.inflation.ViewInterface;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
-import com.afollestad.appthemeengine.inflation.ViewInterface;
 
 import java.lang.reflect.Field;
 
@@ -105,20 +105,6 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
         // Tint the toolbar navigation icon (e.g. back, drawer, etc.), otherwise handled by CollapsingToolbarLayout listener above
         if (collapsingToolbar == null && toolbar.getNavigationIcon() != null)
             toolbar.setNavigationIcon(TintHelper.tintDrawable(toolbar.getNavigationIcon(), tintColor));
-    }
-
-    @SuppressWarnings("unchecked")
-    private static void tintMenu(@NonNull Context context, @NonNull Toolbar toolbar, @Nullable String key, @Nullable Menu menu, @ColorInt int tintColor) {
-        // TODO can this be moved elsewhere?
-        try {
-            final Field field = Toolbar.class.getDeclaredField("mCollapseIcon");
-            field.setAccessible(true);
-            Drawable collapseIcon = (Drawable) field.get(toolbar);
-            if (collapseIcon != null)
-                field.set(toolbar, TintHelper.tintDrawable(collapseIcon, tintColor));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private static ScrimsOffsetListener mCollapsingToolbarListener = null;
@@ -218,6 +204,17 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             }
         }
 
+        private void tintMenu(Context context, Menu menu, @ColorInt int tintColor) {
+            // Updates menu icons and overflow for current collapsing toolbar color
+            if (context instanceof Activity)
+                ATEUtil.setOverflowButtonColor((Activity) context, tintColor);
+            for (int i = 0; i < menu.size(); i++) {
+                final MenuItem item = menu.getItem(i);
+                item.setIcon(TintHelper.tintDrawable(item.getIcon(), tintColor));
+                // TODO tint title color
+            }
+        }
+
         private void invalidateMenu() {
             final int tintColor;
             // Mimic CollapsingToolbarLayout's CollapsingTextHelper
@@ -231,7 +228,7 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
             mToolbar.setTitleTextColor(tintColor);
             if (mToolbar.getNavigationIcon() != null)
                 mToolbar.setNavigationIcon(TintHelper.tintDrawable(mToolbar.getNavigationIcon(), tintColor));
-            tintMenu(mContext, mToolbar, mKey, mMenu, tintColor);
+            tintMenu(mContext, mMenu, tintColor);
             if (mContext instanceof Activity) {
                 // Set color of the overflow icon
                 ATEUtil.setOverflowButtonColor((Activity) mContext, tintColor);
