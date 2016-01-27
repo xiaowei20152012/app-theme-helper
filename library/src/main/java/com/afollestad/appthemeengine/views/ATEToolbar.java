@@ -39,7 +39,7 @@ public class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInt
         if (keyContext == null && context instanceof ATEActivity)
             keyContext = (ATEActivity) context;
         if (mKey == null && keyContext != null)
-            mKey = ((ATEActivity) context).getATEKey();
+            mKey = keyContext.getATEKey();
     }
 
     @Override

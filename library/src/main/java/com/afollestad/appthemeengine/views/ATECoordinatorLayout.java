@@ -40,7 +40,7 @@ public class ATECoordinatorLayout extends CoordinatorLayout implements ViewInter
         if (keyContext == null && context instanceof ATEActivity)
             keyContext = (ATEActivity) context;
         if (key == null && keyContext != null)
-            key = ((ATEActivity) context).getATEKey();
+            key = keyContext.getATEKey();
         if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets Activity status bar to transparent, DrawerLayout overlays a color.
             ((Activity) context).getWindow().setStatusBarColor(Config.statusBarColor(context, key)); //Color.TRANSPARENT);
