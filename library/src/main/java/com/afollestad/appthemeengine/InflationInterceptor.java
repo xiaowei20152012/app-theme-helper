@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.BuildConfig;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ContextThemeWrapper;
@@ -47,7 +46,7 @@ import java.lang.reflect.Method;
  */
 class InflationInterceptor implements LayoutInflaterFactory {
 
-    private static final boolean LOGGING_ENABLED = BuildConfig.DEBUG;
+    private static final boolean LOGGING_ENABLED = true;
 
     private static void LOG(String msg, Object... args) {
         //noinspection PointlessBooleanExpression
