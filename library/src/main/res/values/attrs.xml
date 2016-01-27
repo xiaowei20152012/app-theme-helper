@@ -33,6 +33,52 @@
         <attr name="ateKey_switch" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="ATEStockSwitch">
+        <attr name="ateKey_stockSwitch" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATEToolbar">
+        <attr name="ateKey_toolbar" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATEListView">
+        <attr name="ateKey_listView" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATERecyclerView">
+        <attr name="ateKey_recyclerView" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATEScrollView">
+        <attr name="ateKey_scrollView" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATENestedScrollView">
+        <attr name="ateKey_nestedScrollView" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATEViewPager">
+        <attr name="ateKey_viewPager" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATENavigationView">
+        <attr name="ateKey_navigationView" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATEDrawerLayout">
+        <attr name="ateKey_drawerLayout" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATETabLayout">
+        <attr name="ateKey_tabLayout" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ATECoordinatorLayout">
+        <attr name="ateKey_coordinatorLayout" format="string" />
+    </declare-styleable>
+
+    <!-- Preferences -->
+
     <declare-styleable name="ATEPreference">
         <attr name="ateKey_pref" format="string" />
     </declare-styleable>
