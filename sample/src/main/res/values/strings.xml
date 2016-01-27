@@ -76,6 +76,10 @@
     <string name="body_textsize_desc">Apply a text size to all body text views, %ddp</string>
     <string name="text_sizes">Text Sizes</string>
     <string name="defaultValue">Default</string>
+    <string name="fragment_theming">Fragment Theming!</string>
+    <string name="drawer_misc">Misc</string>
+    <string name="misc">Miscellaneous</string>
+    <string name="hello">Hello world!</string>
 
     <string-array name="light_status_mode_entries">
         <item>Off, status bar icons will be white</item>

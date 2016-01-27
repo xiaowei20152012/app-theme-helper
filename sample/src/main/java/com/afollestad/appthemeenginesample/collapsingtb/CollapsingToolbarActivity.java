@@ -54,13 +54,4 @@ public class CollapsingToolbarActivity extends BaseThemedActivity
         searchView.setQueryHint(getString(R.string.search_view_example));
         searchView.setIconifiedByDefault(true);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }
