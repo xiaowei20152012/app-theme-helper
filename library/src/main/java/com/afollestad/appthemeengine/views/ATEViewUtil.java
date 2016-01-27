@@ -19,7 +19,7 @@ class ATEViewUtil {
         if (keyContext == null && context instanceof ATEActivity)
             keyContext = (ATEActivity) context;
         String key = null;
-        if (attrs != null) {
+        if (attrs != null && viewAttr != null) {
             TypedArray a = context.getTheme().obtainStyledAttributes(attrs, viewAttr, 0, 0);
             try {
                 key = a.getString(ateKeyAttr);

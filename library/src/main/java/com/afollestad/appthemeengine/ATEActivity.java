@@ -3,7 +3,6 @@ package com.afollestad.appthemeengine;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
@@ -48,14 +47,7 @@ public class ATEActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (menu.size() > 0)
-            ATE.applyMenu(this, getATEKey(), menu);
+        ATE.themeOverflow(this, getATEKey());
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        ATE.applyOverflow(this, getATEKey());
-        return super.onPrepareOptionsMenu(menu);
     }
 }

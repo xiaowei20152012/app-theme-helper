@@ -12,32 +12,22 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.BaseMenuPresenter;
-import android.support.v7.view.menu.ListMenuItemView;
-import android.support.v7.view.menu.MenuPopupHelper;
-import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.widget.CheckBox;
-import android.widget.ListView;
-import android.widget.RadioButton;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.processors.Processor;
 import com.afollestad.appthemeengine.util.ATEUtil;
-import com.afollestad.appthemeengine.util.TintHelper;
 import com.afollestad.appthemeengine.views.PostInflationApplier;
 import com.afollestad.appthemeengine.views.ViewInterface;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -267,96 +257,13 @@ public final class ATE extends ATEBase {
     }
 
     @SuppressWarnings("unchecked")
-    public static void applyMenu(@NonNull Activity activity, @Nullable String key, @Nullable Menu menu) {
-        Processor toolbarProcessor = getProcessor(Toolbar.class);
-        if (toolbarProcessor != null) {
-            final Toolbar postInflationToolbar = getPostInflationToolbar();
-            toolbarProcessor.process(activity, key, postInflationToolbar, menu);
-        }
-    }
-
-    public static void applyOverflow(@NonNull AppCompatActivity activity, @Nullable String key) {
-        final Toolbar postInflationToolbar = getPostInflationToolbar();
-        final Toolbar toolbar = postInflationToolbar != null ?
-                postInflationToolbar : ATEUtil.getSupportActionBarView(activity.getSupportActionBar());
-        applyOverflow(activity, key, toolbar);
-    }
-
-    public static void applyOverflow(final @NonNull Activity activity, final @Nullable String key, final @Nullable Toolbar toolbar) {
-        if (toolbar == null) return;
-        toolbar.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Field f1 = Toolbar.class.getDeclaredField("mMenuView");
-                    f1.setAccessible(true);
-                    ActionMenuView actionMenuView = (ActionMenuView) f1.get(toolbar);
-                    Field f2 = ActionMenuView.class.getDeclaredField("mPresenter");
-                    f2.setAccessible(true);
-
-                    // Actually ActionMenuPresenter
-                    BaseMenuPresenter presenter = (BaseMenuPresenter) f2.get(actionMenuView);
-                    Field f3 = presenter.getClass().getDeclaredField("mOverflowPopup");
-                    f3.setAccessible(true);
-                    MenuPopupHelper overflowMenuPopupHelper = (MenuPopupHelper) f3.get(presenter);
-                    setTintForMenuPopupHelper(activity, overflowMenuPopupHelper, key);
-
-                    Field f4 = presenter.getClass().getDeclaredField("mActionButtonPopup");
-                    f4.setAccessible(true);
-                    MenuPopupHelper subMenuPopupHelper = (MenuPopupHelper) f4.get(presenter);
-                    setTintForMenuPopupHelper(activity, subMenuPopupHelper, key);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    private static void setTintForMenuPopupHelper(final @NonNull Activity context, @Nullable MenuPopupHelper menuPopupHelper, final @Nullable String key) {
-        if (menuPopupHelper != null) {
-            final ListView listView = menuPopupHelper.getPopup().getListView();
-            listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    try {
-                        Field checkboxField = ListMenuItemView.class.getDeclaredField("mCheckBox");
-                        checkboxField.setAccessible(true);
-                        Field radioButtonField = ListMenuItemView.class.getDeclaredField("mRadioButton");
-                        radioButtonField.setAccessible(true);
-
-                        final boolean isDark = !ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground));
-
-                        for (int i = 0; i < listView.getChildCount(); i++) {
-                            View v = listView.getChildAt(i);
-                            if (!(v instanceof ListMenuItemView)) continue;
-                            ListMenuItemView iv = (ListMenuItemView) v;
-
-                            CheckBox check = (CheckBox) checkboxField.get(iv);
-                            if (check != null) {
-                                TintHelper.setTint(check, Config.accentColor(context, key), isDark);
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                    check.setBackground(null);
-                            }
-
-                            RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
-                            if (radioButton != null) {
-                                TintHelper.setTint(radioButton, Config.accentColor(context, key), isDark);
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                    radioButton.setBackground(null);
-                            }
-                        }
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        listView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    } else {
-                        //noinspection deprecation
-                        listView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-                }
-            });
-        }
+    public static void themeOverflow(@NonNull Activity activity, @Nullable String key) {
+        final Toolbar toolbar = getPostInflationToolbar();
+        if (toolbar != null && toolbar.getParent() instanceof CollapsingToolbarLayout)
+            return;
+        final int toolbarColor = Config.toolbarColor(activity, key, toolbar);
+        final int tintColor = Config.getToolbarTitleColor(activity, toolbar, key, toolbarColor);
+        ATEUtil.setOverflowButtonColor(activity, tintColor);
     }
 
     private ATE() {
