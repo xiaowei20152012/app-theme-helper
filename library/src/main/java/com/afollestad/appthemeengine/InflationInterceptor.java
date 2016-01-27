@@ -50,6 +50,9 @@ class InflationInterceptor implements LayoutInflaterFactory {
     private static final boolean LOGGING_ENABLED = BuildConfig.DEBUG;
 
     private static void LOG(String msg, Object... args) {
+        //noinspection PointlessBooleanExpression
+        if (!LOGGING_ENABLED)
+            return;
         if (args != null) {
             Log.d("InflationInterceptor", String.format(msg, args));
         } else {
@@ -172,9 +175,16 @@ class InflationInterceptor implements LayoutInflaterFactory {
                 break;
             default: {
                 // First, check if the AppCompatDelegate will give us a view, usually (maybe always) null.
-                view = mDelegate != null ? mDelegate.createView(parent, name, context, attrs) : null;
+                if (mDelegate != null) {
+                    view = mDelegate.createView(parent, name, context, attrs);
+                    if (view == null && mKeyContext != null)
+                        view = mKeyContext.onCreateView(parent, name, context, attrs);
+                } else {
+                    view = null;
+                }
 
-                // Mimic code of LayoutInflater using reflection tricks.
+                // Mimic code of LayoutInflater using reflection tricks (this would normally be run when this factory returns null).
+                // We need to intercept the default behavior rather than allowing the LayoutInflater to handle it after this method returns.
                 if (view == null) {
                     Context viewContext;
                     final boolean inheritContext = false; // TODO will this ever need to be true?
