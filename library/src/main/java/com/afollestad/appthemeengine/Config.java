@@ -581,6 +581,7 @@ public final class Config extends ConfigBase {
         if (size == 0) {
             switch (mode) {
                 default:
+                    throw new IllegalArgumentException(String.format("Unknown text size mode: %s", mode));
                 case TEXTSIZE_CAPTION:
                     size = context.getResources().getDimensionPixelSize(R.dimen.ate_default_textsize_caption);
                     break;

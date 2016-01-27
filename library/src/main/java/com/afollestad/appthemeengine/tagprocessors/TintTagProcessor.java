@@ -108,6 +108,8 @@ public class TintTagProcessor implements TagProcessor {
                 newTintColor = ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground)) ?
                         Color.BLACK : Color.WHITE;
                 break;
+            default:
+                throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
 
         if (mSelectorMode) {

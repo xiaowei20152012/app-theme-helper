@@ -100,6 +100,8 @@ public class TextColorTagProcessor implements TagProcessor {
                 newTextColor = ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground)) ?
                         Color.BLACK : Color.WHITE;
                 break;
+            default:
+                throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
 
         final ColorStateList sl = getTextSelector(newTextColor, view, !mLinkMode);

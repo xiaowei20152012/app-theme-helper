@@ -83,6 +83,8 @@ public class TextShadowColorTagProcessor implements TagProcessor {
                 newShadowColor = ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground)) ?
                         Color.BLACK : Color.WHITE;
                 break;
+            default:
+                throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
 
         if (newShadowColor != Color.TRANSPARENT)

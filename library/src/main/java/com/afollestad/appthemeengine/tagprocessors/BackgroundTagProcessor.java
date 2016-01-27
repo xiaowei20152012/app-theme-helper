@@ -77,6 +77,8 @@ public class BackgroundTagProcessor implements TagProcessor {
                 newBgColor = ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground)) ?
                         Color.BLACK : Color.WHITE;
                 break;
+            default:
+                throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
 
         if (ATEUtil.isInClassPath("android.support.v7.widget.CardView") &&
