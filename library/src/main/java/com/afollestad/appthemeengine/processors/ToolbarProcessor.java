@@ -233,6 +233,9 @@ public class ToolbarProcessor implements Processor<Toolbar, Menu> {
                     if (mCollapsedColor == ATE.USE_DEFAULT) mCollapsedColor = tintColor;
                     if (mExpandedColor == ATE.USE_DEFAULT) mExpandedColor = tintColor;
                 }
+
+                mCollapsingToolbar.setCollapsedTitleTextColor(mCollapsedColor);
+                mCollapsingToolbar.setExpandedTitleColor(mExpandedColor);
             } else {
                 mScrimsAreShown = null;
             }
