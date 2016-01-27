@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:elevation="@dimen/toolbar_elevation"
+        android:elevation="0dp"
         android:tag="bg_primary_color"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="UnusedAttribute">
@@ -19,7 +19,7 @@
             android:id="@+id/toolbarSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="124dp" />
+            android:minWidth="156dp" />
 
     </android.support.v7.widget.Toolbar>
 

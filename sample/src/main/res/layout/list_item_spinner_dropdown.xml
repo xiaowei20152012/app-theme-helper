@@ -6,6 +6,7 @@
     android:fontFamily="sans-serif-light"
     android:gravity="center_vertical"
     android:minHeight="52dp"
+    android:minWidth="156dp"
     android:paddingLeft="@dimen/content_inset"
     android:paddingRight="@dimen/content_inset"
     android:tag="text_primary_color_dependent,textsize_subheading"
