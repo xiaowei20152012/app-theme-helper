@@ -152,8 +152,10 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
             case "ScrollView":
                 view = new ATEScrollView(context, attrs, mKeyContext);
                 break;
-            case "android.support.v7.widget.AppCompatSpinner":
             case "Spinner":
+                view = new ATEStockSpinner(context, attrs, mKeyContext);
+                break;
+            case "android.support.v7.widget.AppCompatSpinner":
                 view = new ATESpinner(context, attrs, mKeyContext);
                 break;
             case RecyclerViewProcessor.MAIN_CLASS:

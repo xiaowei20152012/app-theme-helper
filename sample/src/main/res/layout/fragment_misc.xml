@@ -10,9 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:elevation="@dimen/toolbar_elevation"
         android:paddingLeft="@dimen/content_inset"
         android:paddingRight="@dimen/content_inset"
-        android:tag="bg_primary_color">
+        android:tag="bg_primary_color"
+        tools:ignore="UnusedAttribute">
 
         <EditText
             android:layout_width="match_parent"

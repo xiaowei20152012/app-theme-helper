@@ -56,7 +56,7 @@ public class ATESpinner extends AppCompatSpinner implements ViewInterface {
 //        ATEViewUtil.init(keyContext, this, context);
         if (getBackground() != null) {
             ATEUtil.setBackgroundCompat(this,
-                    TintHelper.tintDrawable(getBackground(), Color.WHITE));
+                    TintHelper.tintDrawable(getBackground(), Color.BLACK));
         }
     }
 

@@ -3,7 +3,10 @@ package com.afollestad.appthemeenginesample.misc;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.StyleRes;
-import android.view.MenuItem;
+import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeenginesample.R;
@@ -19,7 +22,7 @@ public class MiscActivity extends BaseThemedActivity implements ATEActivityTheme
     public int getActivityTheme() {
         // Overrides what's set in the current ATE Config
         return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
-                R.style.AppThemeDark_ActionBar : R.style.AppTheme_ActionBar;
+                R.style.AppThemeDark : R.style.AppTheme;
     }
 
     @Override
@@ -27,17 +30,20 @@ public class MiscActivity extends BaseThemedActivity implements ATEActivityTheme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_misc);
 
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setSubtitle("Test subtitle");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setTitle(null);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        AppCompatSpinner spinner = (AppCompatSpinner) findViewById(R.id.toolbarSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_spinner,
+                new String[]{"One", "Two", "Three", "Four", "Five", "Six"});
+        adapter.setDropDownViewResource(R.layout.list_item_spinner_dropdown);
+        spinner.setAdapter(adapter);
     }
 }
