@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
                         android:checked="true"
-                        android:tag="tint|accent_color,text_color|primary_color,text_size|body"
+                        android:tag="tint|accent_color,text_color|primary_text,text_size|body"
                         android:text="@string/checkbox" />
 
                     <android.support.v7.widget.SwitchCompat

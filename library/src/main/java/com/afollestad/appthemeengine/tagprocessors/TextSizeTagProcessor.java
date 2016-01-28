@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.appthemeengine.Config;
-import com.afollestad.appthemeengine.util.TypefaceHelper;
 
 /**
  * @author Aidan Follestad (afollestad)

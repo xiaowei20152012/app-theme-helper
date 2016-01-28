@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)

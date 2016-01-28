@@ -6,7 +6,6 @@ import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.R;
 
 /**
  * @author Aidan Follestad (afollestad)
