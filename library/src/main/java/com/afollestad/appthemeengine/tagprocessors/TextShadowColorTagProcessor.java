@@ -62,11 +62,11 @@ public class TextShadowColorTagProcessor implements TagProcessor {
                 final String viewName = ATEUtil.getIdName(context, view.getId());
                 if (view.getParent() == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses text_color|parent_dependent tag but has no parent.", viewName));
+                            "View %s uses text_color_shadow|parent_dependent tag but has no parent.", viewName));
                 final View parent = (View) view.getParent();
                 if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses text_color|parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
+                            "View %s uses text_color_shadow|parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
                 final ColorDrawable bg = (ColorDrawable) parent.getBackground();
                 newShadowColor = ATEUtil.isColorLight(bg.getColor()) ? Color.BLACK : Color.WHITE;
                 break;

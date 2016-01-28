@@ -31,11 +31,13 @@ public class TintTagProcessor implements TagProcessor {
     public static final String SELECTOR_PREFIX_LIGHT = "tint_selector_lighter";
     public static final String SELECTOR_PREFIX = "tint_selector";
 
+    private final String mPrefix;
     private final boolean mBackgroundMode;
     private final boolean mSelectorMode;
     private final boolean mLightSelector;
 
-    public TintTagProcessor(boolean backgroundMode, boolean selectorMode, boolean lighter) {
+    public TintTagProcessor(String prefix, boolean backgroundMode, boolean selectorMode, boolean lighter) {
+        mPrefix = prefix;
         mBackgroundMode = backgroundMode;
         mSelectorMode = selectorMode;
         mLightSelector = lighter;
@@ -87,11 +89,12 @@ public class TintTagProcessor implements TagProcessor {
                 final String viewName = ATEUtil.getIdName(context, view.getId());
                 if (view.getParent() == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses background|parent_dependent tag but has no parent.", viewName));
+                            "View %s uses %s|parent_dependent tag but has no parent.", viewName, mPrefix));
                 final View parent = (View) view.getParent();
                 if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses background|parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
+                            "View %s uses %s|parent_dependent tag but parent doesn't have a ColorDrawable as its background.",
+                            viewName, mPrefix));
                 final ColorDrawable bg = (ColorDrawable) parent.getBackground();
                 newTintColor = ATEUtil.isColorLight(bg.getColor()) ? Color.BLACK : Color.WHITE;
                 break;

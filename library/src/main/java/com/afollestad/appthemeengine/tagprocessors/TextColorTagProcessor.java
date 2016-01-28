@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.view.menu.MenuPresenter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,9 +25,11 @@ public class TextColorTagProcessor implements TagProcessor {
     public static final String PREFIX = "text_color";
     public static final String LINK_PREFIX = "text_color_link";
 
+    private final String mPrefix;
     private final boolean mLinkMode;
 
-    public TextColorTagProcessor(boolean links) {
+    public TextColorTagProcessor(String prefix, boolean links) {
+        mPrefix = prefix;
         mLinkMode = links;
     }
 
@@ -50,7 +53,7 @@ public class TextColorTagProcessor implements TagProcessor {
     @Override
     public void process(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
         final TextView tv = (TextView) view;
-        int newTextColor = Color.BLACK;
+        final int newTextColor;
 
         switch (suffix) {
             case PRIMARY_COLOR:
@@ -79,11 +82,12 @@ public class TextColorTagProcessor implements TagProcessor {
                 final String viewName = ATEUtil.getIdName(context, view.getId());
                 if (view.getParent() == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses text_color|parent_dependent tag but has no parent.", viewName));
+                            "View %s uses %s|parent_dependent tag but has no parent.", viewName, mPrefix));
                 final View parent = (View) view.getParent();
                 if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses text_color|parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
+                            "View %s uses %s|parent_dependent tag but parent doesn't have a ColorDrawable as its background.",
+                            viewName, mPrefix));
                 final ColorDrawable bg = (ColorDrawable) parent.getBackground();
                 newTextColor = ATEUtil.isColorLight(bg.getColor()) ? Color.BLACK : Color.WHITE;
                 break;
