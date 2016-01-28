@@ -6,31 +6,30 @@ import android.support.v7.widget.SearchView;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-class ATESearchView extends SearchView implements ViewInterface {
+class ATESearchViewAutoComplete extends SearchView.SearchAutoComplete implements ViewInterface {
 
-    public ATESearchView(Context context) {
+    public ATESearchViewAutoComplete(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATESearchView(Context context, AttributeSet attrs) {
+    public ATESearchViewAutoComplete(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, null);
     }
 
-    public ATESearchView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+    public ATESearchViewAutoComplete(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, keyContext);
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        if (getTag() == null)
-            setTag(String.format("%s|accent_color", TintTagProcessor.BACKGROUND_PREFIX));
+        setTag(String.format("%s|primary_text", TextColorTagProcessor.PREFIX));
         try {
             ATEViewUtil.init(keyContext, this, context);
         } catch (Throwable t) {

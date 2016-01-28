@@ -4,12 +4,17 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.view.menu.ActionMenuItemView;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.viewprocessors.ViewProcessor;
+
+import java.lang.reflect.Field;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -34,6 +39,7 @@ class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface 
     private String mKey;
     private int mTintColor;
     private Drawable mIcon;
+    private boolean mCheckedActionView;
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (keyContext == null && context instanceof ATEActivity)
@@ -61,6 +67,38 @@ class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface 
         invalidateTintColor();
         mIcon = TintHelper.tintDrawable(icon, mTintColor);
         super.setIcon(mIcon);
+        invalidateActionView();
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
+        invalidateActionView();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void invalidateActionView() {
+        if (mCheckedActionView) return;
+        mCheckedActionView = true;
+        View actionView = getActionView();
+        if (actionView != null) {
+            ViewProcessor processor = ATE.getViewProcessor(actionView.getClass());
+            if (processor != null)
+                processor.process(getContext(), mKey, actionView, null);
+        }
+    }
+
+    @Nullable
+    private View getActionView() {
+        try {
+            final Field itemData = getClass().getSuperclass().getDeclaredField("mItemData");
+            itemData.setAccessible(true);
+            final MenuItemImpl menuImpl = (MenuItemImpl) itemData.get(this);
+            if (menuImpl == null) return null;
+            return menuImpl.getActionView();
+        } catch (Throwable t) {
+            throw new RuntimeException("Failed to get ActionView from an ActionMenuItemView: " + t.getLocalizedMessage(), t);
+        }
     }
 
     @Override

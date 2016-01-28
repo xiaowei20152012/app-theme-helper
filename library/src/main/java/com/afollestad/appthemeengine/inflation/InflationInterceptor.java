@@ -18,7 +18,6 @@ import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.viewprocessors.NavigationViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.NestedScrollViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.RecyclerViewProcessor;
-import com.afollestad.appthemeengine.viewprocessors.SearchViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.TabLayoutProcessor;
 import com.afollestad.appthemeengine.viewprocessors.ToolbarProcessor;
 import com.afollestad.appthemeengine.viewprocessors.ViewPagerProcessor;
@@ -31,7 +30,7 @@ import java.lang.reflect.Method;
  */
 public final class InflationInterceptor implements LayoutInflaterFactory {
 
-    private static final boolean LOGGING_ENABLED = false;
+    private static final boolean LOGGING_ENABLED = true;
 
     private static void LOG(String msg, Object... args) {
         //noinspection PointlessBooleanExpression
@@ -185,12 +184,12 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
             case "android.support.v7.view.menu.ActionMenuItemView":
                 view = new ATEActionMenuItemView(context, attrs, mKeyContext);
                 break;
-            case SearchViewProcessor.MAIN_CLASS:
-                view = new ATESearchView(context, attrs, mKeyContext);
-                break;
-            case "SearchView":
-                view = new ATEStockSearchView(context, attrs, mKeyContext);
-                break;
+//            case SearchViewProcessor.MAIN_CLASS:
+//                view = new ATESearchView(context, attrs, mKeyContext);
+//                break;
+//            case "SearchView":
+//                view = new ATEStockSearchView(context, attrs, mKeyContext);
+//                break;
             case "CheckedTextView":
                 view = new ATECheckedTextView(context, attrs, mKeyContext);
                 break;

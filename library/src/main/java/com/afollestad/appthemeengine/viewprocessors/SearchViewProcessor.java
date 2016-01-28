@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
 
@@ -28,7 +29,13 @@ public class SearchViewProcessor implements ViewProcessor<View, Integer> {
 
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable View target, @Nullable Integer tintColor) {
-        if (target == null || tintColor == null) return;
+        if (target == null)
+            return;
+        if (tintColor == null) {
+            // TODO pass a toolbar here?
+            final int toolbarColor = Config.toolbarColor(context, key, null);
+            tintColor = Config.getToolbarTitleColor(context, null, key, toolbarColor);
+        }
         final Class<?> cls = target.getClass();
         try {
             final Field mSearchSrcTextViewField = cls.getDeclaredField("mSearchSrcTextView");

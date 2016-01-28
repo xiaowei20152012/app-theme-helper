@@ -83,7 +83,8 @@ class ATEBase {
         Class<?> current = viewClass;
         while (true) {
             current = current.getSuperclass();
-            if (current == null) break;
+            if (current == null || current.getName().equals(View.class.getName()))
+                break;
             viewProcessor = mViewProcessors.get(current.getName());
             if (viewProcessor != null) break;
         }
