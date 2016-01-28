@@ -11,7 +11,7 @@ import com.afollestad.appthemeengine.util.TypefaceHelper;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class FontTagProcessor implements TagProcessor {
+public class FontTagProcessor extends TagProcessor {
 
     public static final String PREFIX = "font";
 
