@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.afollestad.appthemeengine.Config;
@@ -54,7 +55,8 @@ public class TintTagProcessor implements TagProcessor {
                 view instanceof ImageView ||
                 view instanceof Switch ||
                 view instanceof SwitchCompat ||
-                view instanceof CheckedTextView;
+                view instanceof CheckedTextView ||
+                view instanceof Spinner;
     }
 
     @Override
