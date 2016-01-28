@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeenginesample.R;
 import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
@@ -37,6 +38,7 @@ public class CollapsingToolbarActivity extends BaseThemedActivity
 
         final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle(getTitle());
+        collapsingToolbar.setExpandedTitleColor(Config.textColorPrimaryInverse(this, getATEKey()));
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_back);

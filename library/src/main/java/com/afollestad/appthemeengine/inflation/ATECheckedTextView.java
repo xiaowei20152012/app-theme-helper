@@ -7,7 +7,6 @@ import android.widget.CheckedTextView;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
 import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 
 /**
@@ -32,7 +31,7 @@ class ATECheckedTextView extends CheckedTextView implements ViewInterface {
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
-            setTag(String.format("%s|accent_color,%s|primary_text", TintTagProcessor.PREFIX, TextColorTagProcessor.PREFIX));
+            setTag(String.format("%s|accent_color", TintTagProcessor.PREFIX));
         ATEViewUtil.init(keyContext, this, context);
     }
 

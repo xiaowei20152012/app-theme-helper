@@ -13,6 +13,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,12 +21,14 @@ import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
+import com.afollestad.appthemeengine.R;
 import com.afollestad.appthemeengine.customizers.ATECollapsingTbCustomizer;
 import com.afollestad.appthemeengine.inflation.ViewInterface;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -119,8 +122,6 @@ public class ToolbarProcessor implements ViewProcessor<Toolbar, Menu> {
 
         @NonNull
         private final Context mContext;
-        @Nullable
-        private final String mKey;
         private Toolbar mToolbar;
         private final CollapsingToolbarLayout mCollapsingToolbar;
         private Menu mMenu;
@@ -132,7 +133,6 @@ public class ToolbarProcessor implements ViewProcessor<Toolbar, Menu> {
         public ScrimsOffsetListener(@NonNull Context context, @Nullable String key, Toolbar toolbar,
                                     CollapsingToolbarLayout toolbarLayout, Menu menu) throws Exception {
             mContext = context;
-            mKey = key;
             mToolbar = toolbar;
             mCollapsingToolbar = toolbarLayout;
             mMenu = menu;
@@ -170,7 +170,13 @@ public class ToolbarProcessor implements ViewProcessor<Toolbar, Menu> {
                 mCollapsingToolbar.setExpandedTitleColor(mExpandedColor);
             }
 
-            invalidateMenu();
+
+            ATEUtil.waitForLayout(mCollapsingToolbar, new ATEUtil.LayoutCallback() {
+                @Override
+                public void onLayout(View view) {
+                    invalidateMenu();
+                }
+            });
         }
 
         private int getExpandedTextColor() {
@@ -204,34 +210,47 @@ public class ToolbarProcessor implements ViewProcessor<Toolbar, Menu> {
             }
         }
 
-        private void tintMenu(Context context, Menu menu, @ColorInt int tintColor) {
-            // Updates menu icons and overflow for current collapsing toolbar color
-            if (context instanceof Activity)
-                ATEUtil.setOverflowButtonColor((Activity) context, tintColor);
+        private void tintMenu(Menu menu, @ColorInt int tintColor) {
             for (int i = 0; i < menu.size(); i++) {
                 final MenuItem item = menu.getItem(i);
-                item.setIcon(TintHelper.tintDrawable(item.getIcon(), tintColor));
-                // TODO tint title color
+                TintHelper.tintDrawable(item.getIcon(), tintColor);
             }
         }
 
+        private ArrayList<View> mOverflows;
+
         private void invalidateMenu() {
-            final int tintColor;
             // Mimic CollapsingToolbarLayout's CollapsingTextHelper
             final WindowInsetsCompat mLastInsets = getLastInsets();
             final int insetTop = mLastInsets != null ? mLastInsets.getSystemWindowInsetTop() : 0;
             final int expandRange = mCollapsingToolbar.getHeight() - ViewCompat.getMinimumHeight(
                     mCollapsingToolbar) - insetTop;
             final float expansionFraction = Math.abs(mLastVerticalOffset) / (float) expandRange;
-            tintColor = ATEUtil.blendColors(getExpandedTextColor(), getCollapsedTextColor(), expansionFraction);
+
+            int tintColor;
+            if (getExpandedTextColor() == getCollapsedTextColor())
+                tintColor = getExpandedTextColor();
+            else
+                tintColor = ATEUtil.blendColors(getExpandedTextColor(), getCollapsedTextColor(), expansionFraction);
+            if (tintColor == Color.TRANSPARENT)
+                tintColor = getExpandedTextColor();
 
             mToolbar.setTitleTextColor(tintColor);
             if (mToolbar.getNavigationIcon() != null)
                 mToolbar.setNavigationIcon(TintHelper.tintDrawable(mToolbar.getNavigationIcon(), tintColor));
-            tintMenu(mContext, mMenu, tintColor);
-            if (mContext instanceof Activity) {
-                // Set color of the overflow icon
-                ATEUtil.setOverflowButtonColor((Activity) mContext, tintColor);
+            tintMenu(mMenu, tintColor);
+
+            if (mOverflows == null) {
+                mOverflows = new ArrayList<>();
+                final String overflowDescription = mContext.getString(R.string.abc_action_menu_overflow_description);
+                mCollapsingToolbar.findViewsWithText(mOverflows, overflowDescription,
+                        View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+            }
+            if (!mOverflows.isEmpty()) {
+                for (int i = 0; i < mOverflows.size(); i++) {
+                    final AppCompatImageView overflow = (AppCompatImageView) mOverflows.get(i);
+                    TintHelper.tintDrawable(overflow.getDrawable(), tintColor);
+                }
             }
         }
 

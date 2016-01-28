@@ -353,6 +353,7 @@ public final class TintHelper {
     public static Drawable tintDrawable(@Nullable Drawable drawable, @ColorInt int color) {
         if (drawable == null) return null;
         drawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_IN);
         DrawableCompat.setTint(drawable, color);
         return drawable;
     }

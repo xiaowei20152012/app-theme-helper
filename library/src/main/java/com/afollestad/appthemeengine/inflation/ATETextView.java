@@ -30,8 +30,8 @@ class ATETextView extends TextView implements ViewInterface {
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
-            setTag(String.format("%s|accent_color,%s|primary_text",
-                    TextColorTagProcessor.LINK_PREFIX, TextColorTagProcessor.PREFIX));
+            setTag(String.format("%s|accent_color",
+                    TextColorTagProcessor.LINK_PREFIX));
         try {
             ATEViewUtil.init(keyContext, this, context);
         } catch (Throwable t) {

@@ -187,6 +187,30 @@ public final class ATEUtil {
                 activity instanceof AppCompatActivity ? ((AppCompatActivity) activity).getDelegate() : null));
     }
 
+    public interface LayoutCallback {
+        void onLayout(View view);
+    }
+
+    public static void waitForLayout(final View view, final LayoutCallback callback) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                removeLayoutListener(view, this);
+                if (callback != null)
+                    callback.onLayout(view);
+            }
+        });
+    }
+
+    private static void removeLayoutListener(View view, ViewTreeObserver.OnGlobalLayoutListener listener) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+        } else {
+            //noinspection deprecation
+            view.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+        }
+    }
+
     private ATEUtil() {
     }
 }
