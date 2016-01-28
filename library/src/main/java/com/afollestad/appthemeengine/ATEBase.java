@@ -106,10 +106,10 @@ class ATEBase {
         mTagProcessors.put(TextColorTagProcessor.HINT_PREFIX, new TextColorTagProcessor(false, true));
         mTagProcessors.put(TextShadowColorTagProcessor.PREFIX, new TextShadowColorTagProcessor());
         mTagProcessors.put(TextSizeTagProcessor.PREFIX, new TextSizeTagProcessor());
-        mTagProcessors.put(TintTagProcessor.PREFIX, new TintTagProcessor(TintTagProcessor.PREFIX, false, false, false));
-        mTagProcessors.put(TintTagProcessor.BACKGROUND_PREFIX, new TintTagProcessor(TintTagProcessor.BACKGROUND_PREFIX, true, false, false));
-        mTagProcessors.put(TintTagProcessor.SELECTOR_PREFIX, new TintTagProcessor(TintTagProcessor.SELECTOR_PREFIX, false, true, false));
-        mTagProcessors.put(TintTagProcessor.SELECTOR_PREFIX_LIGHT, new TintTagProcessor(TintTagProcessor.SELECTOR_PREFIX_LIGHT, false, true, true));
+        mTagProcessors.put(TintTagProcessor.PREFIX, new TintTagProcessor(false, false, false));
+        mTagProcessors.put(TintTagProcessor.BACKGROUND_PREFIX, new TintTagProcessor(true, false, false));
+        mTagProcessors.put(TintTagProcessor.SELECTOR_PREFIX, new TintTagProcessor(false, true, false));
+        mTagProcessors.put(TintTagProcessor.SELECTOR_PREFIX_LIGHT, new TintTagProcessor(false, true, true));
     }
 
     @Nullable

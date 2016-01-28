@@ -29,13 +29,11 @@ public class TintTagProcessor extends TagProcessor {
     public static final String SELECTOR_PREFIX_LIGHT = "tint_selector_lighter";
     public static final String SELECTOR_PREFIX = "tint_selector";
 
-    private final String mPrefix;
     private final boolean mBackgroundMode;
     private final boolean mSelectorMode;
     private final boolean mLightSelector;
 
-    public TintTagProcessor(String prefix, boolean backgroundMode, boolean selectorMode, boolean lighter) {
-        mPrefix = prefix;
+    public TintTagProcessor(boolean backgroundMode, boolean selectorMode, boolean lighter) {
         mBackgroundMode = backgroundMode;
         mSelectorMode = selectorMode;
         mLightSelector = lighter;
