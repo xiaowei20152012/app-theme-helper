@@ -77,9 +77,12 @@ public class TextSizeDialog extends DialogFragment implements MaterialDialog.Sin
         mSeeker = (SeekBar) view.findViewById(R.id.seeker);
         mValue = (TextView) view.findViewById(R.id.value);
 
+        String mode = getArguments().getString(KEY_MODE);
+        if (mode != null)
+            mode = mode.substring(mode.indexOf('|') + 1);
+
         final int defaultValue = Config.textSizeForMode(getActivity(),
-                getArguments().getString(KEY_ATEKEY),
-                getArguments().getString(KEY_MODE));
+                getArguments().getString(KEY_ATEKEY), mode);
         mPreview.setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultValue);
         mSeeker.setMax(111);
         final int dpValue = pxToSp(this, defaultValue);
