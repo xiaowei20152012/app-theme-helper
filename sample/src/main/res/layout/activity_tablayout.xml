@@ -11,9 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:elevation="@dimen/toolbar_elevation"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:tag="background|primary_color">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/appbar_toolbar"
@@ -27,7 +27,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:tag="tab_text_primary,tab_indicator_accent_color,background|primary_color" />
+            android:tag="tab_text|primary_text,tab_indicator|accent_color" />
 
     </LinearLayout>
 

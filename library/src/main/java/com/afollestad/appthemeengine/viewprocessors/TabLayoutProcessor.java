@@ -10,9 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.view.View;
 
+import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
+
+import java.util.Locale;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -31,12 +34,16 @@ public class TabLayoutProcessor implements ViewProcessor<TabLayout, Void> {
     public void process(@NonNull Context context, @Nullable String key, @Nullable TabLayout view, @Nullable Void extra) {
         if (view == null)
             return;
+        else if (view.getParent() == null) {
+            ATE.addPostInflationView(view);
+            return;
+        }
 
         mTabTextColorSelected = Color.WHITE;
         mTabIndicatorColorSelected = Color.WHITE;
 
         Drawable bg = view.getBackground();
-        if (bg == null)
+        if (bg == null && view.getParent() != null)
             bg = ((View) view.getParent()).getBackground();
         if (bg != null && bg instanceof ColorDrawable) {
             final ColorDrawable cd = (ColorDrawable) bg;
@@ -49,10 +56,8 @@ public class TabLayoutProcessor implements ViewProcessor<TabLayout, Void> {
             if (tag.contains(",")) {
                 final String[] splitTag = tag.split(",");
                 for (String part : splitTag)
-                    processTagPart(context, part, key);
-            } else {
-                processTagPart(context, tag, key);
-            }
+                    processTagPart(context, view, part, key);
+            } else processTagPart(context, view, tag, key);
         }
 
         view.setTabTextColors(ATEUtil.adjustAlpha(mTabTextColorSelected, 0.5f), mTabTextColorSelected);
@@ -68,75 +73,83 @@ public class TabLayoutProcessor implements ViewProcessor<TabLayout, Void> {
                 });
         for (int i = 0; i < view.getTabCount(); i++) {
             final TabLayout.Tab tab = view.getTabAt(i);
-            if (tab != null && tab.getIcon() != null) {
+            if (tab != null && tab.getIcon() != null)
                 TintHelper.tintDrawable(tab.getIcon(), sl);
-            }
         }
     }
 
-    private void processTagPart(@NonNull Context context, @Nullable String tag, @Nullable String key) {
-        if (tag != null) {
-            switch (tag) {
-                case KEY_TAB_TEXT_PRIMARY_COLOR:
-                    mTabTextColorSelected = Config.primaryColor(context, key);
-                    break;
-                case KEY_TAB_TEXT_PRIMARY_COLOR_DARK:
-                    mTabTextColorSelected = Config.primaryColorDark(context, key);
-                    break;
-                case KEY_TAB_TEXT_ACCENT_COLOR:
-                    mTabTextColorSelected = Config.accentColor(context, key);
-                    break;
-                case KEY_TAB_TEXT_PRIMARY:
-                    mTabTextColorSelected = Config.textColorPrimary(context, key);
-                    break;
-                case KEY_TAB_TEXT_PRIMARY_INVERSE:
-                    mTabTextColorSelected = Config.textColorPrimaryInverse(context, key);
-                    break;
-                case KEY_TAB_TEXT_SECONDARY:
-                    mTabTextColorSelected = Config.textColorSecondary(context, key);
-                    break;
-                case KEY_TAB_TEXT_SECONDARY_INVERSE:
-                    mTabTextColorSelected = Config.textColorSecondaryInverse(context, key);
-                    break;
+    private void processTagPart(@NonNull Context context, @NonNull View view, @NonNull String tag, @Nullable String key) {
+        final int newColor;
+        if (!tag.contains("|")) return;
+        final String prefix = tag.substring(0, tag.indexOf('|'));
+        final String suffix = tag.substring(tag.indexOf('|') + 1);
 
-                case KEY_TAB_INDICATOR_PRIMARY_COLOR:
-                    mTabIndicatorColorSelected = Config.primaryColor(context, key);
-                    break;
-                case KEY_TAB_INDICATOR_PRIMARY_COLOR_DARK:
-                    mTabIndicatorColorSelected = Config.primaryColorDark(context, key);
-                    break;
-                case KEY_TAB_INDICATOR_ACCENT_COLOR:
-                    mTabIndicatorColorSelected = Config.accentColor(context, key);
-                    break;
-                case KEY_TAB_INDICATOR_TEXT_PRIMARY:
-                    mTabIndicatorColorSelected = Config.textColorPrimary(context, key);
-                    break;
-                case KEY_TAB_INDICATOR_TEXT_PRIMARY_INVERSE:
-                    mTabIndicatorColorSelected = Config.textColorPrimaryInverse(context, key);
-                    break;
-                case KEY_TAB_INDICATOR_TEXT_SECONDARY:
-                    mTabIndicatorColorSelected = Config.textColorSecondary(context, key);
-                    break;
-                case KEY_TAB_INDICATOR_TEXT_SECONDARY_INVERSE:
-                    mTabIndicatorColorSelected = Config.textColorSecondaryInverse(context, key);
-                    break;
+        switch (suffix) {
+            case PRIMARY_COLOR:
+                newColor = Config.primaryColor(context, key);
+                break;
+            case PRIMARY_COLOR_DARK:
+                newColor = Config.primaryColorDark(context, key);
+                break;
+            case ACCENT_COLOR:
+                newColor = Config.accentColor(context, key);
+                break;
+            case PRIMARY_TEXT_COLOR:
+                newColor = Config.textColorPrimary(context, key);
+                break;
+            case PRIMARY_TEXT_COLOR_INVERSE:
+                newColor = Config.textColorPrimaryInverse(context, key);
+                break;
+            case SECONDARY_TEXT_COLOR:
+                newColor = Config.textColorSecondary(context, key);
+                break;
+            case SECONDARY_TEXT_COLOR_INVERSE:
+                newColor = Config.textColorSecondaryInverse(context, key);
+                break;
+
+            case PARENT_DEPENDENT: {
+                final String viewName = ATEUtil.getIdName(context, view.getId());
+                if (view.getParent() == null) return;
+                final View parent = (View) view.getParent();
+                if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
+                    throw new IllegalStateException(String.format(Locale.getDefault(),
+                            "View %s uses background|parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
+                final ColorDrawable bg = (ColorDrawable) parent.getBackground();
+                newColor = ATEUtil.isColorLight(bg.getColor()) ? Color.BLACK : Color.WHITE;
+                break;
             }
+            case PRIMARY_COLOR_DEPENDENT:
+                newColor = ATEUtil.isColorLight(Config.primaryColor(context, key)) ?
+                        Color.BLACK : Color.WHITE;
+                break;
+            case ACCENT_COLOR_DEPENDENT:
+                newColor = ATEUtil.isColorLight(Config.accentColor(context, key)) ?
+                        Color.BLACK : Color.WHITE;
+                break;
+            case WINDOW_BG_DEPENDENT:
+                newColor = ATEUtil.isColorLight(ATEUtil.resolveColor(context, android.R.attr.windowBackground)) ?
+                        Color.BLACK : Color.WHITE;
+                break;
+            default:
+                throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
+
+        if (prefix.equals("tab_text"))
+            mTabTextColorSelected = newColor;
+        else if (prefix.equals("tab_indicator"))
+            mTabIndicatorColorSelected = newColor;
     }
 
-    private final static String KEY_TAB_TEXT_PRIMARY_COLOR = "tab_text_primary_color";
-    private final static String KEY_TAB_TEXT_PRIMARY_COLOR_DARK = "tab_text_primary_color_dark";
-    private final static String KEY_TAB_TEXT_ACCENT_COLOR = "tab_text_accent_color";
-    private final static String KEY_TAB_TEXT_PRIMARY = "tab_text_primary";
-    private final static String KEY_TAB_TEXT_PRIMARY_INVERSE = "tab_text_primary_inverse";
-    private final static String KEY_TAB_TEXT_SECONDARY = "tab_text_secondary";
-    private final static String KEY_TAB_TEXT_SECONDARY_INVERSE = "tab_text_secondary_inverse";
+    private static final String PRIMARY_COLOR = "primary_color";
+    private static final String PRIMARY_COLOR_DARK = "primary_color_dark";
+    private static final String ACCENT_COLOR = "accent_color";
+    private static final String PRIMARY_TEXT_COLOR = "primary_text";
+    private static final String PRIMARY_TEXT_COLOR_INVERSE = "primary_text_inverse";
+    private static final String SECONDARY_TEXT_COLOR = "secondary_text";
+    private static final String SECONDARY_TEXT_COLOR_INVERSE = "secondary_text_inverse";
 
-    private final static String KEY_TAB_INDICATOR_PRIMARY_COLOR = "tab_indicator_primary_color";
-    private final static String KEY_TAB_INDICATOR_PRIMARY_COLOR_DARK = "tab_indicator_primary_color_dark";
-    private final static String KEY_TAB_INDICATOR_ACCENT_COLOR = "tab_indicator_accent_color";
-    private final static String KEY_TAB_INDICATOR_TEXT_PRIMARY = "tab_indicator_text_primary";
-    private final static String KEY_TAB_INDICATOR_TEXT_PRIMARY_INVERSE = "tab_indicator_text_primary_inverse";
-    private final static String KEY_TAB_INDICATOR_TEXT_SECONDARY = "tab_indicator_text_secondary";
-    private final static String KEY_TAB_INDICATOR_TEXT_SECONDARY_INVERSE = "tab_indicator_text_secondary_inverse";
+    private static final String PARENT_DEPENDENT = "parent_dependent";
+    private static final String PRIMARY_COLOR_DEPENDENT = "primary_color_dependent";
+    private static final String ACCENT_COLOR_DEPENDENT = "accent_color_dependent";
+    private static final String WINDOW_BG_DEPENDENT = "window_bg_dependent";
 }
