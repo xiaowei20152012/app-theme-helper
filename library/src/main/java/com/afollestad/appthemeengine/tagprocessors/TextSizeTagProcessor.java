@@ -12,7 +12,7 @@ import com.afollestad.appthemeengine.Config;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class TextSizeTagProcessor implements TagProcessor {
+public class TextSizeTagProcessor extends TagProcessor {
 
     public static final String PREFIX = "text_size";
 
