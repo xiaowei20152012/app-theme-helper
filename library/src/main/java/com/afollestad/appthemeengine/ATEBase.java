@@ -18,7 +18,6 @@ import com.afollestad.appthemeengine.tagprocessors.TextSizeTagProcessor;
 import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.viewprocessors.DefaultProcessor;
-import com.afollestad.appthemeengine.viewprocessors.DrawerLayoutProcessor;
 import com.afollestad.appthemeengine.viewprocessors.ListViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.NavigationViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.NestedScrollViewProcessor;
@@ -60,9 +59,6 @@ class ATEBase {
         if (ATEUtil.isInClassPath(NavigationViewProcessor.MAIN_CLASS))
             mViewProcessors.put(NavigationViewProcessor.MAIN_CLASS, new NavigationViewProcessor());
         else Log.d("ATEBase", "NavigationView isn't in the class path. Ignoring.");
-        if (ATEUtil.isInClassPath(DrawerLayoutProcessor.MAIN_CLASS))
-            mViewProcessors.put(DrawerLayoutProcessor.MAIN_CLASS, new DrawerLayoutProcessor());
-        else Log.d("ATEBase", "DrawerLayout isn't in the class path. Ignoring.");
         if (ATEUtil.isInClassPath(TabLayoutProcessor.MAIN_CLASS))
             mViewProcessors.put(TabLayoutProcessor.MAIN_CLASS, new TabLayoutProcessor());
         else Log.d("ATEBase", "TabLayout isn't in the class path. Ignoring.");

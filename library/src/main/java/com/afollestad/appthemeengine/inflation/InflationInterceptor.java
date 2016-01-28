@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.viewprocessors.DrawerLayoutProcessor;
 import com.afollestad.appthemeengine.viewprocessors.NavigationViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.NestedScrollViewProcessor;
 import com.afollestad.appthemeengine.viewprocessors.RecyclerViewProcessor;
@@ -168,7 +167,7 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
             case NestedScrollViewProcessor.MAIN_CLASS:
                 view = new ATENestedScrollView(context, attrs, mKeyContext);
                 break;
-            case DrawerLayoutProcessor.MAIN_CLASS:
+            case "android.support.v4.widget.DrawerLayout":
                 view = new ATEDrawerLayout(context, attrs, mKeyContext);
                 break;
             case NavigationViewProcessor.MAIN_CLASS:
