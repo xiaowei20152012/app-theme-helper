@@ -19,6 +19,7 @@
             android:id="@+id/toolbarSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:tag="tint|parent_dependent"
             android:minWidth="156dp" />
 
     </android.support.v7.widget.Toolbar>
