@@ -28,7 +28,11 @@ class ATETabLayout extends TabLayout implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        ATEViewUtil.init(keyContext, this, context);
+        try {
+            ATEViewUtil.init(keyContext, this, context);
+        } catch (Throwable t) {
+            throw new RuntimeException(t.getMessage(), t);
+        }
     }
 
     @Override

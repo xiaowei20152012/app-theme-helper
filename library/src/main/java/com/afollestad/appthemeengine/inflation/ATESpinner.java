@@ -52,7 +52,11 @@ public class ATESpinner extends AppCompatSpinner implements ViewInterface {
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
             setTag(String.format("%s|window_bg_dependent", TintTagProcessor.BACKGROUND_PREFIX));
-        ATEViewUtil.init(keyContext, this, context);
+        try {
+            ATEViewUtil.init(keyContext, this, context);
+        } catch (Throwable t) {
+            throw new RuntimeException(t.getMessage(), t);
+        }
     }
 
     @Override

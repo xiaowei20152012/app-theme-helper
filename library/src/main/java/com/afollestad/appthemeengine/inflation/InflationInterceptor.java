@@ -248,8 +248,8 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                         } finally {
                             mConstructorArgs[0] = lastContext;
                         }
-                    } catch(Throwable t) {
-                        throw new RuntimeException("An error occurred while inflating View " + name, t);
+                    } catch (Throwable t) {
+                        throw new RuntimeException(String.format("An error occurred while inflating View %s: %s", name, t.getMessage()), t);
                     }
                 }
 

@@ -37,7 +37,11 @@ public class DefaultProcessor implements ViewProcessor<View, Void> {
                 throw new IllegalStateException(String.format("A view of type %s cannot use %s tags.",
                         view.getClass().getName(), prefix));
             }
-            processor.process(context, key, view, suffix);
+            try {
+                processor.process(context, key, view, suffix);
+            } catch (Throwable t) {
+                throw new RuntimeException(String.format("Failed to run %s: %s", processor.getClass().getName(), t.getMessage()), t);
+            }
         }
     }
 }

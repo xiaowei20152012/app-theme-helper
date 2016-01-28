@@ -31,7 +31,11 @@ class ATESeekBar extends SeekBar implements ViewInterface {
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
             setTag(String.format("%s|accent_color", TintTagProcessor.PREFIX));
-        ATEViewUtil.init(keyContext, this, context);
+        try {
+            ATEViewUtil.init(keyContext, this, context);
+        } catch (Throwable t) {
+            throw new RuntimeException(t.getMessage(), t);
+        }
     }
 
     @Override
