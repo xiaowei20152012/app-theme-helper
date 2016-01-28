@@ -9,6 +9,6 @@
     android:minWidth="156dp"
     android:paddingLeft="@dimen/content_inset"
     android:paddingRight="@dimen/content_inset"
-    android:tag="text_color|primary_text_inverse,text_size|subheading"
+    android:tag="text_color|primary_color_dependent,text_size|subheading"
     tools:ignore="UnusedAttribute"
     tools:text="Hello, world!" />
