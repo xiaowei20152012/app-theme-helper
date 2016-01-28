@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.ATEUtil;
 
@@ -60,9 +61,10 @@ public class TextShadowColorTagProcessor implements TagProcessor {
 
             case PARENT_DEPENDENT: {
                 final String viewName = ATEUtil.getIdName(context, view.getId());
-                if (view.getParent() == null)
-                    throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses text_color_shadow|parent_dependent tag but has no parent.", viewName));
+                if (view.getParent() == null) {
+                    ATE.addPostInflationView(view);
+                    return;
+                }
                 final View parent = (View) view.getParent();
                 if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
                     throw new IllegalStateException(String.format(Locale.getDefault(),

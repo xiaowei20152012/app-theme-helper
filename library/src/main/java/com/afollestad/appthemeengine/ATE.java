@@ -25,10 +25,10 @@ import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
 import com.afollestad.appthemeengine.customizers.ATETaskDescriptionCustomizer;
 import com.afollestad.appthemeengine.inflation.PostInflationApplier;
 import com.afollestad.appthemeengine.inflation.ViewInterface;
-import com.afollestad.appthemeengine.viewprocessors.ViewProcessor;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.MDUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
+import com.afollestad.appthemeengine.viewprocessors.ViewProcessor;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public final class ATE extends ATEBase {
     /**
      * @hide
      */
-    public static <T extends View & PostInflationApplier> void addPostInflationView(T view) {
+    public static <T extends View> void addPostInflationView(T view) {
         if (mPostInflationApply == null)
             mPostInflationApply = new ArrayList<>();
         mPostInflationApply.add(view);
@@ -189,8 +189,11 @@ public final class ATE extends ATEBase {
 
         if (mPostInflationApply != null) {
             synchronized (IGNORE_TAG) {
-                for (View view : mPostInflationApply)
-                    ((PostInflationApplier) view).postApply();
+                for (View view : mPostInflationApply) {
+                    if (view instanceof PostInflationApplier)
+                        ((PostInflationApplier) view).postApply();
+                    else ATE.themeView(activity, view, key);
+                }
             }
         }
 

@@ -16,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.Config;
 import com.afollestad.appthemeengine.util.ATEUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
@@ -89,9 +90,10 @@ public class TintTagProcessor implements TagProcessor {
 
             case PARENT_DEPENDENT: {
                 final String viewName = ATEUtil.getIdName(context, view.getId());
-                if (view.getParent() == null)
-                    throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses %s|parent_dependent tag but has no parent.", viewName, mPrefix));
+                if (view.getParent() == null) {
+                    ATE.addPostInflationView(view);
+                    return;
+                }
                 final View parent = (View) view.getParent();
                 if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
                     throw new IllegalStateException(String.format(Locale.getDefault(),
