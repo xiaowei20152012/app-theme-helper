@@ -44,7 +44,7 @@ public abstract class TagProcessor {
      * is being added to the post inflation views).
      */
     @Nullable
-    protected ColorResult getColorFromSuffix(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
+    public static ColorResult getColorFromSuffix(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
         final int result;
         switch (suffix) {
             case PRIMARY_COLOR:

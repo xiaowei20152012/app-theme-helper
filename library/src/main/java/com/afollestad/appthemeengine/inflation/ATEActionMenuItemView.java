@@ -53,6 +53,7 @@ class ATEActionMenuItemView extends ActionMenuItemView implements ViewInterface 
         else invalidateTintColor();
 
         ATE.themeView(context, this, mKey);
+        setTextColor(mTintColor); // sets menu item text color
     }
 
     private void invalidateTintColor() {

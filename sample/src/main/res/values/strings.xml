@@ -79,7 +79,8 @@
     <string name="fragment_theming">Fragment Theming!</string>
     <string name="drawer_misc">Misc</string>
     <string name="misc">Miscellaneous</string>
-    <string name="hello">Hello world!</string>
+    <string name="text_input_layout">Text Input Layout</string>
+    <string name="regular_input">Regular Input</string>
 
     <string-array name="light_status_mode_entries">
         <item>Off, status bar icons will be white</item>
