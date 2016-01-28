@@ -220,22 +220,22 @@ public class SettingsActivity extends BaseThemedActivity
                 }
             };
 
-            final Preference textsizeHeadline = findPreference("textsize_headline");
+            final Preference textsizeHeadline = findPreference("text_size|headline");
             textsizeHeadline.setOnPreferenceClickListener(textsizeClickListener);
             textsizeHeadline.setSummary(getString(R.string.headline_textsize_desc,
                     TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_HEADLINE))));
 
-            final Preference textsizeTitle = findPreference("textsize_title");
+            final Preference textsizeTitle = findPreference("text_size|title");
             textsizeTitle.setOnPreferenceClickListener(textsizeClickListener);
             textsizeTitle.setSummary(getString(R.string.title_textsize_desc,
                     TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_TITLE))));
 
-            final Preference textsizeSubheading = findPreference("textsize_subheading");
+            final Preference textsizeSubheading = findPreference("text_size|subheading");
             textsizeSubheading.setOnPreferenceClickListener(textsizeClickListener);
             textsizeSubheading.setSummary(getString(R.string.subheading_textsize_desc,
                     TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_SUBHEADING))));
 
-            final Preference textsizeBody = findPreference("textsize_body");
+            final Preference textsizeBody = findPreference("text_size|body");
             textsizeBody.setOnPreferenceClickListener(textsizeClickListener);
             textsizeBody.setSummary(getString(R.string.body_textsize_desc,
                     TextSizeDialog.pxToSp(this, Config.textSizeForMode(getActivity(), mAteKey, Config.TEXTSIZE_BODY))));
