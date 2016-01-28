@@ -28,6 +28,8 @@ import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.kabouzeid.appthemehelper.R;
+
 import java.lang.reflect.Field;
 
 /**
@@ -291,13 +293,18 @@ public final class TintHelper {
     }
 
     private static Drawable modifySwitchDrawable(@NonNull Context context, @NonNull Drawable from, @ColorInt int tint, @FloatRange(from = 0.0, to = 1.0) float alpha, boolean thumb, boolean useDarker) {
-        if (alpha < 1f)
-            tint = ColorUtil.adjustAlpha(tint, alpha);
+        if (useDarker) {
+            tint = ColorUtil.lightenColor(tint);
+        }
+        tint = ColorUtil.withAlpha(tint, alpha);
         int disabled;
+        int off;
         if (thumb) {
             disabled = ContextCompat.getColor(context, useDarker ? com.kabouzeid.appthemehelper.R.color.ate_disabled_switch_thumb_dark : com.kabouzeid.appthemehelper.R.color.ate_disabled_switch_thumb_light);
+            off = ContextCompat.getColor(context, useDarker ? R.color.md_grey_400 : R.color.md_grey_50);
         } else {
             disabled = ContextCompat.getColor(context, useDarker ? com.kabouzeid.appthemehelper.R.color.ate_disabled_switch_track_dark : com.kabouzeid.appthemehelper.R.color.ate_disabled_switch_track_light);
+            off = useDarker ? ColorUtil.withAlpha(Color.WHITE, 0.3f) : ColorUtil.withAlpha(Color.BLACK, 0.26f);
         }
         final ColorStateList sl = new ColorStateList(
                 new int[][]{
@@ -308,7 +315,7 @@ public final class TintHelper {
                 },
                 new int[]{
                         disabled,
-                        Color.parseColor(thumb ? "#e7e7e7" : "#9f9f9f"),
+                        off,
                         tint,
                         tint
                 }

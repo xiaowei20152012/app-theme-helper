@@ -5,14 +5,15 @@ import android.content.Context;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.R;
 import com.kabouzeid.appthemehelper.ThemeStore;
-import com.kabouzeid.appthemehelper.common.views.ATECheckBox;
 
 import java.lang.reflect.Field;
 
@@ -44,7 +45,6 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
 
     private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
-        setWidgetLayoutResource(R.layout.ate_preference_checkbox);
 
         try {
             Field canRecycleLayoutField = Preference.class.getDeclaredField("mCanRecycleLayout");
@@ -65,11 +65,27 @@ public class ATECheckBoxPreference extends CheckBoxPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        CheckBox checkbox = (ATECheckBox) view.findViewById(android.R.id.checkbox);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            checkbox.setBackground(null);
+        View parentCheckbox = findCheckboxView(view);
+        if (parentCheckbox != null) {
+            ATH.setTint(parentCheckbox, ThemeStore.accentColor(view.getContext()));
         }
+    }
 
-        ATH.setTint(checkbox, ThemeStore.accentColor(view.getContext()));
+    @Nullable
+    private View findCheckboxView(View view) {
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View child = ((ViewGroup) view).getChildAt(i);
+                if (child instanceof CheckBox) {
+                    return child;
+                } else if (child instanceof ViewGroup) {
+                    View potentialCheckbox = findCheckboxView(child);
+                    if (potentialCheckbox != null) return potentialCheckbox;
+                }
+            }
+        } else if (view instanceof CheckBox) {
+            return view;
+        }
+        return null;
     }
 }
