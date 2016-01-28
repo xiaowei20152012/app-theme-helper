@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 
+import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.Config;
 
@@ -32,11 +33,14 @@ class ATEDrawerLayout extends DrawerLayout implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Sets Activity status bar to transparent, DrawerLayout overlays a color.
-            ((Activity) context).getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         final String key = ATEViewUtil.init(keyContext, this, context);
+        if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            final Activity activity = (Activity)context;
+            // Sets Activity status bar to transparent, DrawerLayout overlays a color.
+            activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
+            ATE.invalidateLightStatusBar(activity, key);
+        }
+
         // Sets the status bar overlayed by the DrawerLayout
         setStatusBarBackgroundColor(Config.statusBarColor(context, key));
     }

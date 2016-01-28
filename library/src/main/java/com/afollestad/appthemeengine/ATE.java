@@ -103,12 +103,16 @@ public final class ATE extends ATEBase {
                 if (Config.coloredStatusBar(activity, key))
                     window.setStatusBarColor(Config.statusBarColor(activity, key));
                 else window.setStatusBarColor(Color.BLACK);
+                invalidateLightStatusBar(activity, key);
             }
             if (Config.coloredNavigationBar(activity, key))
                 window.setNavigationBarColor(Config.navigationBarColor(activity, key));
             else window.setNavigationBarColor(Color.BLACK);
             applyTaskDescription(activity, key);
         }
+    }
+
+    public static void invalidateLightStatusBar(@NonNull Activity activity, @Nullable String key) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             final View decorView = activity.getWindow().getDecorView();
             boolean lightStatusEnabled = false;
