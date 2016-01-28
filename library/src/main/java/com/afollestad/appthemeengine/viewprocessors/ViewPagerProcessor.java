@@ -17,6 +17,6 @@ public class ViewPagerProcessor implements ViewProcessor<ViewPager, Void> {
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable ViewPager target, @Nullable Void extra) {
         if (target == null) return;
-        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTag(context, key, target));
+        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTags(context, key, target));
     }
 }

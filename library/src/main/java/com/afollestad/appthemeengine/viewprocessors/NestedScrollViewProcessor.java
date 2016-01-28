@@ -17,6 +17,6 @@ public class NestedScrollViewProcessor implements ViewProcessor<NestedScrollView
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable NestedScrollView target, @Nullable Void extra) {
         if (target == null) return;
-        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTag(context, key, target));
+        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTags(context, key, target));
     }
 }

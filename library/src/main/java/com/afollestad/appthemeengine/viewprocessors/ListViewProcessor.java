@@ -15,6 +15,6 @@ public class ListViewProcessor implements ViewProcessor<ListView, Void> {
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable ListView target, @Nullable Void extra) {
         if (target == null) return;
-        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTag(context, key, target));
+        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTags(context, key, target));
     }
 }

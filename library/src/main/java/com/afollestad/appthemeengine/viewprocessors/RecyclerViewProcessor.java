@@ -17,6 +17,6 @@ public class RecyclerViewProcessor implements ViewProcessor<RecyclerView, Void> 
     @Override
     public void process(@NonNull Context context, @Nullable String key, @Nullable RecyclerView target, @Nullable Void extra) {
         if (target == null) return;
-        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTag(context, key, target), null);
+        EdgeGlowUtil.setEdgeGlowColor(target, ScrollViewProcessor.processTags(context, key, target), null);
     }
 }
