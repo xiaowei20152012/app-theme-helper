@@ -41,6 +41,7 @@ public class TextColorTagProcessor implements TagProcessor {
         return view instanceof TextView;
     }
 
+    // TODO is dependent parameter needed?
     private static ColorStateList getTextSelector(@ColorInt int color, View view, boolean dependent) {
         if (dependent)
             color = ATEUtil.isColorLight(color) ? Color.BLACK : Color.WHITE;
@@ -48,6 +49,7 @@ public class TextColorTagProcessor implements TagProcessor {
                 new int[]{-android.R.attr.state_enabled},
                 new int[]{android.R.attr.state_enabled}
         }, new int[]{
+                // Buttons are gray when disabled, so the text needs to be black
                 view instanceof Button ? Color.BLACK : ATEUtil.adjustAlpha(color, 0.3f),
                 color
         });
@@ -56,7 +58,7 @@ public class TextColorTagProcessor implements TagProcessor {
     @Override
     public void process(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
         final TextView tv = (TextView) view;
-        final int newTextColor;
+        int newTextColor;
 
         switch (suffix) {
             case PRIMARY_COLOR:
@@ -111,6 +113,9 @@ public class TextColorTagProcessor implements TagProcessor {
             default:
                 throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
+
+        if (mHintMode)
+            newTextColor = ATEUtil.adjustAlpha(newTextColor, 0.5f);
 
         final ColorStateList sl = getTextSelector(newTextColor, view, false);
         if (mLinkMode) {

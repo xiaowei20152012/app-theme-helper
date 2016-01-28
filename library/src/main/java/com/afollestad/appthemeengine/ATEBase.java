@@ -105,7 +105,7 @@ class ATEBase {
                 new TextColorTagProcessor(TextColorTagProcessor.PREFIX, false, false));
         mTagProcessors.put(TextColorTagProcessor.LINK_PREFIX,
                 new TextColorTagProcessor(TextColorTagProcessor.LINK_PREFIX, true, false));
-        mTagProcessors.put(TextColorTagProcessor.LINK_PREFIX,
+        mTagProcessors.put(TextColorTagProcessor.HINT_PREFIX,
                 new TextColorTagProcessor(TextColorTagProcessor.HINT_PREFIX, false, true));
         mTagProcessors.put(TextShadowColorTagProcessor.PREFIX, new TextShadowColorTagProcessor());
         mTagProcessors.put(TextSizeTagProcessor.PREFIX, new TextSizeTagProcessor());
