@@ -68,13 +68,29 @@
                         android:tag="tint_accent_color,text_primary,textsize_body"
                         android:text="@string/checkbox" />
 
-                    <com.kabouzeid.appthemehelper.common.views.ATESwitch
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
-                        android:checked="true"
-                        android:tag="tint_accent_color,text_primary,textsize_body"
-                        android:text="@string/switchView" />
+                        android:orientation="horizontal">
+
+                        <com.kabouzeid.appthemehelper.common.views.ATESwitch
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:tag="tint_accent_color,text_primary,textsize_body"
+                            android:text="@string/switchViewCompat" />
+
+                        <Switch
+                            android:id="@+id/switchView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/content_inset"
+                            android:layout_marginStart="@dimen/content_inset"
+                            android:checked="true"
+                            android:text="@string/switchView" />
+
+                    </LinearLayout>
 
                     <com.kabouzeid.appthemehelper.common.views.ATERadioButton
                         android:layout_width="wrap_content"

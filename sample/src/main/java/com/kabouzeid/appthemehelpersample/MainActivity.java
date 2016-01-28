@@ -64,6 +64,8 @@ public class MainActivity extends ATHToolbarActivity implements NavigationView.O
         TintHelper.setTintAuto(findViewById(R.id.fab), accentColor, true);
         TintHelper.setTintAuto(findViewById(R.id.button), accentColor, true);
 
+        TintHelper.setTintAuto(findViewById(R.id.switchView), accentColor, false);
+
         boolean coloredStatusBar = ThemeStore.coloredStatusBar(this);
         int statusBarColor = coloredStatusBar ? Color.TRANSPARENT : Color.BLACK;
         ATH.setStatusbarColor(this, statusBarColor);

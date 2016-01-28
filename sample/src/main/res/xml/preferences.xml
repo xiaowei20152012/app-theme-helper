@@ -12,7 +12,6 @@
             android:persistent="true"
             android:summary="@string/dark_theme_summary"
             android:title="@string/dark_theme"
-            android:widgetLayout="@layout/ate_preference_checkbox"
             app:ateKey_pref_switch="?ate_key" />
 
     </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
