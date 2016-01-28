@@ -24,13 +24,16 @@ public class TextColorTagProcessor implements TagProcessor {
 
     public static final String PREFIX = "text_color";
     public static final String LINK_PREFIX = "text_color_link";
+    public static final String HINT_PREFIX = "text_color_hint";
 
     private final String mPrefix;
     private final boolean mLinkMode;
+    private final boolean mHintMode;
 
-    public TextColorTagProcessor(String prefix, boolean links) {
+    public TextColorTagProcessor(String prefix, boolean links, boolean hints) {
         mPrefix = prefix;
         mLinkMode = links;
+        mHintMode = hints;
     }
 
     @Override
@@ -112,6 +115,8 @@ public class TextColorTagProcessor implements TagProcessor {
         final ColorStateList sl = getTextSelector(newTextColor, view, false);
         if (mLinkMode) {
             tv.setLinkTextColor(sl);
+        } else if (mHintMode) {
+            tv.setHintTextColor(sl);
         } else {
             tv.setTextColor(sl);
         }

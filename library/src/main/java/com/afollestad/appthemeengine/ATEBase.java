@@ -101,9 +101,11 @@ class ATEBase {
         mTagProcessors.put(BackgroundTagProcessor.PREFIX, new BackgroundTagProcessor());
         mTagProcessors.put(FontTagProcessor.PREFIX, new FontTagProcessor());
         mTagProcessors.put(TextColorTagProcessor.PREFIX,
-                new TextColorTagProcessor(TextColorTagProcessor.PREFIX, false));
+                new TextColorTagProcessor(TextColorTagProcessor.PREFIX, false, false));
         mTagProcessors.put(TextColorTagProcessor.LINK_PREFIX,
-                new TextColorTagProcessor(TextColorTagProcessor.LINK_PREFIX, true));
+                new TextColorTagProcessor(TextColorTagProcessor.LINK_PREFIX, true, false));
+        mTagProcessors.put(TextColorTagProcessor.LINK_PREFIX,
+                new TextColorTagProcessor(TextColorTagProcessor.HINT_PREFIX, false, true));
         mTagProcessors.put(TextShadowColorTagProcessor.PREFIX, new TextShadowColorTagProcessor());
         mTagProcessors.put(TextSizeTagProcessor.PREFIX, new TextSizeTagProcessor());
         mTagProcessors.put(TintTagProcessor.PREFIX,
