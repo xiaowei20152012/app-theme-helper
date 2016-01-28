@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 
+import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.Config;
 
@@ -36,11 +37,15 @@ class ATECoordinatorLayout extends CoordinatorLayout implements ViewInterface {
             keyContext = (ATEActivity) context;
         if (keyContext != null)
             key = keyContext.getATEKey();
-        if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // Sets Activity status bar to transparent, DrawerLayout overlays a color.
-            ((Activity) context).getWindow().setStatusBarColor(Config.statusBarColor(context, key)); //Color.TRANSPARENT);
+        if (Config.coloredStatusBar(context, key)) {
+            if (context instanceof Activity && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                // Sets Activity status bar to transparent, DrawerLayout overlays a color.
+                final Activity activity = (Activity) context;
+                activity.getWindow().setStatusBarColor(Config.statusBarColor(context, key));
+                ATE.invalidateLightStatusBar(activity, key);
+            }
+            setStatusBarBackgroundColor(Config.statusBarColor(context, key));
         }
-        setStatusBarBackgroundColor(Config.statusBarColor(context, key));
     }
 
     @Override
