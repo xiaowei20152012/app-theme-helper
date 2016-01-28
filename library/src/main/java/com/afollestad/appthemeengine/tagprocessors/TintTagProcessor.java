@@ -3,6 +3,7 @@ package com.afollestad.appthemeengine.tagprocessors;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CheckBox;
@@ -15,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.afollestad.appthemeengine.util.ATEUtil;
+import com.afollestad.appthemeengine.util.TextInputLayoutUtil;
 import com.afollestad.appthemeengine.util.TintHelper;
 
 /**
@@ -64,6 +66,14 @@ public class TintTagProcessor extends TagProcessor {
             TintHelper.setTintSelector(view, result.getColor(), !mLightSelector, isDark);
         } else {
             TintHelper.setTintAuto(view, result.getColor(), mBackgroundMode);
+        }
+
+        if (view instanceof EditText) {
+            // Sets accent (expanded hint) color of parent TextInputLayouts
+            if (view.getParent() != null && view.getParent() instanceof TextInputLayout) {
+                final TextInputLayout til = (TextInputLayout) view.getParent();
+                TextInputLayoutUtil.setAccent(til, result.getColor());
+            }
         }
     }
 }

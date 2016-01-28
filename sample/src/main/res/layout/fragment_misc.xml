@@ -24,7 +24,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:tag="text_color_hint|accent_color"
+                android:tag="text_color_hint|primary_text,tint|accent_color"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_input_layout" />
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ContextThemeWrapper;
@@ -117,7 +118,8 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                 break;
             case "android.support.v7.widget.AppCompatEdiText":
             case "EditText":
-                view = new ATEEditText(context, attrs, mKeyContext);
+                view = new ATEEditText(context, attrs, mKeyContext,
+                        parent != null && parent instanceof TextInputLayout);
                 break;
             case "android.support.v7.widget.AppCompatCheckBox":
             case "CheckBox":
