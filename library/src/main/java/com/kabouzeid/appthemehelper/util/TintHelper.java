@@ -115,8 +115,7 @@ public final class TintHelper {
 
         Drawable drawable = view.getBackground();
         if (drawable != null) {
-            drawable = DrawableCompat.wrap(drawable);
-            DrawableCompat.setTintList(drawable, sl);
+            drawable = tintDrawable(drawable, sl);
             ViewUtil.setBackgroundCompat(view, drawable);
         }
 
@@ -178,8 +177,7 @@ public final class TintHelper {
             } else if (view.getBackground() != null) {
                 Drawable drawable = view.getBackground();
                 if (drawable != null) {
-                    drawable = DrawableCompat.wrap(drawable);
-                    DrawableCompat.setTint(drawable, color);
+                    drawable = tintDrawable(drawable, color);
                     ViewUtil.setBackgroundCompat(view, drawable);
                 }
             }
@@ -199,8 +197,7 @@ public final class TintHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             radioButton.setButtonTintList(sl);
         } else {
-            Drawable d = DrawableCompat.wrap(ContextCompat.getDrawable(radioButton.getContext(), com.kabouzeid.appthemehelper.R.drawable.abc_btn_radio_material));
-            DrawableCompat.setTintList(d, sl);
+            Drawable d = tintDrawable(ContextCompat.getDrawable(radioButton.getContext(), com.kabouzeid.appthemehelper.R.drawable.abc_btn_radio_material), sl);
             radioButton.setButtonDrawable(d);
         }
     }
@@ -212,12 +209,10 @@ public final class TintHelper {
             seekBar.setThumbTintList(s1);
             seekBar.setProgressTintList(s1);
         } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD_MR1) {
-            Drawable progressDrawable = DrawableCompat.wrap(seekBar.getProgressDrawable());
+            Drawable progressDrawable = tintDrawable(seekBar.getProgressDrawable(), s1);
             seekBar.setProgressDrawable(progressDrawable);
-            DrawableCompat.setTintList(progressDrawable, s1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                Drawable thumbDrawable = DrawableCompat.wrap(seekBar.getThumb());
-                DrawableCompat.setTintList(thumbDrawable, s1);
+                Drawable thumbDrawable = tintDrawable(seekBar.getThumb(), s1);
                 seekBar.setThumb(thumbDrawable);
             }
         } else {
@@ -347,7 +342,7 @@ public final class TintHelper {
     @Nullable
     public static Drawable tintDrawable(@Nullable Drawable drawable, @ColorInt int color) {
         if (drawable == null) return null;
-        drawable = DrawableCompat.wrap(drawable);
+        drawable = DrawableCompat.wrap(drawable.mutate());
         DrawableCompat.setTint(drawable, color);
         return drawable;
     }
@@ -355,7 +350,7 @@ public final class TintHelper {
     @Nullable
     public static Drawable tintDrawable(@Nullable Drawable drawable, @NonNull ColorStateList sl) {
         if (drawable == null) return null;
-        drawable = DrawableCompat.wrap(drawable);
+        drawable = DrawableCompat.wrap(drawable.mutate());
         DrawableCompat.setTintList(drawable, sl);
         return drawable;
     }
