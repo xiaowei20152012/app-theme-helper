@@ -1,7 +1,10 @@
 package com.kabouzeid.appthemehelper.util;
 
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -26,6 +29,19 @@ public final class ViewUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
             view.setBackground(drawable);
         else view.setBackgroundDrawable(drawable);
+    }
+
+    public static TransitionDrawable setBackgroundColorTransition(@NonNull View view, @ColorInt int newColor) {
+        final Drawable oldColor = view.getBackground();
+
+        Drawable start = oldColor != null ? oldColor : new ColorDrawable(view.getSolidColor());
+        Drawable end = new ColorDrawable(newColor);
+
+        TransitionDrawable transition = DrawableUtil.createTransitionDrawable(start, end);
+
+        setBackgroundCompat(view, transition);
+
+        return transition;
     }
 
     private ViewUtil() {
