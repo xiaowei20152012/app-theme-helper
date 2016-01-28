@@ -285,7 +285,7 @@ public final class TintHelper {
                 new int[]{android.R.attr.state_enabled, android.R.attr.state_checked}
         }, new int[]{
                 ContextCompat.getColor(box.getContext(), useDarker ? R.color.ate_disabled_checkbox_dark : R.color.ate_disabled_checkbox_light),
-                ContextCompat.getColor(editText.getContext(), useDarker ? R.color.ate_colorControlNormal_dark : R.color.ate_colorControlNormal_light),
+                ContextCompat.getColor(box.getContext(), useDarker ? R.color.ate_colorControlNormal_dark : R.color.ate_colorControlNormal_light),
                 color
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
