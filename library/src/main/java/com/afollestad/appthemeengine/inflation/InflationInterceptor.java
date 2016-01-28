@@ -186,8 +186,10 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
                 view = new ATEActionMenuItemView(context, attrs, mKeyContext);
                 break;
             case SearchViewProcessor.MAIN_CLASS:
-            case "SearchView":
                 view = new ATESearchView(context, attrs, mKeyContext);
+                break;
+            case "SearchView":
+                view = new ATEStockSearchView(context, attrs, mKeyContext);
                 break;
             case "CheckedTextView":
                 view = new ATECheckedTextView(context, attrs, mKeyContext);

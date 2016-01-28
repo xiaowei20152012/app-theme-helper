@@ -2,8 +2,8 @@ package com.afollestad.appthemeengine.inflation;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.SearchView;
 import android.util.AttributeSet;
+import android.widget.SearchView;
 
 import com.afollestad.appthemeengine.ATEActivity;
 import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
@@ -11,19 +11,19 @@ import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
 /**
  * @author Aidan Follestad (afollestad)
  */
-class ATESearchView extends SearchView implements ViewInterface {
+class ATEStockSearchView extends SearchView implements ViewInterface {
 
-    public ATESearchView(Context context) {
+    public ATEStockSearchView(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ATESearchView(Context context, AttributeSet attrs) {
+    public ATEStockSearchView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, null);
     }
 
-    public ATESearchView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
+    public ATEStockSearchView(Context context, AttributeSet attrs, @Nullable ATEActivity keyContext) {
         super(context, attrs);
         init(context, keyContext);
     }
