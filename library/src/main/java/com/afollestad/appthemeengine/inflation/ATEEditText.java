@@ -36,7 +36,8 @@ class ATEEditText extends EditText implements ViewInterface, PostInflationApplie
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
         if (getTag() == null)
-            setTag(String.format("%s|accent_color,%s|primary_text", TintTagProcessor.PREFIX, TextColorTagProcessor.PREFIX));
+            setTag(String.format("%s|accent_color,%s|primary_text,%s|primary_text",
+                    TintTagProcessor.PREFIX, TextColorTagProcessor.PREFIX, TextColorTagProcessor.HINT_PREFIX));
         if (mWaitForInflate) {
             mKeyContext = keyContext;
             ATE.addPostInflationView(this);
