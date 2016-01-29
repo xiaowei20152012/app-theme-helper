@@ -38,11 +38,9 @@
                     android:id="@+id/scroll_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/content_inset"
-                    android:paddingLeft="@dimen/content_inset"
-                    android:paddingRight="@dimen/content_inset"
-                    android:paddingTop="@dimen/content_inset"
+                    android:padding="@dimen/content_inset"
                     tools:ignore="UnusedAttribute">
 
                     <TextView
