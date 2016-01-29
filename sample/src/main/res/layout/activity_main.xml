@@ -70,13 +70,29 @@
                         android:tag="tint|accent_color,text_color|primary_text,text_size|body"
                         android:text="@string/checkbox" />
 
-                    <android.support.v7.widget.SwitchCompat
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/content_inset"
-                        android:checked="true"
-                        android:tag="tint|accent_color,text_color|primary_text,text_size|body"
-                        android:text="@string/switchView" />
+                        android:orientation="horizontal">
+
+                        <Switch
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:tag="tint|accent_color,text_color|primary_text,text_size|body"
+                            android:text="@string/switchView" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/content_inset"
+                            android:layout_marginStart="@dimen/content_inset"
+                            android:checked="true"
+                            android:tag="tint|accent_color,text_color|primary_text,text_size|body"
+                            android:text="@string/switchViewCompat" />
+
+                    </LinearLayout>
 
                     <RadioButton
                         android:layout_width="wrap_content"

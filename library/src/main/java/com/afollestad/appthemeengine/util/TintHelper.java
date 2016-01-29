@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -295,15 +294,25 @@ public final class TintHelper {
         image.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
     }
 
-    private static Drawable modifySwitchDrawable(@NonNull Context context, @NonNull Drawable from, @ColorInt int tint, @FloatRange(from = 0.0, to = 1.0) float alpha, boolean thumb, boolean useDarker) {
-        if (alpha < 1f)
-            tint = ATEUtil.adjustAlpha(tint, alpha);
+    private static Drawable modifySwitchDrawable(@NonNull Context context, @NonNull Drawable from, @ColorInt int tint, boolean thumb, boolean compatSwitch, boolean useDarker) {
+        if (useDarker) {
+            tint = ATEUtil.shiftColor(tint, 1.1f);
+        }
+        tint = ATEUtil.adjustAlpha(tint, (compatSwitch && !thumb) ? 0.5f : 1.0f);
         int disabled;
+        int off;
         if (thumb) {
             disabled = ContextCompat.getColor(context, useDarker ? R.color.ate_disabled_switch_thumb_dark : R.color.ate_disabled_switch_thumb_light);
+            off = useDarker ? Color.parseColor("#BDBDBD") : Color.parseColor("#FAFAFA");
         } else {
             disabled = ContextCompat.getColor(context, useDarker ? R.color.ate_disabled_switch_track_dark : R.color.ate_disabled_switch_track_light);
+            off = useDarker ? ATEUtil.adjustAlpha(Color.WHITE, compatSwitch ? 0.3f : 1.0f) : ATEUtil.adjustAlpha(Color.BLACK, compatSwitch ? 0.26f : 1.0f);
         }
+
+        if (!compatSwitch) {
+            disabled = ATEUtil.stripAlpha(disabled);
+        }
+
         final ColorStateList sl = new ColorStateList(
                 new int[][]{
                         new int[]{-android.R.attr.state_enabled},
@@ -313,7 +322,7 @@ public final class TintHelper {
                 },
                 new int[]{
                         disabled,
-                        Color.parseColor(thumb ? "#e7e7e7" : "#9f9f9f"),
+                        off,
                         tint,
                         tint
                 }
@@ -325,22 +334,22 @@ public final class TintHelper {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return;
         if (switchView.getTrackDrawable() != null) {
             switchView.setTrackDrawable(modifySwitchDrawable(switchView.getContext(),
-                    switchView.getTrackDrawable(), color, 0.5f, false, useDarker));
+                    switchView.getTrackDrawable(), color, false, false, useDarker));
         }
         if (switchView.getThumbDrawable() != null) {
             switchView.setThumbDrawable(modifySwitchDrawable(switchView.getContext(),
-                    switchView.getThumbDrawable(), color, 1.0f, true, useDarker));
+                    switchView.getThumbDrawable(), color, true, false, useDarker));
         }
     }
 
     public static void setTint(@NonNull SwitchCompat switchView, @ColorInt int color, boolean useDarker) {
         if (switchView.getTrackDrawable() != null) {
             switchView.setTrackDrawable(modifySwitchDrawable(switchView.getContext(),
-                    switchView.getTrackDrawable(), color, 0.5f, false, useDarker));
+                    switchView.getTrackDrawable(), color, false, true, useDarker));
         }
         if (switchView.getThumbDrawable() != null) {
             switchView.setThumbDrawable(modifySwitchDrawable(switchView.getContext(),
-                    switchView.getThumbDrawable(), color, 1.0f, true, useDarker));
+                    switchView.getThumbDrawable(), color, true, true, useDarker));
         }
     }
 
