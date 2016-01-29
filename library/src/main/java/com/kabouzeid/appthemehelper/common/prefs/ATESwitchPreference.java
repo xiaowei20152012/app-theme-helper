@@ -15,6 +15,7 @@ import android.widget.Switch;
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.R;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.views.ATESwitch;
 
 import java.lang.reflect.Field;
 
@@ -22,6 +23,10 @@ import java.lang.reflect.Field;
  * @author Aidan Follestad (afollestad)
  */
 public class ATESwitchPreference extends SwitchPreference {
+
+    static final boolean COMPAT_MODE = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
+
+    private ATESwitch mSwitch;
 
     public ATESwitchPreference(Context context) {
         super(context);
@@ -47,18 +52,22 @@ public class ATESwitchPreference extends SwitchPreference {
     private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
 
-        try {
-            Field canRecycleLayoutField = Preference.class.getDeclaredField("mCanRecycleLayout");
-            canRecycleLayoutField.setAccessible(true);
-            canRecycleLayoutField.setBoolean(this, true);
-        } catch (Exception ignored) {
-        }
+        if (COMPAT_MODE) {
+            setWidgetLayoutResource(R.layout.ate_preference_switch);
+        } else {
+            try {
+                Field canRecycleLayoutField = Preference.class.getDeclaredField("mCanRecycleLayout");
+                canRecycleLayoutField.setAccessible(true);
+                canRecycleLayoutField.setBoolean(this, true);
+            } catch (Exception ignored) {
+            }
 
-        try {
-            Field hasSpecifiedLayout = Preference.class.getDeclaredField("mHasSpecifiedLayout");
-            hasSpecifiedLayout.setAccessible(true);
-            hasSpecifiedLayout.setBoolean(this, true);
-        } catch (Exception ignored) {
+            try {
+                Field hasSpecifiedLayout = Preference.class.getDeclaredField("mHasSpecifiedLayout");
+                hasSpecifiedLayout.setAccessible(true);
+                hasSpecifiedLayout.setBoolean(this, true);
+            } catch (Exception ignored) {
+            }
         }
     }
 
@@ -66,9 +75,16 @@ public class ATESwitchPreference extends SwitchPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
-        View parentSwitch = findSwitchView(view);
-        if (parentSwitch != null) {
-            ATH.setTint(parentSwitch, ThemeStore.accentColor(view.getContext()));
+        if (COMPAT_MODE) {
+            mSwitch = (ATESwitch) view.findViewById(com.kabouzeid.appthemehelper.R.id.switchWidget);
+            mSwitch.setChecked(isChecked());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                mSwitch.setBackground(null);
+        } else {
+            View parentSwitch = findSwitchView(view);
+            if (parentSwitch != null) {
+                ATH.setTint(parentSwitch, ThemeStore.accentColor(view.getContext()));
+            }
         }
     }
 
@@ -88,5 +104,15 @@ public class ATESwitchPreference extends SwitchPreference {
             return view;
         }
         return null;
+    }
+
+    @Override
+    public void setChecked(boolean checked) {
+        super.setChecked(checked);
+        if (COMPAT_MODE) {
+            if (mSwitch != null) {
+                mSwitch.setChecked(checked);
+            }
+        }
     }
 }
