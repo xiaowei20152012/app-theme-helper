@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/frag"
-        android:name="com.afollestad.appthemeenginesample.misc.MiscFragment"
+        android:name="com.kabouzeid.appthemehelpersample.MiscFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_misc" />

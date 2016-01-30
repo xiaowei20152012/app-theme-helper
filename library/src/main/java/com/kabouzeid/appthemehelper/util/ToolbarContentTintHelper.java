@@ -70,7 +70,7 @@ public final class ToolbarContentTintHelper {
 
         if (toolbar.getNavigationIcon() != null) {
             // Tint the toolbar navigation icon (e.g. back, drawer, etc.)
-            toolbar.setNavigationIcon(TintHelper.tintDrawable(toolbar.getNavigationIcon(), toolbarContentColor));
+            toolbar.setNavigationIcon(TintHelper.createTintedDrawable(toolbar.getNavigationIcon(), toolbarContentColor));
         }
 
         InternalToolbarContentTintUtil.tintMenu(toolbar, menu, toolbarContentColor);
@@ -225,7 +225,7 @@ public final class ToolbarContentTintHelper {
                 field.setAccessible(true);
                 Drawable collapseIcon = (Drawable) field.get(toolbar);
                 if (collapseIcon != null) {
-                    field.set(toolbar, TintHelper.tintDrawable(collapseIcon, color));
+                    field.set(toolbar, TintHelper.createTintedDrawable(collapseIcon, color));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -235,7 +235,7 @@ public final class ToolbarContentTintHelper {
                 for (int i = 0; i < menu.size(); i++) {
                     final MenuItem item = menu.getItem(i);
                     if (item.getIcon() != null) {
-                        item.setIcon(TintHelper.tintDrawable(item.getIcon(), color));
+                        item.setIcon(TintHelper.createTintedDrawable(item.getIcon(), color));
                     }
                     // Search view theming
                     if (item.getActionView() != null && (item.getActionView() instanceof android.widget.SearchView || item.getActionView() instanceof android.support.v7.widget.SearchView)) {
@@ -334,7 +334,7 @@ public final class ToolbarContentTintHelper {
                             View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
                     if (outViews.isEmpty()) return;
                     final AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
-                    TintHelper.tintDrawable(overflow.getDrawable(), color);
+                    overflow.setImageDrawable(TintHelper.createTintedDrawable(overflow.getDrawable(), color));
                     ViewUtil.removeOnGlobalLayoutListener(decorView, this);
                 }
             });
@@ -345,7 +345,7 @@ public final class ToolbarContentTintHelper {
                 field.setAccessible(true);
                 final ImageView imageView = (ImageView) field.get(target);
                 if (imageView.getDrawable() != null)
-                    imageView.setImageDrawable(TintHelper.tintDrawable(imageView.getDrawable(), color));
+                    imageView.setImageDrawable(TintHelper.createTintedDrawable(imageView.getDrawable(), color));
             }
 
             public static void setSearchViewContentColor(View searchView, final @ColorInt int color) {

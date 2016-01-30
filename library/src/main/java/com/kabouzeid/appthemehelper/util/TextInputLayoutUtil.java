@@ -1,4 +1,4 @@
-package com.afollestad.appthemeengine.util;
+package com.kabouzeid.appthemehelper.util;
 
 import android.content.res.ColorStateList;
 import android.support.annotation.ColorInt;

@@ -1,29 +1,17 @@
-package com.afollestad.appthemeenginesample.misc;
+package com.kabouzeid.appthemehelpersample;
 
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.StyleRes;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import com.afollestad.appthemeengine.customizers.ATEActivityThemeCustomizer;
-import com.afollestad.appthemeenginesample.R;
-import com.afollestad.appthemeenginesample.base.BaseThemedActivity;
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class MiscActivity extends BaseThemedActivity implements ATEActivityThemeCustomizer {
-
-    @StyleRes
-    @Override
-    public int getActivityTheme() {
-        // Overrides what's set in the current ATE Config
-        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
-                R.style.AppThemeDark : R.style.AppTheme;
-    }
+public class MiscActivity extends ATHToolbarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +27,7 @@ public class MiscActivity extends BaseThemedActivity implements ATEActivityTheme
                 finish();
             }
         });
+        setSupportActionBar(toolbar);
 
         AppCompatSpinner spinner = (AppCompatSpinner) findViewById(R.id.toolbarSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_item_spinner,
