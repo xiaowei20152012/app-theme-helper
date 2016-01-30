@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeenginesample.R;
-import com.afollestad.appthemeenginesample.Util;
+
+import java.util.Locale;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,15 +29,7 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         TextView view = (TextView) inflater.inflate(R.layout.fragment_tab, container, false);
-        view.setText(String.format("TAB %d", getArguments().getInt("position")));
+        view.setText(String.format(Locale.getDefault(), "TAB %d", getArguments().getInt("position")));
         return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        // Apply theming to the Fragment  TODO
-//        ATE.themeView(this, Util.resolveString(getActivity(), R.attr.ate_key));
     }
 }

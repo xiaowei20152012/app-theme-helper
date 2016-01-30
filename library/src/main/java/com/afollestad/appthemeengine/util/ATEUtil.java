@@ -38,6 +38,7 @@ public final class ATEUtil {
 
     @NonNull
     public static String getIdName(@NonNull Context context, @IdRes int id) {
+        if (id == 0) return "(no id)";
         try {
             String name = context.getResources().getResourceName(id);
             if (name == null || name.trim().isEmpty())

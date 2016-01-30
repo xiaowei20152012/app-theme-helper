@@ -57,20 +57,20 @@ public class TintTagProcessor extends TagProcessor {
 
     @Override
     public void process(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String suffix) {
+        final ColorResult result = getColorFromSuffix(context, key, view, suffix);
+        if (result == null) return;
+
         boolean isDark = false;
         View current = view;
         do {
             if (current.getBackground() != null && current.getBackground() instanceof ColorDrawable) {
                 final ColorDrawable cd = (ColorDrawable) current.getBackground();
-                isDark = !ATEUtil.isColorLight(cd.getColor());
+                isDark = ATEUtil.isColorLight(cd.getColor());
             }
             if (current.getParent() instanceof View)
                 current = (View) current.getParent();
             else break;
         } while (current != null);
-
-        final ColorResult result = getColorFromSuffix(context, key, view, suffix);
-        if (result == null) return;
 
         if (mSelectorMode) {
             TintHelper.setTintSelector(view, result.getColor(), !mLightSelector, isDark);
