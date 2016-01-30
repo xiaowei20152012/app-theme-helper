@@ -8,6 +8,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="switchViewCompat">Switch Compat</string>
     <string name="switchView">Switch</string>
+    <string name="switchViewCompat">SwitchCompat</string>
     <string name="radiobutton">Ratio Button</string>
     <string name="edit_text">Input field</string>
 
@@ -73,6 +74,11 @@
     <string name="body_textsize_desc">Apply a text size to all body text views, %ddp</string>
     <string name="text_sizes">Text Sizes</string>
     <string name="defaultValue">Default</string>
+    <string name="fragment_theming">Fragment Theming!</string>
+    <string name="drawer_misc">Misc</string>
+    <string name="misc">Miscellaneous</string>
+    <string name="text_input_layout">Text Input Layout</string>
+    <string name="regular_input">Regular Input</string>
 
     <string-array name="light_status_mode_entries">
         <item>Off, status bar icons will be white</item>
