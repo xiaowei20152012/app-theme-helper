@@ -41,6 +41,7 @@ class ATEEditText extends EditText implements ViewInterface, PostInflationApplie
         if (mWaitForInflate) {
             mKeyContext = keyContext;
             ATE.addPostInflationView(this);
+            mWaitForInflate = false;
             return;
         }
         ATEViewUtil.init(keyContext, this, context);
