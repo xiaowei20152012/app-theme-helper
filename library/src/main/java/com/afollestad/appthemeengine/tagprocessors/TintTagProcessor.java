@@ -61,16 +61,11 @@ public class TintTagProcessor extends TagProcessor {
         if (result == null) return;
 
         boolean isDark = false;
-        View current = view;
-        do {
-            if (current.getBackground() != null && current.getBackground() instanceof ColorDrawable) {
-                final ColorDrawable cd = (ColorDrawable) current.getBackground();
-                isDark = !ATEUtil.isColorLight(cd.getColor());
-            }
-            if (current.getParent() instanceof View)
-                current = (View) current.getParent();
-            else break;
-        } while (current != null);
+        View firstBgView = getBackgroundView(view);
+        if (firstBgView != null) {
+            final ColorDrawable cd = (ColorDrawable) firstBgView.getBackground();
+            isDark = !ATEUtil.isColorLight(cd.getColor());
+        }
 
         if (mSelectorMode) {
             TintHelper.setTintSelector(view, result.getColor(), !mLightSelector, isDark);

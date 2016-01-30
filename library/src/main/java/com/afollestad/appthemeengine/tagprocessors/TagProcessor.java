@@ -75,11 +75,11 @@ public abstract class TagProcessor {
                     ATE.addPostInflationView(view);
                     return null;
                 }
-                final View parent = (View) view.getParent();
-                if (parent.getBackground() == null || !(parent.getBackground() instanceof ColorDrawable))
+                final View firstBgView = getBackgroundView(view);
+                if (firstBgView == null)
                     throw new IllegalStateException(String.format(Locale.getDefault(),
-                            "View %s uses a parent_dependent tag but parent doesn't have a ColorDrawable as its background.", viewName));
-                final ColorDrawable bg = (ColorDrawable) parent.getBackground();
+                            "View %s uses a parent_dependent tag but its parents doesn't have a ColorDrawable as its background.", viewName));
+                final ColorDrawable bg = (ColorDrawable) firstBgView.getBackground();
                 result = ATEUtil.isColorLight(bg.getColor()) ? Color.BLACK : Color.WHITE;
                 break;
             }
@@ -99,6 +99,19 @@ public abstract class TagProcessor {
                 throw new IllegalArgumentException(String.format("Unknown suffix: %s", suffix));
         }
         return new ColorResult(result);
+    }
+
+    @Nullable
+    public static View getBackgroundView(View base) {
+        View current = base;
+        do {
+            if (current.getBackground() != null && current.getBackground() instanceof ColorDrawable)
+                return current;
+            if (current.getParent() instanceof View)
+                current = (View) current.getParent();
+            else break;
+        } while (current != null);
+        return null;
     }
 
     public abstract boolean isTypeSupported(@NonNull View view);
