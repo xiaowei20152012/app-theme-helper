@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.Spinner;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -38,14 +38,8 @@ public class ATEStockSpinner extends Spinner implements ViewInterface {
         init(context, null);
     }
 
-    public ATEStockSpinner(Context context, AttributeSet attrs, int defStyleAttr, int mode) {
-        super(context, attrs, defStyleAttr, mode);
-        init(context, null);
-    }
-
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        if (getTag() == null)
-            setTag(String.format("%s|window_bg_dependent", TintTagProcessor.BACKGROUND_PREFIX));
+        ATEDefaultTags.process(this);
         try {
             ATEViewUtil.init(keyContext, this, context);
         } catch (Throwable t) {

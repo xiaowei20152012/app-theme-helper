@@ -6,7 +6,7 @@ import android.support.v7.widget.SearchView;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.tagprocessors.TextColorTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,7 +29,7 @@ class ATESearchViewAutoComplete extends SearchView.SearchAutoComplete implements
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        setTag(String.format("%s|primary_text", TextColorTagProcessor.PREFIX));
+        ATEDefaultTags.process(this);
         try {
             ATEViewUtil.init(keyContext, this, context);
         } catch (Throwable t) {

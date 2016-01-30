@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
+import com.afollestad.appthemeengine.viewprocessors.DefaultProcessor;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -28,6 +30,7 @@ class ATEViewPager extends ViewPager implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
+        ATEDefaultTags.process(this);
         ATEViewUtil.init(keyContext, this, context);
     }
 

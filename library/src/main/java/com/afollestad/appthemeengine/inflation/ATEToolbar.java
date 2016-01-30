@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -31,6 +32,7 @@ class ATEToolbar extends Toolbar implements PostInflationApplier, ViewInterface 
     private String mKey;
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
+        ATEDefaultTags.process(this);
         if (keyContext == null && context instanceof ATEActivity)
             keyContext = (ATEActivity) context;
         if (mKey == null && keyContext != null)

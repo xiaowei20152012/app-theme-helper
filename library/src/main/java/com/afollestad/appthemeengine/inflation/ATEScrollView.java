@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -28,6 +29,7 @@ class ATEScrollView extends ScrollView implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
+        ATEDefaultTags.process(this);
         try {
             ATEViewUtil.init(keyContext, this, context);
         } catch (Throwable t) {

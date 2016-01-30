@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -28,6 +29,7 @@ class ATEListView extends ListView implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
+        ATEDefaultTags.process(this);
         ATEViewUtil.init(keyContext, this, context);
     }
 

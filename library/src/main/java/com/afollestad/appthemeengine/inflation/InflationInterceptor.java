@@ -186,6 +186,9 @@ public final class InflationInterceptor implements LayoutInflaterFactory {
             case "android.support.v7.view.menu.ActionMenuItemView":
                 view = new ATEActionMenuItemView(context, attrs, mKeyContext);
                 break;
+            case "android.support.v7.widget.SearchView$SearchAutoComplete":
+                view = new ATESearchViewAutoComplete(context, attrs, mKeyContext);
+                break;
 //            case SearchViewProcessor.MAIN_CLASS:
 //                view = new ATESearchView(context, attrs, mKeyContext);
 //                break;

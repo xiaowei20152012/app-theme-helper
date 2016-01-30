@@ -6,6 +6,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -28,6 +29,7 @@ class ATENestedScrollView extends NestedScrollView implements ViewInterface {
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
+        ATEDefaultTags.process(this);
         ATEViewUtil.init(keyContext, this, context);
     }
 

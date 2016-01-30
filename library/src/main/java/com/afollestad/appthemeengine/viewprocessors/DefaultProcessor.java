@@ -27,10 +27,11 @@ public class DefaultProcessor implements ViewProcessor<View, Void> {
         }
     }
 
-    private void processTagPart(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String tag) {
-        if (!tag.contains("|")) return;
-        final String prefix = tag.substring(0, tag.indexOf('|'));
-        final String suffix = tag.substring(tag.indexOf('|') + 1);
+    private void processTagPart(@NonNull Context context, @Nullable String key, @NonNull View view, @NonNull String part) {
+        final int pipe = part.indexOf('|');
+        if (pipe == -1) return;
+        final String prefix = part.substring(0, pipe);
+        final String suffix = part.substring(pipe + 1);
         final TagProcessor processor = ATE.getTagProcessor(prefix);
         if (processor != null) {
             if (!processor.isTypeSupported(view)) {

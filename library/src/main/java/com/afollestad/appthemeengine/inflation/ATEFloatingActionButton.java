@@ -6,7 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
 
 import com.afollestad.appthemeengine.ATEActivity;
-import com.afollestad.appthemeengine.tagprocessors.TintTagProcessor;
+import com.afollestad.appthemeengine.tagprocessors.ATEDefaultTags;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -29,8 +29,7 @@ public class ATEFloatingActionButton extends FloatingActionButton implements Vie
     }
 
     private void init(Context context, @Nullable ATEActivity keyContext) {
-        if (getTag() == null)
-            setTag(TintTagProcessor.SELECTOR_PREFIX_LIGHT + "|accent_color");
+        ATEDefaultTags.process(this);
         ATEViewUtil.init(keyContext, this, context);
     }
 
