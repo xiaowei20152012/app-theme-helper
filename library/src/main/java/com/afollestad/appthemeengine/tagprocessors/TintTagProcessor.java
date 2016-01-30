@@ -64,7 +64,7 @@ public class TintTagProcessor extends TagProcessor {
         View firstBgView = getBackgroundView(view);
         if (firstBgView != null) {
             final ColorDrawable cd = (ColorDrawable) firstBgView.getBackground();
-            isDark = !ATEUtil.isColorLight(cd.getColor());
+            isDark = ATEUtil.isColorLight(cd.getColor());
         }
 
         if (mSelectorMode) {
