@@ -10,19 +10,17 @@ import android.support.design.widget.TabLayout;
  */
 public final class TabLayoutUtil {
 
-    public static void setTabLayoutColors(@Nullable TabLayout tabLayout, @ColorInt int tabIndicatorColorSelected) {
+    public static void setTabIconColors(@Nullable TabLayout tabLayout, @ColorInt int normalColor, @ColorInt int selectedColor) {
         if (tabLayout == null)
             return;
-
-        tabLayout.setSelectedTabIndicatorColor(tabIndicatorColorSelected);
 
         final ColorStateList sl = new ColorStateList(new int[][]{
                 new int[]{-android.R.attr.state_selected},
                 new int[]{android.R.attr.state_selected}
         },
                 new int[]{
-                        ColorUtil.adjustAlpha(tabIndicatorColorSelected, 0.5f),
-                        tabIndicatorColorSelected
+                        normalColor,
+                        selectedColor
                 });
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             final TabLayout.Tab tab = tabLayout.getTabAt(i);

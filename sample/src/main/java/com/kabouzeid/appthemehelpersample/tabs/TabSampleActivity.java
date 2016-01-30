@@ -38,7 +38,12 @@ public class TabSampleActivity extends ATHToolbarActivity {
 
         int appbarColor = ThemeStore.primaryColor(this);
         findViewById(R.id.appbar).setBackgroundColor(appbarColor);
-        TabLayoutUtil.setTabLayoutColors(tabs, ToolbarContentTintHelper.toolbarTitleColor(this, appbarColor), ThemeStore.accentColor(this));
+
+        int normalColor = ToolbarContentTintHelper.toolbarSubtitleColor(this, appbarColor);
+        int selectedColor = ToolbarContentTintHelper.toolbarTitleColor(this, appbarColor);
+        TabLayoutUtil.setTabIconColors(tabs, normalColor, selectedColor);
+        tabs.setTabTextColors(normalColor, selectedColor);
+        tabs.setSelectedTabIndicatorColor(ThemeStore.accentColor(this));
 
         ATH.setStatusbarColorAuto(this);
         ATH.setActivityToolbarColorAuto(this, toolbar);
