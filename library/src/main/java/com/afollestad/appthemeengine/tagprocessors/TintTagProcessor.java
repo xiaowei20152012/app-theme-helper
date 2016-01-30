@@ -64,7 +64,9 @@ public class TintTagProcessor extends TagProcessor {
                 final ColorDrawable cd = (ColorDrawable) current.getBackground();
                 isDark = !ATEUtil.isColorLight(cd.getColor());
             }
-            current = (View) current.getParent();
+            if (current.getParent() instanceof View)
+                current = (View) current.getParent();
+            else break;
         } while (current != null);
 
         final ColorResult result = getColorFromSuffix(context, key, view, suffix);
