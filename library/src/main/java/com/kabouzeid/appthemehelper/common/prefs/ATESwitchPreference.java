@@ -51,7 +51,6 @@ public class ATESwitchPreference extends SwitchPreference {
 
     private void init(Context context, AttributeSet attrs) {
         setLayoutResource(R.layout.ate_preference_custom);
-
         if (COMPAT_MODE) {
             setWidgetLayoutResource(R.layout.ate_preference_switch);
         } else {
@@ -74,12 +73,9 @@ public class ATESwitchPreference extends SwitchPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-
         if (COMPAT_MODE) {
             mSwitch = (ATESwitch) view.findViewById(com.kabouzeid.appthemehelper.R.id.switchWidget);
             mSwitch.setChecked(isChecked());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                mSwitch.setBackground(null);
         } else {
             View parentSwitch = findSwitchView(view);
             if (parentSwitch != null) {
