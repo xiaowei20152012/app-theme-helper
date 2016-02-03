@@ -20,6 +20,12 @@
         android:title="@string/ate_colors"
         app:ateKey_prefCategory_textColor="?ate_key">
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:persistent="false"
+            android:title="Test switch"
+            app:ateKey_pref_switch="?ate_key" />
+
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:key="primary_color"
             android:persistent="false"
@@ -47,6 +53,18 @@
             android:summary="@string/secondary_text_color_summary"
             android:title="@string/secondary_text_color"
             app:ateKey_pref_color="?ate_key" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATECheckBoxPreference
+            android:defaultValue="false"
+            android:persistent="false"
+            android:title="Test checkbox"
+            app:ateKey_pref_switch="?ate_key" />
+
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:persistent="false"
+            android:title="Test switch"
+            app:ateKey_pref_switch="?ate_key" />
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
