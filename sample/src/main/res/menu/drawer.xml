@@ -36,6 +36,12 @@
             android:icon="@drawable/ic_home"
             android:title="@string/drawer_insets" />
 
+        <item
+            android:id="@+id/drawer_settings_support"
+            android:checkable="false"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/drawer_settings_support" />
+
     </group>
 
     <group

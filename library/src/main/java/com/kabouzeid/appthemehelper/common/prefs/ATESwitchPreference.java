@@ -74,7 +74,7 @@ public class ATESwitchPreference extends SwitchPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
         if (COMPAT_MODE) {
-            mSwitch = (ATESwitch) view.findViewById(com.kabouzeid.appthemehelper.R.id.switchWidget);
+            mSwitch = (ATESwitch) view.findViewById(R.id.switchWidget);
             mSwitch.setChecked(isChecked());
         } else {
             View parentSwitch = findSwitchView(view);
