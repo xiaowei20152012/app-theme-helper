@@ -21,6 +21,7 @@ public final class MaterialDialogsUtil {
         md.positiveColor = ColorStateList.valueOf(md.widgetColor);
         md.neutralColor = ColorStateList.valueOf(md.widgetColor);
         md.negativeColor = ColorStateList.valueOf(md.widgetColor);
+        md.darkTheme = ATHUtil.isWindowBackgroundDark(context);
     }
 
     private MaterialDialogsUtil() {
