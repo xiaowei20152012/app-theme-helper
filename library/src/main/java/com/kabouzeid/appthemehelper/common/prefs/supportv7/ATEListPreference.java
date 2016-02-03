@@ -1,15 +1,15 @@
 package com.kabouzeid.appthemehelper.common.prefs.supportv7;
 
 import android.content.Context;
+import android.support.v7.preference.ListPreference;
 import android.util.AttributeSet;
 
-import com.afollestad.materialdialogs.prefs.MaterialListPreference;
 import com.kabouzeid.appthemehelper.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEListPreference extends MaterialListPreference {
+public class ATEListPreference extends ListPreference {
 
     public ATEListPreference(Context context) {
         super(context);

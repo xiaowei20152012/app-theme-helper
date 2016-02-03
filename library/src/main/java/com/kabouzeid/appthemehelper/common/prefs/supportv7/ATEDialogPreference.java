@@ -1,15 +1,15 @@
 package com.kabouzeid.appthemehelper.common.prefs.supportv7;
 
 import android.content.Context;
+import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
-import com.afollestad.materialdialogs.prefs.MaterialDialogPreference;
 import com.kabouzeid.appthemehelper.R;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ATEDialogPreference extends MaterialDialogPreference {
+public class ATEDialogPreference extends DialogPreference {
 
     public ATEDialogPreference(Context context) {
         super(context);

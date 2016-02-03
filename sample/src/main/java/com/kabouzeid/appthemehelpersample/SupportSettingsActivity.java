@@ -1,10 +1,12 @@
 package com.kabouzeid.appthemehelpersample;
 
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,9 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ATH;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHActionBarActivity;
+import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
+import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
+import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference;
 import com.kabouzeid.appthemehelpersample.dialogs.AboutDialog;
 
 public class SupportSettingsActivity extends ATHActionBarActivity implements ColorChooserDialog.ColorCallback {
@@ -38,7 +43,7 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
         recreate();
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    public static class SettingsFragment extends ATEPreferenceFragmentCompat {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
@@ -53,99 +58,99 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
         }
 
         public void invalidateSettings() {
-//            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
-//            primaryColorPref.setColor(ThemeStore.primaryColor(getActivity()), Color.BLACK);
-//            primaryColorPref.setOnPreferenceClickListener(new android.preference.Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(android.preference.Preference preference) {
-//                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
-//                            .preselect(ThemeStore.primaryColor(getActivity()))
-//                            .show();
-//                    return true;
-//                }
-//            });
-//
-//            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
-//            accentColorPref.setColor(ThemeStore.accentColor(getActivity()), Color.BLACK);
-//            accentColorPref.setOnPreferenceClickListener(new android.preference.Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(android.preference.Preference preference) {
-//                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
-//                            .preselect(ThemeStore.accentColor(getActivity()))
-//                            .show();
-//                    return true;
-//                }
-//            });
-//
-//            ATEColorPreference textColorPrimaryPref = (ATEColorPreference) findPreference("text_primary");
-//            textColorPrimaryPref.setColor(ThemeStore.textColorPrimary(getActivity()), Color.BLACK);
-//            textColorPrimaryPref.setOnPreferenceClickListener(new android.preference.Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(android.preference.Preference preference) {
-//                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_text_color)
-//                            .preselect(ThemeStore.textColorPrimary(getActivity()))
-//                            .show();
-//                    return true;
-//                }
-//            });
-//
-//            ATEColorPreference textColorSecondaryPref = (ATEColorPreference) findPreference("text_secondary");
-//            textColorSecondaryPref.setColor(ThemeStore.textColorSecondary(getActivity()), Color.BLACK);
-//            textColorSecondaryPref.setOnPreferenceClickListener(new android.preference.Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(android.preference.Preference preference) {
-//                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.secondary_text_color)
-//                            .preselect(ThemeStore.textColorSecondary(getActivity()))
-//                            .show();
-//                    return true;
-//                }
-//            });
-//
-//            findPreference("dark_theme").setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
-//                @Override
-//                public boolean onPreferenceChange(android.preference.Preference preference, Object newValue) {
-//                    ThemeStore.editTheme(getActivity())
-//                            .activityTheme(((Boolean) newValue) ? R.style.AppThemeDark : R.style.AppTheme)
-//                            .commit();
-//                    getActivity().recreate();
-//                    return true;
-//                }
-//            });
-//
-//            final ATESwitchPreference statusBarPref = (ATESwitchPreference) findPreference("colored_status_bar");
-//            final ATESwitchPreference navBarPref = (ATESwitchPreference) findPreference("colored_nav_bar");
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                statusBarPref.setChecked(ThemeStore.coloredStatusBar(getActivity()));
-//                statusBarPref.setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
-//                    @Override
-//                    public boolean onPreferenceChange(android.preference.Preference preference, Object newValue) {
-//                        ThemeStore.editTheme(getActivity())
-//                                .coloredStatusBar((Boolean) newValue)
-//                                .commit();
-//                        getActivity().recreate();
-//                        return true;
-//                    }
-//                });
-//
-//
-//                navBarPref.setChecked(ThemeStore.coloredNavigationBar(getActivity()));
-//                navBarPref.setOnPreferenceChangeListener(new android.preference.Preference.OnPreferenceChangeListener() {
-//                    @Override
-//                    public boolean onPreferenceChange(android.preference.Preference preference, Object newValue) {
-//                        ThemeStore.editTheme(getActivity())
-//                                .coloredNavigationBar((Boolean) newValue)
-//                                .commit();
-//                        getActivity().recreate();
-//                        return true;
-//                    }
-//                });
-//            } else {
-//                statusBarPref.setEnabled(false);
-//                statusBarPref.setSummary(R.string.not_available_below_lollipop);
-//                navBarPref.setEnabled(false);
-//                navBarPref.setSummary(R.string.not_available_below_lollipop);
-//            }
+            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
+            primaryColorPref.setColor(ThemeStore.primaryColor(getActivity()), Color.BLACK);
+            primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
+                            .preselect(ThemeStore.primaryColor(getActivity()))
+                            .show();
+                    return true;
+                }
+            });
+
+            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
+            accentColorPref.setColor(ThemeStore.accentColor(getActivity()), Color.BLACK);
+            accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
+                            .preselect(ThemeStore.accentColor(getActivity()))
+                            .show();
+                    return true;
+                }
+            });
+
+            ATEColorPreference textColorPrimaryPref = (ATEColorPreference) findPreference("text_primary");
+            textColorPrimaryPref.setColor(ThemeStore.textColorPrimary(getActivity()), Color.BLACK);
+            textColorPrimaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_text_color)
+                            .preselect(ThemeStore.textColorPrimary(getActivity()))
+                            .show();
+                    return true;
+                }
+            });
+
+            ATEColorPreference textColorSecondaryPref = (ATEColorPreference) findPreference("text_secondary");
+            textColorSecondaryPref.setColor(ThemeStore.textColorSecondary(getActivity()), Color.BLACK);
+            textColorSecondaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.secondary_text_color)
+                            .preselect(ThemeStore.textColorSecondary(getActivity()))
+                            .show();
+                    return true;
+                }
+            });
+
+            findPreference("dark_theme").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    ThemeStore.editTheme(getActivity())
+                            .activityTheme(((Boolean) newValue) ? R.style.AppThemeDark : R.style.AppTheme)
+                            .commit();
+                    getActivity().recreate();
+                    return true;
+                }
+            });
+
+            final ATESwitchPreference statusBarPref = (ATESwitchPreference) findPreference("colored_status_bar");
+            final ATESwitchPreference navBarPref = (ATESwitchPreference) findPreference("colored_nav_bar");
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                statusBarPref.setChecked(ThemeStore.coloredStatusBar(getActivity()));
+                statusBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        ThemeStore.editTheme(getActivity())
+                                .coloredStatusBar((Boolean) newValue)
+                                .commit();
+                        getActivity().recreate();
+                        return true;
+                    }
+                });
+
+
+                navBarPref.setChecked(ThemeStore.coloredNavigationBar(getActivity()));
+                navBarPref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        ThemeStore.editTheme(getActivity())
+                                .coloredNavigationBar((Boolean) newValue)
+                                .commit();
+                        getActivity().recreate();
+                        return true;
+                    }
+                });
+            } else {
+                statusBarPref.setEnabled(false);
+                statusBarPref.setSummary(R.string.not_available_below_lollipop);
+                navBarPref.setEnabled(false);
+                navBarPref.setSummary(R.string.not_available_below_lollipop);
+            }
         }
     }
 
