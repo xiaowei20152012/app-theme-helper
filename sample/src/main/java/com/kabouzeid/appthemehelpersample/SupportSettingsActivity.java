@@ -63,7 +63,7 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
             primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_color)
+                    new ColorChooserDialog.Builder((SupportSettingsActivity) getActivity(), R.string.primary_color)
                             .preselect(ThemeStore.primaryColor(getActivity()))
                             .show();
                     return true;
@@ -75,7 +75,7 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
             accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.accent_color)
+                    new ColorChooserDialog.Builder((SupportSettingsActivity) getActivity(), R.string.accent_color)
                             .preselect(ThemeStore.accentColor(getActivity()))
                             .show();
                     return true;
@@ -87,7 +87,7 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
             textColorPrimaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.primary_text_color)
+                    new ColorChooserDialog.Builder((SupportSettingsActivity) getActivity(), R.string.primary_text_color)
                             .preselect(ThemeStore.textColorPrimary(getActivity()))
                             .show();
                     return true;
@@ -99,7 +99,7 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
             textColorSecondaryPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    new ColorChooserDialog.Builder((SettingsActivity) getActivity(), R.string.secondary_text_color)
+                    new ColorChooserDialog.Builder((SupportSettingsActivity) getActivity(), R.string.secondary_text_color)
                             .preselect(ThemeStore.textColorSecondary(getActivity()))
                             .show();
                     return true;
