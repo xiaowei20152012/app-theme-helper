@@ -65,7 +65,7 @@ public final class ColorUtil {
     /**
      * Taken from CollapsingToolbarLayout's CollapsingTextHelper class.
      */
-    public static int blendColors(int color1, int color2, float ratio) {
+    public static int blendColors(int color1, int color2, @FloatRange(from = 0.0, to = 1.0) float ratio) {
         final float inverseRatio = 1f - ratio;
         float a = (Color.alpha(color1) * inverseRatio) + (Color.alpha(color2) * ratio);
         float r = (Color.red(color1) * inverseRatio) + (Color.red(color2) * ratio);

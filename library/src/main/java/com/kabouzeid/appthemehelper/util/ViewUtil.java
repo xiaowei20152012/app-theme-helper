@@ -31,6 +31,12 @@ public final class ViewUtil {
         else view.setBackgroundDrawable(drawable);
     }
 
+    public static TransitionDrawable setBackgroundTransition(@NonNull View view, @NonNull Drawable newDrawable) {
+        TransitionDrawable transition = DrawableUtil.createTransitionDrawable(view.getBackground(), newDrawable);
+        setBackgroundCompat(view, transition);
+        return transition;
+    }
+
     public static TransitionDrawable setBackgroundColorTransition(@NonNull View view, @ColorInt int newColor) {
         final Drawable oldColor = view.getBackground();
 
