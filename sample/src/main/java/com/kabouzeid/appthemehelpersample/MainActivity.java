@@ -31,7 +31,7 @@ public class MainActivity extends ATHToolbarActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Default config
-        if (!ThemeStore.isConfigured(this, 1)) {
+        if (!ThemeStore.isConfigured(this, 2)) {
             ThemeStore.editTheme(this)
                     .activityTheme(R.style.AppTheme)
                     .primaryColorRes(R.color.colorPrimaryLightDefault)
