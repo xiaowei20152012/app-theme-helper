@@ -28,16 +28,6 @@ public abstract class ATEPreferenceFragmentCompat extends PreferenceFragmentComp
         if (this.getFragmentManager().findFragmentByTag("android.support.v7.preference.PreferenceFragment.DIALOG") == null) {
             DialogFragment dialogFragment = onCreatePreferenceDialog(preference);
 
-            if (dialogFragment == null) {
-                if (preference instanceof ATEEditTextPreference) {
-                    dialogFragment = ATEEditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-                } else if (preference instanceof ATEListPreference) {
-                    dialogFragment = ATEListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-                } else if (preference instanceof ATEDialogPreference) {
-                    dialogFragment = ATEPreferenceDialogFragment.newInstance(preference.getKey());
-                }
-            }
-
             if (dialogFragment != null) {
                 dialogFragment.setTargetFragment(this, 0);
                 dialogFragment.show(this.getFragmentManager(), "android.support.v7.preference.PreferenceFragment.DIALOG");
@@ -49,5 +39,14 @@ public abstract class ATEPreferenceFragmentCompat extends PreferenceFragmentComp
     }
 
     @Nullable
-    public abstract DialogFragment onCreatePreferenceDialog(Preference preference);
+    public DialogFragment onCreatePreferenceDialog(Preference preference) {
+        if (preference instanceof ATEEditTextPreference) {
+            return ATEEditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+        } else if (preference instanceof ATEListPreference) {
+            return ATEListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+        } else if (preference instanceof ATEDialogPreference) {
+            return ATEPreferenceDialogFragment.newInstance(preference.getKey());
+        }
+        return null;
+    }
 }
