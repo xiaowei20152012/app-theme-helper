@@ -1,5 +1,6 @@
 package com.kabouzeid.appthemehelper.common.prefs.supportv7;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -25,13 +26,16 @@ public abstract class ATEPreferenceFragmentCompat extends PreferenceFragmentComp
         }
 
         if (this.getFragmentManager().findFragmentByTag("android.support.v7.preference.PreferenceFragment.DIALOG") == null) {
-            DialogFragment dialogFragment = null;
-            if (preference instanceof ATEEditTextPreference) {
-                dialogFragment = ATEEditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-            } else if (preference instanceof ATEListPreference) {
-                dialogFragment = ATEListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
-            } else if (preference instanceof ATEDialogPreference) {
-                dialogFragment = ATEPreferenceDialogFragment.newInstance(preference.getKey());
+            DialogFragment dialogFragment = onCreatePreferenceDialog(preference);
+
+            if (dialogFragment == null) {
+                if (preference instanceof ATEEditTextPreference) {
+                    dialogFragment = ATEEditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+                } else if (preference instanceof ATEListPreference) {
+                    dialogFragment = ATEListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+                } else if (preference instanceof ATEDialogPreference) {
+                    dialogFragment = ATEPreferenceDialogFragment.newInstance(preference.getKey());
+                }
             }
 
             if (dialogFragment != null) {
@@ -43,4 +47,7 @@ public abstract class ATEPreferenceFragmentCompat extends PreferenceFragmentComp
 
         super.onDisplayPreferenceDialog(preference);
     }
+
+    @Nullable
+    public abstract DialogFragment onCreatePreferenceDialog(Preference preference);
 }
