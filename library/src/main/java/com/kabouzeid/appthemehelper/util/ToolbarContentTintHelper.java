@@ -15,6 +15,7 @@ import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.view.menu.MenuPresenter;
+import android.support.v7.view.menu.ShowableListMenu;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
@@ -276,49 +277,53 @@ public final class ToolbarContentTintHelper {
         }
 
         public static void setTintForMenuPopupHelper(final @NonNull Context context, @Nullable MenuPopupHelper menuPopupHelper, final @ColorInt int color) {
-            if (menuPopupHelper != null) {
-                final ListView listView = menuPopupHelper.getPopup().getListView();
-                listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        try {
-                            Field checkboxField = ListMenuItemView.class.getDeclaredField("mCheckBox");
-                            checkboxField.setAccessible(true);
-                            Field radioButtonField = ListMenuItemView.class.getDeclaredField("mRadioButton");
-                            radioButtonField.setAccessible(true);
+            try {
+                if (menuPopupHelper != null) {
+                    final ListView listView = ((ShowableListMenu) menuPopupHelper.getPopup()).getListView();
+                    listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                        @Override
+                        public void onGlobalLayout() {
+                            try {
+                                Field checkboxField = ListMenuItemView.class.getDeclaredField("mCheckBox");
+                                checkboxField.setAccessible(true);
+                                Field radioButtonField = ListMenuItemView.class.getDeclaredField("mRadioButton");
+                                radioButtonField.setAccessible(true);
 
-                            final boolean isDark = !ColorUtil.isColorLight(ATHUtil.resolveColor(context, android.R.attr.windowBackground));
+                                final boolean isDark = !ColorUtil.isColorLight(ATHUtil.resolveColor(context, android.R.attr.windowBackground));
 
-                            for (int i = 0; i < listView.getChildCount(); i++) {
-                                View v = listView.getChildAt(i);
-                                if (!(v instanceof ListMenuItemView)) continue;
-                                ListMenuItemView iv = (ListMenuItemView) v;
+                                for (int i = 0; i < listView.getChildCount(); i++) {
+                                    View v = listView.getChildAt(i);
+                                    if (!(v instanceof ListMenuItemView)) continue;
+                                    ListMenuItemView iv = (ListMenuItemView) v;
 
-                                CheckBox check = (CheckBox) checkboxField.get(iv);
-                                if (check != null) {
-                                    TintHelper.setTint(check, color, isDark);
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                        check.setBackground(null);
+                                    CheckBox check = (CheckBox) checkboxField.get(iv);
+                                    if (check != null) {
+                                        TintHelper.setTint(check, color, isDark);
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                                            check.setBackground(null);
+                                    }
+
+                                    RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
+                                    if (radioButton != null) {
+                                        TintHelper.setTint(radioButton, color, isDark);
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                                            radioButton.setBackground(null);
+                                    }
                                 }
-
-                                RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
-                                if (radioButton != null) {
-                                    TintHelper.setTint(radioButton, color, isDark);
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                                        radioButton.setBackground(null);
-                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Throwable e) {
-                            e.printStackTrace();
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                listView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                            } else {
+                                //noinspection deprecation
+                                listView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                            }
                         }
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            listView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        } else {
-                            //noinspection deprecation
-                            listView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        }
-                    }
-                });
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

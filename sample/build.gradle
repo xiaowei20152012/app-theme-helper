@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "23.0.3"
 
     // Note-to-self: sample uses Cabinet's keystore
 
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.kabouzeid.appthemehelpersample"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 3
         versionName "1.0"
     }
@@ -32,14 +32,12 @@ android {
 }
 
 dependencies {
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
-        transitive = true
-    }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.6@aar') {
-        transitive = true
-    }
     compile project(path: ':library')
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:design:23.2.1'
-    compile 'com.android.support:support-v4:23.2.1'
+
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.android.support:support-v4:24.1.1'
+
+    compile 'com.afollestad.material-dialogs:core:0.8.6.2@aar'
+    compile 'com.afollestad.material-dialogs:commons:0.8.6.2@aar'
 }

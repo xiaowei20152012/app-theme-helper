@@ -37,7 +37,7 @@ public class ATEPreferenceCategory extends PreferenceCategory {
     @Override
     public void onBindViewHolder(PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        TextView mTitle = (TextView) holder.itemView.findViewById(android.R.id.title);
+        TextView mTitle = (TextView) holder.itemView;
         mTitle.setTextColor(ThemeStore.accentColor(getContext()));
     }
 
