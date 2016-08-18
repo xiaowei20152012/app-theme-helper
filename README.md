@@ -1,7 +1,7 @@
 # Work in progress
 # App Theme Helper
 
-This is basically a copy of [App Theme Engine](https://github.com/afollestad/app-theme-engine) by [Aidan Follestad](https://github.com/afollestad) which only includes the "Config" part. This library is only for saving and querying theme values. The user is responsible to use those values (applying to Views), unlike ATE this library won't automatically theme your views. As an extra this library includes a few Utilty methods from ATE and myself to make theming easy.
+This is basically a copy of [App Theme Engine](https://github.com/afollestad/app-theme-engine) by [Aidan Follestad](https://github.com/afollestad) which only includes the "Config" part. This library is only for saving and querying theme values. The user is responsible to use those values (applying to Views), unlike ATE this library won't automatically theme your views. As an extra this library includes a few Util methods from ATE and myself to make theming easy.
 
 ---
 
@@ -25,12 +25,12 @@ allprojects {
 
 #### Dependency
 
-Add this to your module's `build.gradle` file (make sure the version matches the JitPack badge above):
+Add this to your module's `build.gradle` file (replace {latest-version} with the version shown in the JitPack badge above):
 
 ```gradle
 dependencies {
 	...
-	compile ('com.github.kabouzeid:app-theme-helper:1.1.0@aar') {
+	compile ('com.github.kabouzeid:app-theme-helper:{latest-version}@aar') {
 		transitive = true
 	}
 }
