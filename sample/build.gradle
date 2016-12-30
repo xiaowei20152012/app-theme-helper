@@ -34,9 +34,9 @@ android {
 dependencies {
     compile project(path: ':library')
 
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:support-v4:25.1.0'
 
     compile 'com.afollestad.material-dialogs:core:0.9.1.0@aar'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0@aar'
