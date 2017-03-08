@@ -48,6 +48,11 @@ public class SettingsActivity extends ATHActionBarActivity
         recreate();
     }
 
+    @Override
+    public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
+
+    }
+
     public static class SettingsFragment extends PreferenceFragment {
 
         @Override

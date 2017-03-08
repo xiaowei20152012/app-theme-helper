@@ -43,6 +43,11 @@ public class SupportSettingsActivity extends ATHActionBarActivity implements Col
         recreate();
     }
 
+    @Override
+    public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
+
+    }
+
     public static class SettingsFragment extends ATEPreferenceFragmentCompat {
 
         @Override
